@@ -34,30 +34,6 @@ export const Anchor = ({
 	);
 };
 
-// export const ScrollAnchor = ({
-// 	href,
-// 	children,
-// 	activeClassName,
-// 	className,
-// 	partiallyActive = false,
-// 	...rest
-// }) => {
-// 	const pathname = usePathname();
-
-// 	return (
-// 		<a
-// 			href={href}
-// 			className={`
-// 				${className ?? ''}
-// 				${(activeClassName && pathname === href) || (pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
-// 			`}
-// 			{...rest}
-// 		>
-// 			{children}
-// 		</a>
-// 	);
-// };
-
 export const ScrollAnchor = ({
 	href,
 	children,
