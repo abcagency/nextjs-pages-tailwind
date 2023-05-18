@@ -1,6 +1,6 @@
 import { inter } from '~/styles/fonts';
 
-import { Providers } from '~/components/util/providers';
+import { Provider } from '~/components/util/provider';
 import SkipLink from '~/components/modules/navigation/skip-link';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
@@ -16,7 +16,7 @@ const RootLayout = ({
 				${inter.className}
 			`}
 		>
-			<Providers>
+			<Provider>
 				<SkipLink />
 				<Header />
 
@@ -25,7 +25,7 @@ const RootLayout = ({
 				</main>
 
 				<Footer />
-			</Providers>
+			</Provider>
 		</div>
 	);
 };
