@@ -9,6 +9,10 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			animation: {
+				slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+				slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)'
+			},
 			container: {
 				center: true
 			},
@@ -34,6 +38,16 @@ module.exports = {
 				800: 'clamp(2.14rem, 1.74rem + 1.99vw, 3.16rem)',
 				900: 'clamp(2.67rem, 2.07rem + 3vw, 4.21rem)',
 				1000: 'clamp(3.34rem, 2.45rem + 4.43vw, 5.61rem)'
+			},
+			keyframes: {
+				slideDown: {
+					from: { height: 0 },
+					to: { height: 'var(--radix-accordion-content-height)' }
+				},
+				slideUp: {
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: 0 }
+				}
 			},
 			typography: {
 				DEFAULT: {
