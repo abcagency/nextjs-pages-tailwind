@@ -100,6 +100,13 @@ const Navbar = ({ position }) => {
 							{link.title}
 						</NavLink.Anchor>
 					))}
+					<NavLink.ScrollAnchor
+						href="bar"
+						className="block md:inline-block px-4 py-2 md:p-2 text-xs text-gray-800 transition-colors hover:text-indigo-700 focus:text-indigo-700"
+						activeClassName="text-indigo-700 underline"
+					>
+						Bar
+					</NavLink.ScrollAnchor>
 				</nav>
 			</div>
 		</div>

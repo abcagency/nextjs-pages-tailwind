@@ -1,5 +1,6 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import * as Scroll from 'react-scroll';
 
 const NavLink = ({
 	children
@@ -33,6 +34,30 @@ export const Anchor = ({
 	);
 };
 
+// export const ScrollAnchor = ({
+// 	href,
+// 	children,
+// 	activeClassName,
+// 	className,
+// 	partiallyActive = false,
+// 	...rest
+// }) => {
+// 	const pathname = usePathname();
+
+// 	return (
+// 		<a
+// 			href={href}
+// 			className={`
+// 				${className ?? ''}
+// 				${(activeClassName && pathname === href) || (pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
+// 			`}
+// 			{...rest}
+// 		>
+// 			{children}
+// 		</a>
+// 	);
+// };
+
 export const ScrollAnchor = ({
 	href,
 	children,
@@ -41,19 +66,21 @@ export const ScrollAnchor = ({
 	partiallyActive = false,
 	...rest
 }) => {
-	const pathname = usePathname();
+	let ScrollLink = Scroll.Link;
 
 	return (
-		<a
-			href={href}
-			className={`
-				${className ?? ''}
-				${(activeClassName && pathname === href) || (pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
-			`}
+		<ScrollLink
+			href={`#${href}`}
+			to={href}
+			smooth={true}
+			offset={-25}
+			duration={250}
+			className={className ?? ''}
+			activeClass={activeClassName ?? ''}
 			{...rest}
 		>
 			{children}
-		</a>
+		</ScrollLink>
 	);
 };
 
