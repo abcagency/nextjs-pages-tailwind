@@ -1,38 +1,126 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- markdownlint-disable -->
+[![AB&C](https://avatars3.githubusercontent.com/u/22617576?s=200&v=4)](https://abccreative.com/)
+<!-- markdownlint-enable -->
 
-## Getting Started
+# Next.js Starter Tailwind
 
-First, run the development server:
+A minimal starter template using Next.js with pages routing and Tailwind.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+![Repo Size](https://img.shields.io/github/repo-size/badges/shields.svg?style=for-the-badge)
+[![License: 0BSD](https://img.shields.io/badge/license-0BSD-blue.svg?style=for-the-badge)](http://unlicense.org/)
+
+---
+
+## Directory Layout
+
+```shell
+├── /components/                # Components
+├── /data/                      # Site data
+├── /hooks/                     # Custom hooks
+├── /images/                    # Images
+├── /public/                    # Static assets
+├── /pages/                     # Pages
+├── /styles/                    # Styles
+├── /.env.*                     # Environment variables
+├── /next-config.js             # Next.js configuration
+├── /postcss.config.js          # PostCSS config
+├── /tailwind.config.js         # Tailwind config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Features
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Tech Stack
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Next.js](https://nextjs.org/)
+- [Apollo](https://www.apollographql.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### UI
 
-## Learn More
+- [TailwindCSS](https://tailwindcss.com/)
+- [HeadlessUI](https://headlessui.dev/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Iconify](https://iconify.design/)
 
-To learn more about Next.js, take a look at the following resources:
+### Utilities
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [LocatorJS](https://www.locatorjs.com/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### LocatorJS
 
-## Deploy on Vercel
+Hold down `⌥ Option` and move with the cursor around the page.
+Click an element to open the file in your editor.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Get started
+
+Create a new Next.js project using this starter:
+
+```sh
+npx create-next-app my-new-website --example https://github.com/abcagency/nextjs-pages-tailwind
+cd my-new-website
+npm i
+```
+
+Run the project in development mode ([http://localhost:3000](http://localhost:3000)):
+
+```sh
+npm run dev
+```
+
+### Lint
+
+- `npm run lint` - Run ESLint
+
+### Build your site for production
+
+```sh
+npm run build
+```
+
+### Run production build
+
+```sh
+npm run build
+```
+
+---
+
+## Upgrade `package.json` package versions
+
+Install [npm-check-updates](https://www.npmjs.com/package/npm-check-updates):
+
+```sh
+npm i -g npm-check-updates
+```
+
+Upgrade a project's package file:
+
+```sh
+# Inside of project root folder
+
+ncu -u    # Upgrade package.json
+npm i     # Update installed packages and package-lock.json
+```
+
+---
+
+## Contributors
+
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center" style=""><img src="https://avatars.githubusercontent.com/u/6616625?s=60&v=4" width="100px;"  style="background-color: #000; border-radius: 9999px;" alt="Jason Cockerham"/><br /><sub><b>Jason Cockerham</b></sub></td>
+		<td align="center"><img src="https://avatars.githubusercontent.com/u/650202?s=120&v=4" width="100px;"  style="border-radius: 9999px;" alt="Chris Marts"/><br /><sub><b>Chris Marts</b></sub></td>
+		<td align="center"><img src="https://avatars.githubusercontent.com/u/25408000?s=120&v=4" width="100px;" style="border-radius: 9999px;" alt="Stuart Thomas"/><br /><sub><b>Stuart Thomas</b></sub></td>
+  </tr>
+</table>
+<!-- markdownlint-enable -->
+
+---
+
+### Enjoy
+
+:metal:
