@@ -1,0 +1,50 @@
+{
+	"files": [
+		"README.md"
+	],
+	"imageSize": 100,
+	"commit": false,
+	"contributors": [
+		{
+			"login": "jcock",
+			"name": "Jason Cockerham",
+			"avatar_url": "https://avatars.githubusercontent.com/u/6616625?s=60&v=4",
+			"profile": "https://abccreative.com/team/Jason-Cockerham",
+			"contributions": [
+				"code"
+			]
+		},
+		{
+			"login": "chrismarts",
+			"name": "Chris Marts",
+			"avatar_url": "https://avatars.githubusercontent.com/u/650202?s=120&v=4",
+			"profile": "https://abccreative.com/team/Chris-Marts",
+			"contributions": [
+				"code"
+			]
+		},
+		{
+			"login": "regcrusher",
+			"name": "Reggie Granados",
+			"avatar_url": "https://avatars.githubusercontent.com/u/991200?s=120&v=4",
+			"profile": "https://abccreative.com/team/Reggie-Granados",
+			"contributions": [
+				"code"
+			]
+		},
+		{
+			"login": "stuart905",
+			"name": "Stuart Thomas",
+			"avatar_url": "https://avatars.githubusercontent.com/u/25408000?s=120&v=4",
+			"profile": "https://abccreative.com/team/Stuart-Thomas",
+			"contributions": [
+				"code"
+			]
+		}
+	],
+	"contributorsPerLine": 4,
+	"projectName": "nextjs-tailwind",
+	"projectOwner": "abcagency",
+	"repoType": "github",
+	"repoHost": "https://github.com"
+}

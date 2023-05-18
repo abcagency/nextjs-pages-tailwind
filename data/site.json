@@ -1,0 +1,43 @@
+{
+	"title": "Next.js Starter Tailwind",
+	"titleShort": "Next.js Tailwind",
+	"description": "Next.js starter styled with Tailwind",
+	"author": "@abc_Creative",
+	"url": "https://nextjstailwind.netlify.app",
+	"logo": "favicon.svg",
+	"colors": {
+		"progress": "#000",
+		"manifest": {
+			"backgroundColor": "#fff",
+			"themeColor": "#fff",
+			"tileColor": "#000"
+		}
+	},
+	"analytics": {
+		"gtmId": "GOOGLE_TAGMANAGER_ID"
+	},
+	"social": [
+		{
+			"platform": "Facebook",
+			"label": "Like us on Facebook",
+			"url": "https://www.facebook.com/abcCreativeIntelligence",
+			"icon": "fa-brands:facebook-f"
+		},
+		{
+			"platform": "Instagram",
+			"label": "Follow us on Instagram",
+			"url": "https://www.instagram.com/abc_creative/",
+			"icon": "fa-brands:instagram"
+		},
+		{
+			"platform": "Twitter",
+			"label": "Follow us on Twitter",
+			"url": "https://twitter.com/abc_Creative",
+			"icon": "fa-brands:twitter"
+		}
+	],
+	"copyright": {
+		"name": "AB&C",
+		"url": "https://abccreative.com"
+	}
+}

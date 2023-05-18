@@ -1,0 +1,19 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+	Interactive Director: Scott Bille
+	I.T. Director: Chris Marts @chrismarts
+	UX Designer/Full-Stack Developer: Jason Cockerham @jcock
+	Digital Media Specialist: Stuart Thomas
+
+# THANKS
+
+	Creative Directors, Art Directors, Project Managers @ AB&C
+
+# TECHNOLOGY COLOPHON 📡
+
+		Standards: HTML5, CSS3, JavaScript
+		Components: Next.js, React, Tailwind, PostCSS
+		Software: Photoshop, Illustrator, XD, Figma, VSCode, Node

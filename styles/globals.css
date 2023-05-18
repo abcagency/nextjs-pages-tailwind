@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		@apply scroll-smooth text-450;
+	}
+}
+
+@layer components {
+	.track * {
+		@apply pointer-events-none;
+	}
+}
