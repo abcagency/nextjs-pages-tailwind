@@ -44,10 +44,16 @@ export const CardImage = ({
 };
 
 export const CardBody = ({
-	children
+	children,
+	className
 }) => {
 	return (
-		<div className="flex-auto p-4 md:px-6 lg:px-8">
+		<div
+			className={`
+				flex-auto p-4 md:px-6 lg:px-8
+				${className ?? ''}
+			`}
+		>
 			{children}
 		</div>
 	);
@@ -70,10 +76,16 @@ export const CardTitle = ({
 };
 
 export const CardFooter = ({
-	children
+	children,
+	className
 }) => {
 	return (
-		<div className="py-2 px-4 md:px-6 lg:px-8 bg-gray-100">
+		<div
+			className={`
+				py-2 px-4 md:px-6 lg:px-8 bg-gray-100
+				${className ?? ''}
+			`}
+		>
 			{children}
 		</div>
 	);
