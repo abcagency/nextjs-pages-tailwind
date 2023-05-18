@@ -11,7 +11,7 @@ const App = ({ Component, pageProps }) => {
 	return (
 		<>
 			<NextProgress
-				color="#D8FF00"
+				color={site.colors.progress}
 				delay={600}
 				options={
 					{
