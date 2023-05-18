@@ -1,17 +1,9 @@
-const site = require('./data/site');
+const site = require('./data/site.json');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-const withPlugins = require('next-compose-plugins');
-const withSvgr = require('next-plugin-svgr');
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
 	experimental: {
 		scrollRestoration: true
-	},
-	compiler: {
-		// Remove console.* calls in code
-		// https://nextjs.org/docs/architecture/nextjs-compiler#remove-console
-		removeConsole: true
 	},
 	webpack(config) {
 		config.plugins.push(new FaviconsWebpackPlugin({
@@ -83,13 +75,3 @@ const nextConfig = {
 		return config;
 	}
 };
-
-module.exports = withPlugins([
-	withSvgr({
-		svgrOptions: {
-			prettier: false,
-			dimensions: false,
-			typescript: true
-		}
-	})
-], nextConfig);
