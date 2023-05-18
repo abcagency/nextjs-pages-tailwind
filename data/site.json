@@ -5,6 +5,7 @@
 	"author": "@abc_Creative",
 	"url": "https://nextjstailwind.netlify.app",
 	"logo": "favicon.svg",
+	"shareImage": "share.png",
 	"colors": {
 		"progress": "#000",
 		"manifest": {

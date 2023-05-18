@@ -1,13 +1,18 @@
+import { useRouter } from 'next/router';
+
 import Balancer from 'react-wrap-balancer';
 
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Section from '~/components/modules/section';
 import Button from '~/components/modules/button';
+import Card from '~/components/modules/card';
 
 import Next from '~/images/inline/next.svg';
 
-const Home = ({ router }) => {
+const Home = () => {
+	const router = useRouter();
+
 	return (
 		<Layout>
 			<PageHead

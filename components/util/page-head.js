@@ -3,7 +3,7 @@ import Head from 'next/head';
 import site from '~/data/site.json';
 
 const PageHead = ({
-	router,
+	location,
 	description,
 	keywords,
 	title
@@ -24,8 +24,8 @@ const PageHead = ({
 
 			<meta property="og:title" content={pageTitle} />
 			<meta property="og:description" content={metaDescription} />
-			{site?.image &&
-				<meta property="og:image" content={`${process.env.HOST}/images/${site.image}`} />
+			{site?.shareImage &&
+				<meta property="og:image" content={`${process.env.NEXT_PUBLIC_HOST}/${site.shareImage}`} />
 			}
 			<meta property="og:type" content="website" />
 
@@ -38,7 +38,7 @@ const PageHead = ({
 						{
 							"@context": "https://schema.org",
 							"@type": "WebPage",
-							"url": "${process.env.HOST}${router?.pathname}",
+							"url": "${process.env.NEXT_PUBLIC_HOST}${location?.pathname}",
 							"legalName": "${defaultTitle}",
 							"name": "${pageTitle}",
 							"about": "${metaDescription}",
