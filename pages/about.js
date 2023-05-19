@@ -1,10 +1,12 @@
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
+import Jumbotron from '~/components/modules/jumbotron';
 import Section from '~/components/modules/section';
 import Card from '~/components/modules/card';
 import Accordion from '~/components/modules/accordion';
 import SlideIn from '~/components/modules/animations/slidein';
 
+import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
 
 const AboutPage = ({ router }) => {
@@ -16,12 +18,16 @@ const AboutPage = ({ router }) => {
 				title=""
 			/>
 
-			<Section
-				id="intro"
-				className="container px-4 py-12 text-center"
+			<Jumbotron
+				image={
+					<Jumbotron.Image
+						image={JumbotronFpoImage}
+						alt="FPO image"
+					/>
+				}
 			>
-				<h1 className="text-3xl">About page</h1>
-			</Section>
+				<Jumbotron.Title className="text-center">About page</Jumbotron.Title>
+			</Jumbotron>
 
 			<Section
 				id="alpha"

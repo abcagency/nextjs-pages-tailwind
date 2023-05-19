@@ -56,10 +56,10 @@ const CardLink = ({
 			`}
 			{...rest}
 		>
-			{image}
+			{image && image}
 			{children}
-			{body}
-			{footer}
+			{body && body}
+			{footer && footer}
 		</Container>
 	);
 };
