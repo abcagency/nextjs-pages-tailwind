@@ -13,16 +13,30 @@ const Navbar = ({ position }) => {
 	const [isExpanded, toggleExpansion] = useState(false);
 
 	return (
+	// <div
+	// 	className={`
+	// 		px-4 transition-all
+	// 		${position === 'PINNED' ? 'pt-2' : 'bg-white/20 border-b border-gray-400/20 backdrop-blur'}
+	// 	`}
+	// >
+	// 	<div
+	// 		className={`
+	// 			flex flex-wrap items-center justify-between py-2 px-6 container transition-all
+	// 			${position === 'PINNED' ? 'bg-white/20 border border-gray-400/20 backdrop-blur rounded-full' : ''}
+	// 		`}
+	// 	></div>
+	// </div>
+
 		<div
 			className={`
 				px-4 transition-all bg-white/20 border-b border-gray-400/20 backdrop-blur
-				${position === 'PINNED' ? 'pt-2 mb:bg-transparent md:border-0 md:backdrop-blur-none' : ''}
+				${position === 'PINNED' ? 'pt-2 mb:bg-transparent md:border-0 md:backdrop-blur-[unset]' : ''}
 			`}
 		>
 			<div
 				className={`
 					flex flex-wrap items-center justify-between py-2 px-6 container transition-all
-					${position === 'PINNED' ? 'md:bg-white/20 md:border md:border-gray-400/20 md:backdrop-blur md:rounded-full' : ''}
+					${position === 'PINNED' ? 'md:bg-white/20 md:border md:border-gray-400/20 md:!backdrop-blur md:rounded-full' : ''}
 				`}
 			>
 				<Link
