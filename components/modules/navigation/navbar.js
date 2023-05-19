@@ -86,7 +86,7 @@ const Navbar = ({ position }) => {
 
 				<nav
 					className={`
-						md:flex md:items-center md:gap-6 w-full md:w-auto pt-2 md:pt-0
+						md:flex md:items-center md:gap-2 w-full md:w-auto pt-2 md:pt-0
 						${isExpanded ? 'block' : 'hidden'}
 					`}
 				>
@@ -94,8 +94,8 @@ const Navbar = ({ position }) => {
 						<NavLink.Anchor
 							key={link.title}
 							href={link.route}
-							className="block md:inline-block px-4 py-2 md:p-2 text-xs text-gray-800 transition-colors hover:text-indigo-700 focus:text-indigo-700"
-							activeClassName="text-indigo-700 underline"
+							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:text-indigo-700 focus:text-indigo-700"
+							activeClassName="bg-indigo-700 text-white"
 						>
 							{link.title}
 						</NavLink.Anchor>
