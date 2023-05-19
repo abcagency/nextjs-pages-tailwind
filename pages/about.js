@@ -56,7 +56,7 @@ const AboutPage = ({ router }) => {
 				id="beta"
 				className="container px-4 my-12"
 			>
-				<h2 className="mb-4 text-xl font-bold">Charlie</h2>
+				<h2 className="mb-4 text-xl font-bold">Beta</h2>
 				<Accordion defaultValue="item-1">
 					<Accordion.Item
 						id="item-1"
