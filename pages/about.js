@@ -26,7 +26,7 @@ const AboutPage = ({ router }) => {
 					/>
 				}
 			>
-				<Jumbotron.Title className="text-center">About page</Jumbotron.Title>
+				<Jumbotron.Title className="text-center">About</Jumbotron.Title>
 			</Jumbotron>
 
 			<Section
