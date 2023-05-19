@@ -1,24 +1,66 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
+const cardClasses = className => (`
+	relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100 shadow-lg
+	${className ?? ''}
+`);
 
 const Card = ({
+	children
+}) => {
+	return (
+		{ children }
+	);
+};
+
+const CardDefault = ({
 	className,
 	image,
 	body,
 	children,
-	footer
+	footer,
+	...rest
 }) => {
 	return (
 		<div
-			className={`
-				relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100 shadow-lg
-				${className ?? ''}
-			`}
+			className={cardClasses(className)}
+			{...rest}
 		>
 			{image}
 			{children}
 			{body}
 			{footer}
 		</div>
+	);
+};
+
+const CardLink = ({
+	as = 'link',
+	href,
+	className,
+	image,
+	body,
+	children,
+	footer,
+	...rest
+}) => {
+	const Container = as === 'link' ? Link : as;
+
+	return (
+		<Container
+			href={href}
+			className={`
+				${cardClasses(className)}
+				group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300
+			`}
+			{...rest}
+		>
+			{image}
+			{children}
+			{body}
+			{footer}
+		</Container>
 	);
 };
 
@@ -91,6 +133,8 @@ export const CardFooter = ({
 	);
 };
 
+Card.Default = CardDefault;
+Card.Link = CardLink;
 Card.Image = CardImage;
 Card.Body = CardBody;
 Card.Title = CardTitle;
