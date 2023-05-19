@@ -15,14 +15,14 @@ const Navbar = ({ position }) => {
 	return (
 		<div
 			className={`
-				px-4 transition-colors
-				${position === 'PINNED' ? 'bg-white/20 border border-gray-400/20 backdrop-blur' : 'pt-2'}
+				px-4 transition-all
+				${position === 'PINNED' ? 'pt-2' : 'bg-white/20 border-b border-gray-400/20 backdrop-blur'}
 			`}
 		>
 			<div
 				className={`
 					flex flex-wrap items-center justify-between py-2 px-6 container transition-all
-					${position === 'PINNED' ? '' : 'bg-slate-200/20 border border-gray-400/20 backdrop-blur rounded-full'}
+					${position === 'PINNED' ? 'bg-white/20 border border-gray-400/20 backdrop-blur rounded-full' : ''}
 				`}
 			>
 				<Link
@@ -94,7 +94,7 @@ const Navbar = ({ position }) => {
 						<NavLink.Anchor
 							key={link.title}
 							href={link.route}
-							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:text-indigo-700 focus:text-indigo-700"
+							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:bg-gray-200/50 hover:text-indigo-700 focus:text-indigo-700"
 							activeClassName="bg-indigo-700 text-white"
 						>
 							{link.title}
