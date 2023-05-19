@@ -94,7 +94,7 @@ const Navbar = ({ position }) => {
 						<NavLink.Anchor
 							key={link.title}
 							href={link.route}
-							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:bg-gray-200/50 hover:text-indigo-700 focus:text-indigo-700"
+							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:bg-gray-200/40 hover:text-indigo-700 focus:text-indigo-700"
 							activeClassName="bg-indigo-700 text-white"
 						>
 							{link.title}
