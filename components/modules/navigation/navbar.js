@@ -13,20 +13,6 @@ const Navbar = ({ position }) => {
 	const [isExpanded, toggleExpansion] = useState(false);
 
 	return (
-	// <div
-	// 	className={`
-	// 		px-4 transition-all
-	// 		${position === 'PINNED' ? 'pt-2' : 'bg-white/20 border-b border-gray-400/20 backdrop-blur'}
-	// 	`}
-	// >
-	// 	<div
-	// 		className={`
-	// 			flex flex-wrap items-center justify-between py-2 px-6 container transition-all
-	// 			${position === 'PINNED' ? 'bg-white/20 border border-gray-400/20 backdrop-blur rounded-full' : ''}
-	// 		`}
-	// 	></div>
-	// </div>
-
 		<div
 			className={`
 				px-4 transition-all bg-white/20 border-b border-gray-400/20 backdrop-blur
@@ -108,8 +94,8 @@ const Navbar = ({ position }) => {
 						<NavLink.Anchor
 							key={link.title}
 							href={link.route}
-							className="block md:inline-block px-4 py-2 rounded-full text-xs text-gray-800 transition-colors hover:bg-gray-200/40 hover:text-indigo-700 focus:text-indigo-700"
-							activeClassName="bg-indigo-700 text-white"
+							className="block md:inline-block px-3.5 py-1.5 rounded-full border border-transparent text-xs text-gray-800 transition-colors hover:border-indigo-700 hover:text-indigo-700 focus:border-indigo-700  focus:text-indigo-700"
+							activeClassName="bg-indigo-700 !text-white"
 						>
 							{link.title}
 						</NavLink.Anchor>
