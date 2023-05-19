@@ -1,5 +1,6 @@
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
+import Section from '~/components/modules/section';
 import Form from '~/components/modules/form';
 
 const ContactPage = ({ router }) => {
@@ -10,13 +11,13 @@ const ContactPage = ({ router }) => {
 				title=""
 			/>
 
-			<section className="container px-4 py-12 text-center">
+			<Section className="container px-4 py-12 text-center">
 				<h1 className="text-3xl">Contact page</h1>
-			</section>
+			</Section>
 
-			<section className="container px-4 py-12">
+			<Section className="container px-4 py-12">
 				<Form />
-			</section>
+			</Section>
 		</Layout>
 	);
 };
