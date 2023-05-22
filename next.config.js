@@ -2,6 +2,7 @@ const site = require('./data/site.json');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
+	reactStrictMode: true,
 	experimental: {
 		scrollRestoration: true
 	},
