@@ -82,7 +82,6 @@ const useSectionTracker = () => {
 					setHash(ignore.some(id => id === currentSection) ? ' ' : currentSection);
 				}
 				trackEvent('Engagement', 'View Section', currentSection);
-				console.log('Tracking section: ', currentSection);
 				first = false;
 			} else {
 				first = false;
