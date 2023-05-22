@@ -32,17 +32,6 @@ const Footer = () => {
 							sizeClasses="w-4 h-4"
 						/>
 					</ScrollLink>
-
-					{/* <a
-						href="#top"
-						className="px-4 py-5 transition-colors hover:text-gray-900 focus:text-gray-900"
-					>
-						<span className="sr-only">To the top!</span>
-						<Icon
-							icon="mdi:arrow-collapse-up"
-							sizeClasses="w-4 h-4"
-						/>
-					</a> */}
 				</div>
 			</div>
 		</footer>
