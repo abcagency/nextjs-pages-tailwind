@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import trackEvent from '~/hooks/useEventTracker';
 
@@ -84,6 +82,7 @@ const useSectionTracker = () => {
 					setHash(ignore.some(id => id === currentSection) ? ' ' : currentSection);
 				}
 				trackEvent('Engagement', 'View Section', currentSection);
+				console.log('Tracking section: ', currentSection);
 				first = false;
 			} else {
 				first = false;
