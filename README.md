@@ -59,7 +59,7 @@ Click an element to open the file in your editor.
 Create a new Next.js project using this starter:
 
 ```sh
-npx create-next-app my-new-website --example "https://github.com/abcagency/nextjs-pages-tailwind"
+npx create-next-app my-new-website -e "https://github.com/abcagency/nextjs-pages-tailwind"
 cd my-new-website
 npm i
 ```
