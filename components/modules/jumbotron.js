@@ -4,7 +4,8 @@ const Jumbotron = ({
 	className,
 	contentClasses,
 	image,
-	children
+	children,
+	...rest
 }) => {
 	return (
 		<section
@@ -12,6 +13,7 @@ const Jumbotron = ({
 				relative grid grid-cols-1 auto-rows-min md:grid-rows-1 overflow-hidden bg-gray-800 text-white
 				${className ?? ''}
 			`}
+			{...rest}
 		>
 			<div
 				className={`
