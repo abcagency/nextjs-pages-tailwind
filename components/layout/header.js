@@ -6,21 +6,16 @@ import Headroom from 'react-headroom';
 import Navbar from '~/components/modules/navigation/navbar';
 
 const Header = () => {
-	const [position, setPosition] = useState(false);
-
-	const PosMap = {
-		PINNED: 'PINNED',
-		DEFAULT: 'DEFAULT'
-	};
+	const [isPinned, setIsPinned] = useState(false);
 
 	return (
 		<Headroom
 			style={{ zIndex: 50 }}
-			onPin={() => setPosition(PosMap.PINNED)}
-			onUnfix={() => setPosition(PosMap.DEFAULT)}
+			onPin={() => setIsPinned(true)}
+			onUnfix={() => setIsPinned(false)}
 		>
 			<header>
-				<Navbar position={position} />
+				<Navbar isPinned={isPinned} />
 			</header>
 		</Headroom>
 	);

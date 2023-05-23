@@ -9,20 +9,20 @@ import Icon from '~/components/modules/icon';
 import routes from '~/data/routes.json';
 import site from '~/data/site.json';
 
-const Navbar = ({ position }) => {
+const Navbar = ({ isPinned }) => {
 	const [isExpanded, toggleExpansion] = useState(false);
 
 	return (
 		<div
 			className={`
 				px-4 transition-all bg-white/20 border-b border-gray-400/20 backdrop-blur
-				${position === 'PINNED' ? 'mb:bg-transparent md:border-0 md:backdrop-blur-[unset]' : ''}
+				${isPinned ? 'mb:bg-transparent md:border-0 md:backdrop-blur-[unset]' : ''}
 			`}
 		>
 			<div
 				className={`
 					flex flex-wrap items-center justify-between py-2 px-6 container transition-all
-					${position === 'PINNED' ? 'md:translate-y-2 md:bg-white/20 md:border md:border-gray-400/20 md:!backdrop-blur md:rounded-full' : ''}
+					${isPinned ? 'md:translate-y-2 md:bg-white/20 md:border md:border-gray-400/20 md:!backdrop-blur md:rounded-full' : ''}
 				`}
 			>
 				<Link
