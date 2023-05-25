@@ -9,13 +9,12 @@ import SlideIn from '~/components/modules/animations/slidein';
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
 
-const AboutPage = ({ router }) => {
+const AboutPage = () => {
 
 	return (
 		<Layout>
 			<PageHead
-				location={router}
-				title=""
+				title="About"
 			/>
 
 			<Jumbotron

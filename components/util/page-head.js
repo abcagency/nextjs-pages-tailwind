@@ -1,13 +1,14 @@
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 import site from '~/data/site.json';
 
 const PageHead = ({
-	location,
 	description,
 	keywords,
 	title
 }) => {
+	const router = useRouter();
 	const defaultTitle = site.title;
 	const pageTitle = title || defaultTitle;
 	const metaDescription = description || site.description;
@@ -38,7 +39,7 @@ const PageHead = ({
 						{
 							"@context": "https://schema.org",
 							"@type": "WebPage",
-							"url": "${process.env.NEXT_PUBLIC_HOST}${location?.pathname}",
+							"url": "${process.env.NEXT_PUBLIC_HOST}${router?.pathname}",
 							"legalName": "${defaultTitle}",
 							"name": "${pageTitle}",
 							"about": "${metaDescription}",

@@ -6,12 +6,11 @@ import Form from '~/components/modules/form';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 
-const ContactPage = ({ router }) => {
+const ContactPage = () => {
 	return (
 		<Layout>
 			<PageHead
-				location={router}
-				title=""
+				title="Contact"
 			/>
 
 			<Jumbotron
