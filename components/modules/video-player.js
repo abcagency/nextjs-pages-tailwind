@@ -24,10 +24,10 @@ const VideoPlayer = ({
 	autoPlay = true,
 	...playerOptions
 }) => {
-	const [isReady, setIsReady] = useState<boolean>(false);
-	const [isPlaying, setIsPlaying] = useState<boolean>(autoPlay);
-	const [, setPlayed] = useState<boolean>(false);
-	const [pageLoaded, setPageLoaded] = useState<boolean>(false);
+	const [isReady, setIsReady] = useState(false);
+	const [isPlaying, setIsPlaying] = useState(autoPlay);
+	const [, setPlayed] = useState(false);
+	const [pageLoaded, setPageLoaded] = useState(false);
 	const playerRef = useRef(null);
 
 	useEffect(() => {
