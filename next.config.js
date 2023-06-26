@@ -6,6 +6,10 @@ module.exports = {
 	experimental: {
 		scrollRestoration: true
 	},
+	i18n: {
+		locales: ['en-US'],
+		defaultLocale: 'en-US'
+	},
 	webpack(config) {
 		config.plugins.push(new FaviconsWebpackPlugin({
 			logo: `public/${site.logo}`,
