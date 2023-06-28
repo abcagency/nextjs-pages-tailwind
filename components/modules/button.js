@@ -87,6 +87,31 @@ export const AnchorLink = ({
 	);
 };
 
+export const ScrollAnchor = forwardRef((props, ref) => {
+	const {
+		children,
+		href,
+		className,
+		size,
+		variant,
+		isBlock,
+		hasUnderline,
+		...rest
+	} = props;
+
+	return (
+		<Link
+			ref={ref}
+			href={`#${href}`}
+			scroll={false}
+			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			{...rest}
+		>
+			{children}
+		</Link>
+	);
+});
+
 export const Btn = forwardRef((props, ref) => {
 	const {
 		children,
@@ -145,4 +170,5 @@ Button.Body = ButtonBody;
 Button.Icon = ButtonIcon;
 
 Btn.displayName = 'Button:Button';
+ScrollAnchor.displayName = 'Button:ScrollAnchor';
 export default Button;

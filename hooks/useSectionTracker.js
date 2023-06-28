@@ -1,30 +1,20 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import trackEvent from '~/hooks/useEventTracker';
+
+import { SectionContext } from '~/components/modules/sections/sectionContext';
 
 const isBrowser = typeof window !== 'undefined';
 
-const ignore = ["intro"];
+const ignore = ['intro'];
 const RATIO = 0.33;
-let first = true;
+// let first = true;
 
 const useSectionTracker = () => {
-	const [lastSection, setLastSection] = useState('');
-	const [isAtTop, setIsAtTop] = useState(true);
-	const sections = new Array();
-	let timeout = null;
+	const { setCurrentSection } = useContext(SectionContext);
 
-	// If we're near the top, clear the hash, set state, clear timeout
-	if (isBrowser) {
-		window.onscroll = () => {
-			if (window.scrollY <=10) {
-				setHash(' ');
-				setIsAtTop(true);
-				clearTimeout(timeout);
-			} else {
-				setIsAtTop(false);
-			}
-		};
-	}
+	const [lastSection, setLastSection] = useState('');
+	const [sections, setSections] = useState([]);
+	let timeout = null;
 
 	// Allows a blank hash or ensures there is a # in the hash and replaces current state
 	const setHash = hash => {
@@ -32,16 +22,20 @@ const useSectionTracker = () => {
 			hash = `#${hash}`;
 		}
 		if (window.history.replaceState) {
-			window.history.replaceState(null, null, hash);
+			window.history.replaceState(window.history.state, null, hash);
 		} else {
 			window.location.replace(hash);
 		}
 	};
 
 	// Called when a section is intersecting
-	const setCurrentSection = (id, ratio, threshold) => {
-		// If we're mostly visible, we're entirely visible
-		const newThreshold = ratio > 0.95 ? 1 : threshold;
+	const sectionIsIntersecting = (id, ratio, threshold) => {
+		// Ignore sections we don't want to track
+		if (ignore.indexOf(id) !== -1) {
+			return;
+		}
+
+		const newThreshold = threshold;
 		let found = false;
 
 		// Update sections we've seen before
@@ -59,11 +53,14 @@ const useSectionTracker = () => {
 
 		// Otherwise, add the section to the list
 		if (!found) {
-			sections.push({ id, threshold: newThreshold, active: newThreshold < RATIO ? false : true });
+			setSections(sections => {
+				sections.push({ id, threshold: newThreshold, active: newThreshold < RATIO ? false : true });
+				return sections;
+			});
 		}
 
 		let maxThreshold = 0;
-		let currentSection = '';
+		let sectionId = '';
 
 		clearTimeout(timeout);
 
@@ -72,27 +69,27 @@ const useSectionTracker = () => {
 			sections.forEach(section => {
 				if (section.active && section.threshold > maxThreshold) {
 					maxThreshold = section.threshold;
-					currentSection = section.id;
+					sectionId = section.id;
 				}
 			});
 
 			// Set the current section (hash, track event)
-			if (isBrowser && !isAtTop && currentSection && currentSection !== lastSection) {
-				if (!first) {
-					setHash(ignore.some(id => id === currentSection) ? ' ' : currentSection);
-				}
-				trackEvent('Engagement', 'View Section', currentSection);
-				first = false;
-			} else {
-				first = false;
+			if (isBrowser && sectionId && sectionId !== lastSection) {
+				setHash(ignore.some(id => id === sectionId) ? ' ' : sectionId);
+				trackEvent('Engagement', 'View Section', sectionId);
+				setCurrentSection(sectionId);
+			// } else {
+			} else if (isBrowser && window.scrollY < 100) {
+				setCurrentSection(' ');
+				setHash(' ');
 			}
 
 			// Remember this section for next time so we don't set it again if not necessary
-			setLastSection(currentSection);
-		}, 1000);
+			setLastSection(sectionId);
+		}, 500);
 	};
 
-	return setCurrentSection;
+	return sectionIsIntersecting;
 };
 
 export default useSectionTracker;
