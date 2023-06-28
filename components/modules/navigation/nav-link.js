@@ -1,6 +1,6 @@
+import { forwardRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import * as Scroll from 'react-scroll';
 
 const NavLink = ({
 	children
@@ -34,32 +34,33 @@ export const Anchor = ({
 	);
 };
 
-export const ScrollAnchor = ({
-	href,
-	children,
-	activeClassName,
-	className,
-	partiallyActive = false,
-	...rest
-}) => {
-	let ScrollLink = Scroll.Link;
+export const ScrollAnchor = forwardRef((props, ref) => {
+	const {
+		children,
+		href,
+		className,
+		size,
+		variant,
+		isBlock,
+		hasUnderline,
+		...rest
+	} = props;
 
 	return (
-		<ScrollLink
+		<Link
+			ref={ref}
 			href={`#${href}`}
-			to={href}
-			smooth={true}
-			offset={-25}
-			duration={250}
-			className={className ?? ''}
-			activeClass={activeClassName ?? ''}
+			scroll={false}
+			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
 			{...rest}
 		>
 			{children}
-		</ScrollLink>
+		</Link>
 	);
-};
+});
 
 NavLink.Anchor = Anchor;
 NavLink.ScrollAnchor = ScrollAnchor;
+
+ScrollAnchor.displayName = 'NavLink:ScrollAnchor';
 export default NavLink;
