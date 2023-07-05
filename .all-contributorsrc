@@ -24,15 +24,6 @@
 			]
 		},
 		{
-			"login": "regcrusher",
-			"name": "Reggie Granados",
-			"avatar_url": "https://avatars.githubusercontent.com/u/991200?s=120&v=4",
-			"profile": "https://abccreative.com/team/Reggie-Granados",
-			"contributions": [
-				"code"
-			]
-		},
-		{
 			"login": "stuart905",
 			"name": "Stuart Thomas",
 			"avatar_url": "https://avatars.githubusercontent.com/u/25408000?s=120&v=4",
@@ -43,7 +34,7 @@
 		}
 	],
 	"contributorsPerLine": 4,
-	"projectName": "nextjs-tailwind",
+	"projectName": "nextjs-pages-tailwind",
 	"projectOwner": "abcagency",
 	"repoType": "github",
 	"repoHost": "https://github.com"
