@@ -43,15 +43,6 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 - [Framer Motion](https://www.framer.com/motion/)
 - [Iconify](https://iconify.design/)
 
-### Utilities
-
-- [LocatorJS](https://www.locatorjs.com/)
-
-### LocatorJS
-
-Hold down `⌥ Option` and move with the cursor around the page.
-Click an element to open the file in your editor.
-
 ---
 
 ## Get started
@@ -85,6 +76,18 @@ npm run build
 ```sh
 npm run build
 ```
+
+---
+
+## [Unlighthouse](https://unlighthouse.dev/)
+
+Run lighthouse performance metrics on your entire site.
+
+```sh
+unlighthouse --site <your-site>
+```
+
+`<your-site>` is the URL of your site, e.g. `https://www.example.com`.
 
 ---
 
