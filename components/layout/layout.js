@@ -1,6 +1,6 @@
 import { inter } from '~/styles/fonts';
 
-import { SectionContext } from '~/components/modules/sectionContext';
+import { SectionContext } from '~/components/modules/sections/sectionContext';
 import useSectionTracker from '~/hooks/useSectionTracker';
 
 import { Provider } from '~/components/util/provider';

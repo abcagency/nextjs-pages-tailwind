@@ -1,7 +1,7 @@
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
-import Section from '~/components/modules/section';
+import Section from '~/components/modules/sections/default';
 import Form from '~/components/modules/form';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
