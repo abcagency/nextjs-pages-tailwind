@@ -6,7 +6,7 @@ const SlideIn = ({
 	children,
 	delay = 0.05,
 	opacity = 1,
-	scale = 0.9,
+	scale = 0.95,
 	y = 50,
 	...rest
 }) => {
@@ -14,10 +14,10 @@ const SlideIn = ({
 
 	const { scrollYProgress } = useScroll({
 		target: ref,
-		offset: ["start end", `start ${scale}`]
+		offset: ["start end", `start 0.85`]
 	});
 
-	const scaleContained = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
+	const scaleContained = useTransform(scrollYProgress, [0, 1], [scale, 1]);
 
 	const scaleSpring = useSpring(scaleContained, {
 		damping: 100,
