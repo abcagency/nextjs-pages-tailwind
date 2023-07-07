@@ -19,13 +19,15 @@ export const Anchor = ({
 	...rest
 }) => {
 	const pathname = usePathname();
+	const isActive = (activeClassName && pathname === href) || (pathname.startsWith(`${href}/`) && partiallyActive);
 
 	return (
 		<Link
 			href={href}
 			className={`
+				group
 				${className ?? ''}
-				${(activeClassName && pathname === href) || (pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
+				${isActive ? `is-active ${activeClassName}` : ''}
 			`}
 			{...rest}
 		>
