@@ -1,15 +1,19 @@
 import { forwardRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Icon from '~/components/modules/icon';
 
 // Notes:
 // Button with a variant of 'link' should not contain a <Button.Body>.
 
+const linkDefaultClasses = "normal-case text-inherit !font-[inherit] [font-weight:inherit] !p-0 rounded-none";
+const underlineClasses = "!underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline";
+
 const ButtonVariant = {
 	primary: 'bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800',
 	secondary: 'bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800',
-	link: `!inline normal-case text-blue-600 font-normal [font-size:inherit] !p-0 rounded-none`
+	link: `${linkDefaultClasses} text-indigo-700 hover:text-indigo-500 focus:text-indigo-500`
 };
 
 const ButtonSize = {
@@ -18,16 +22,14 @@ const ButtonSize = {
 };
 
 const ButtonDefaults = {
-	style: 'font-bold uppercase text-center rounded transition-colors',
+	style: 'group font-bold uppercase text-center rounded transition-colors',
 	size: 'py-2 px-6',
 	variant: ButtonVariant.primary,
 	block: 'block w-full'
 };
 
-const underlineClasses = "!underline hover:!no-underline focus:!no-underline";
-
 const buttonClasses = (variant, size, isBlock, hasUnderline, className) => (`
-	${isBlock ? ButtonDefaults.block : 'inline-block'}
+	${isBlock ? ButtonDefaults.block : linkVariants(variant) ? 'inline' : 'inline-block'}
 	${ButtonDefaults.style}
 	${variant ? ButtonVariant[variant] : ButtonDefaults.variant}
 	${size ? ButtonSize[size] : ButtonDefaults.size}
@@ -51,13 +53,13 @@ export const Anchor = ({
 	variant,
 	isBlock,
 	hasUnderline,
-	isScrollAnchor = false,
+	target = '_blank',
 	...rest
 }) => {
 	return (
 		<a
 			href={href}
-			target={isScrollAnchor ? '_self' : '_blank'}
+			target={target}
 			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
 			{...rest}
 		>
@@ -70,16 +72,23 @@ export const AnchorLink = ({
 	children,
 	href,
 	className,
+	activeClassName,
+	partiallyActive = false,
 	size,
 	variant,
 	isBlock,
 	hasUnderline,
 	...rest
 }) => {
+	const router = useRouter();
+
 	return (
 		<Link
 			href={href}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			className={`
+				${buttonClasses(variant, size, isBlock, hasUnderline, className)}
+				${(activeClassName && router.pathname === href) || (router.pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
+			`}
 			{...rest}
 		>
 			{children}
@@ -164,7 +173,7 @@ export const ButtonIcon = ({
 };
 
 Button.Anchor = Anchor;
-Button.AnchorLink = AnchorLink;
+Button.Link = AnchorLink;
 Button.Btn = Btn;
 Button.Body = ButtonBody;
 Button.Icon = ButtonIcon;
