@@ -22,7 +22,7 @@ const NotFoundPage = ({ router }) => {
 
 			<div className="bg-pink-200 text-center px-3 py-5">
 				<div className="container">
-					<h2 className="text-gray-800 text-xl font-bold">ooks like this page is a ghost that got abducted <span className="whitespace-nowrap">by aliens...</span></h2>
+					<h2 className="text-gray-800 text-xl font-bold">Looks like this page is a ghost that got abducted <span className="whitespace-nowrap">by aliens...</span></h2>
 
 					<Link
 						href="/"
