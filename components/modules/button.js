@@ -28,6 +28,8 @@ const ButtonDefaults = {
 	block: 'block w-full'
 };
 
+const linkVariants = variant => variant === 'link';
+
 const buttonClasses = (variant, size, isBlock, hasUnderline, className) => (`
 	${isBlock ? ButtonDefaults.block : linkVariants(variant) ? 'inline' : 'inline-block'}
 	${ButtonDefaults.style}
