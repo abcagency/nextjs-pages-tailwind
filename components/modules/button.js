@@ -176,6 +176,7 @@ export const ButtonIcon = ({
 
 Button.Anchor = Anchor;
 Button.Link = AnchorLink;
+Button.Scroll = ScrollAnchor;
 Button.Btn = Btn;
 Button.Body = ButtonBody;
 Button.Icon = ButtonIcon;
