@@ -35,4 +35,25 @@ const Section = ({
 	);
 };
 
+export const SectionTitle = ({
+	as = 'h2',
+	children,
+	className
+}) => {
+	const Title = as;
+
+	return (
+		<Title
+			className={`
+				mb-4 text-2xl
+				${className ?? ''}
+			`}
+		>
+			{children}
+		</Title>
+	);
+};
+
+Section.Title = SectionTitle;
+
 export default Section;
