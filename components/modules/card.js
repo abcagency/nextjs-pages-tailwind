@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { twMerge } from 'tailwind-merge';
 
-const cardClasses = className => (`
-	relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100 shadow-lg
-	${className ?? ''}
-`);
+const cardClasses = (className, hasShadow) => twMerge(
+	'relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100',hasShadow ? 'shadow-lg' : '',
+	className ?? ''
+);
 
 const Card = ({
 	children
@@ -16,6 +17,7 @@ const Card = ({
 
 const CardDefault = ({
 	className,
+	hasShadow = true,
 	image,
 	body,
 	children,
@@ -24,7 +26,7 @@ const CardDefault = ({
 }) => {
 	return (
 		<div
-			className={cardClasses(className)}
+			className={cardClasses(className, hasShadow)}
 			{...rest}
 		>
 			{image}
@@ -39,6 +41,7 @@ const CardLink = ({
 	as = 'link',
 	href,
 	className,
+	hasShadow = true,
 	image,
 	body,
 	children,
@@ -50,10 +53,10 @@ const CardLink = ({
 	return (
 		<Container
 			href={href}
-			className={`
-				${cardClasses(className)}
-				group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300
-			`}
+			className={twMerge(
+				cardClasses(className, hasShadow),
+				'group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300'
+			)}
 			{...rest}
 		>
 			{image && image}
@@ -67,19 +70,27 @@ const CardLink = ({
 export const CardImage = ({
 	image,
 	alt,
-	className
+	className,
+	imageClassName,
+	...rest
 }) => {
 	return (
-		<div className="w-full">
+		<div
+			className={twMerge(
+				'w-full',
+				className ?? ''
+			)}
+		>
 			<Image
 				src={image || image.src}
 				width={image.width ? image.width : null}
 				height={image.height ? image.height : null}
 				alt={alt ?? ''}
-				className={`
-					w-full h-auto
-					${className ?? ''}
-				`}
+				className={twMerge(
+					'w-full h-auto',
+					imageClassName ?? ''
+				)}
+				{...rest}
 			/>
 		</div>
 	);
@@ -91,10 +102,10 @@ export const CardBody = ({
 }) => {
 	return (
 		<div
-			className={`
-				flex-auto p-4 md:px-6 lg:px-8
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'flex-auto p-4 md:px-6 lg:px-8',
+				className ?? ''
+			)}
 		>
 			{children}
 		</div>
@@ -107,10 +118,10 @@ export const CardTitle = ({
 }) => {
 	return (
 		<h3
-			className={`
-				text-2xl font-bold
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'text-2xl font-bold',
+				className ?? ''
+			)}
 		>
 			{children}
 		</h3>
@@ -123,10 +134,10 @@ export const CardFooter = ({
 }) => {
 	return (
 		<div
-			className={`
-				py-2 px-4 md:px-6 lg:px-8 bg-gray-100
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'py-2 px-4 md:px-6 lg:px-8 bg-gray-100',
+				className ?? ''
+			)}
 		>
 			{children}
 		</div>

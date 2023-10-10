@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
 const Jumbotron = ({
 	className,
@@ -9,17 +10,17 @@ const Jumbotron = ({
 }) => {
 	return (
 		<section
-			className={`
-				relative grid grid-cols-1 auto-rows-min md:grid-rows-1 overflow-hidden bg-gray-800 text-white
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'relative grid grid-cols-1 auto-rows-min md:grid-rows-1 overflow-hidden bg-gray-800 text-white',
+				className ?? ''
+			)}
 			{...rest}
 		>
 			<div
-				className={`
-					md:row-span-full col-span-full grid place-content-center relative z-10 container p-4
-					${contentClasses ?? ''}
-				`}
+				className={twMerge(
+					'md:row-span-full col-span-full grid place-content-center relative z-10 container p-4',
+					contentClasses ?? ''
+				)}
 			>
 				{children}
 			</div>
@@ -35,10 +36,10 @@ export const JumbotronTitle = ({
 }) => {
 	return (
 		<h1
-			className={`
-				text-3xl font-bold
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'text-3xl font-bold',
+				className ?? ''
+			)}
 		>
 			{children}
 		</h1>
@@ -48,20 +49,26 @@ export const JumbotronTitle = ({
 export const JumbotronImage = ({
 	image,
 	alt,
-	className
+	className,
+	containerClassName
 }) => {
 	return (
-		<div className="relative order-first md:order-last row-span-full col-span-full">
+		<div
+			className={twMerge(
+				'relative order-first md:order-last row-span-full col-span-full',
+				containerClassName ?? ''
+			)}
+		>
 			<Image
 				src={image || image.src}
 				width={image.width ? image.width : null}
 				height={image.height ? image.height : null}
 				alt={alt ?? ''}
-				priority
-				className={`
-					md:col-start-1 h-full w-full object-cover object-center opacity-70 md:opacity-20
-					${className ?? ''}
-				`}
+				className={twMerge(
+					'md:col-start-1 h-full w-full object-cover object-center opacity-70 md:opacity-20',
+					className ?? ''
+				)}
+				{...rest}
 			/>
 		</div>
 	);

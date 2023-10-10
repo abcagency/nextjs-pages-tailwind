@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
 
@@ -30,14 +31,14 @@ const ButtonDefaults = {
 
 const linkVariants = variant => variant === 'link';
 
-const buttonClasses = (variant, size, isBlock, hasUnderline, className) => (`
-	${isBlock ? ButtonDefaults.block : linkVariants(variant) ? 'inline' : 'inline-block'}
-	${ButtonDefaults.style}
-	${variant ? ButtonVariant[variant] : ButtonDefaults.variant}
-	${size ? ButtonSize[size] : ButtonDefaults.size}
-	${hasUnderline ? underlineClasses : ''}
-	${className ?? ''}
-`);
+const buttonClasses = (variant, size, isBlock, hasUnderline, className) => twMerge(
+	isBlock ? ButtonDefaults.block : linkVariants(variant) ? 'inline' : 'inline-block',
+	ButtonDefaults.style,
+	variant ? ButtonVariant[variant] : ButtonDefaults.variant,
+	size ? ButtonSize[size] : ButtonDefaults.size,
+	hasUnderline ? underlineClasses : '',
+	className ?? ''
+);
 
 const Button = ({
 	children
