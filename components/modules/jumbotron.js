@@ -50,7 +50,8 @@ export const JumbotronImage = ({
 	image,
 	alt,
 	className,
-	containerClassName
+	containerClassName,
+	...rest
 }) => {
 	return (
 		<div
