@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import NextProgress from 'next-progress';
+import { inter } from '~/styles/fonts';
 
 import site from '~/data/site.json';
 
@@ -30,7 +31,14 @@ const App = ({ Component, pageProps }) => {
 				` }}>
 				</Script>
 			}
-			<Component {...pageProps} />
+			<div
+				className={`
+					relative
+					${inter.className}
+				`}
+			>
+				<Component {...pageProps} />
+			</div>
 		</>
 	);
 };

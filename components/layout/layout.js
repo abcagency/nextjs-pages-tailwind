@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { inter } from '~/styles/fonts';
 
 import { SectionContext } from '~/components/modules/sections/sectionContext';
 
@@ -16,10 +15,7 @@ const RootLayout = ({
 	return (
 		<div
 			id="top"
-			className={`
-				relative
-				${inter.className}
-			`}
+			className="relative"
 		>
 			<Provider>
 				<SectionContext.Provider
