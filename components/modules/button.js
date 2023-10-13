@@ -67,6 +67,9 @@ export const Anchor = ({
 			href={href}
 			target={target}
 			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			onClick={href === '#' ? e => {
+				e.preventDefault();
+			} : null}
 			{...rest}
 		>
 			{children}
