@@ -12,18 +12,21 @@ const linkDefaultClasses = "normal-case text-inherit !font-[inherit] [font-weigh
 const underlineClasses = "!underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline";
 
 const ButtonVariant = {
+	none: '',
 	primary: 'bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800',
 	secondary: 'bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800',
-	link: `${linkDefaultClasses} text-indigo-700 hover:text-indigo-500 focus:text-indigo-500`
+	link: `${linkDefaultClasses} text-indigo-700 hover:text-indigo-500 focus:text-indigo-500`,
+	icon: 'opacity-100 hover:opacity-80 focus:opacity-80'
 };
 
 const ButtonSize = {
-	sm: 'py-1 px-4 text-sm',
+	sq: 'p-2.5',
+	sm: 'py-1.5 px-4 text-sm',
 	lg: 'py-4 px-10 text-lg'
 };
 
 const ButtonDefaults = {
-	style: 'group font-bold uppercase text-center rounded transition-colors',
+	style: 'group font-bold uppercase text-center rounded transition',
 	size: 'py-2 px-6',
 	variant: ButtonVariant.primary,
 	block: 'block w-full'
