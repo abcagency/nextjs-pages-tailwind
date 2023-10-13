@@ -88,7 +88,7 @@ const VideoPlayer = ({
 					playing={isPlaying}
 					autoPlay={autoPlay}
 					width="100%"
-					height="auto"
+					height="100%"
 					muted={muted}
 					{...playerOptions}
 				/>
