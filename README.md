@@ -51,6 +51,9 @@ Create a new Next.js project using this starter:
 
 ```sh
 npx create-next-app my-new-website -e "https://github.com/abcagency/nextjs-pages-tailwind"
+```
+
+```sh
 cd my-new-website
 npm i
 ```
