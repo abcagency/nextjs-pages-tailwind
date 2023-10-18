@@ -30,7 +30,7 @@ const NotFoundPage = ({ router }) => {
 					>
 						<Icon
 							icon="mdi:home"
-							sizeClasses="w-6 h-6"
+							size="w-6 h-6"
 							className="inline-block"
 						/>
 						Head home

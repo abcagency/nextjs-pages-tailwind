@@ -22,7 +22,7 @@ const Footer = () => {
 						<span className="sr-only">To the top!</span>
 						<Button.Icon
 							icon="mdi:arrow-collapse-up"
-							sizeClasses="w-4 h-4"
+							size="w-4 h-4"
 						/>
 					</Button.Scroll>
 				</div>

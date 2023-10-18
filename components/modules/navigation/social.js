@@ -18,7 +18,7 @@ const NavSocial = () => {
 
 					<Button.Icon
 						icon={data.icon}
-						sizeClasses="w-4 h-4"
+						size="w-4 h-4"
 					/>
 				</Button.Anchor>
 			))}

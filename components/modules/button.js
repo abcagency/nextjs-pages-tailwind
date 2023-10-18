@@ -169,13 +169,13 @@ export const ButtonBody = ({
 
 export const ButtonIcon = ({
 	icon,
-	sizeClasses = 'w-4 h-4',
+	size = 'w-4 h-4',
 	className
 }) => {
 	return (
 		<Icon
 			icon={icon}
-			sizeClasses={sizeClasses}
+			size={size}
 			className={className ?? ''}
 		/>
 	);

@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 
 const IconContained = ({
 	className,
-	sizeClasses,
+	size,
 	icon,
 	iconClasses,
 	...iconProps
@@ -13,14 +13,14 @@ const IconContained = ({
 			className={`
 				inline-block align-middle
 				${className ?? ''}
-				${sizeClasses ?? ''}
+				${size ?? ''}
 			`}
 		>
 			<Icon
 				icon={icon}
 				className={`
 					${iconClasses ?? ''}
-					${sizeClasses ?? ''}
+					${size ?? ''}
 				`}
 				{...iconProps}
 			/>

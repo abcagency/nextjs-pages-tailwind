@@ -49,7 +49,7 @@ const VideoPlayer = ({
 				<Icon
 					icon="mdi:loading"
 					className="animate-spin text-white"
-					sizeClasses="w-16 h-16"
+					size="w-16 h-16"
 				/>
 			</div>
 			{/*

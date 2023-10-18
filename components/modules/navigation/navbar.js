@@ -31,7 +31,7 @@ const Navbar = ({ isPinned }) => {
 				>
 					<Icon
 						icon="mdi:robot"
-						sizeClasses="w-6 h-6"
+						size="w-6 h-6"
 					/>
 					<h1 className="text-gray-800 font-bold text-md no-underline">
 						{site.title}

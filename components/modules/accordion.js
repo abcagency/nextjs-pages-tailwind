@@ -69,7 +69,7 @@ export const AccordionTrigger = forwardRef((
 			{children}
 			<Icon
 				icon="mdi:chevron-down"
-				sizeClasses="w-4 h-4"
+				size="w-4 h-4"
 				className="transition-transform !transform !translate-y-1 group-data-[state=open]:!rotate-180"
 				aria-hidden="true"
 			/>
