@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 
-import Icon from '~/components/icon';
+import Icon from '~/components/modules/icon';
 
 /*
 Responsive video player using react-player
