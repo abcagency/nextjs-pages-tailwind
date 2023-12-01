@@ -1,5 +1,6 @@
-import { forwardRef, useEffect } from 'react';
+import { forwardRef } from 'react';
 import * as RadixAccordion from '@radix-ui/react-accordion';
+import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
 
@@ -28,9 +29,8 @@ const Accordion = ({
 export const AccordionItem = forwardRef((
 	{
 		id,
-		trigger,
 		children,
-		bodyClasses,
+		className,
 		...props
 	},
 	forwardedRef
@@ -39,12 +39,10 @@ export const AccordionItem = forwardRef((
 		<RadixAccordion.Item
 			ref={forwardedRef}
 			value={id}
+			className={className ?? ''}
 			{...props}
 		>
-			{trigger}
-			<AccordionContent className={bodyClasses ?? ''}>
-				{children}
-			</AccordionContent>
+			{children}
 		</RadixAccordion.Item>
 	);
 });
@@ -57,13 +55,13 @@ export const AccordionTrigger = forwardRef((
 	},
 	forwardedRef
 ) => (
-	<RadixAccordion.Header asChild className="AccordionHeader">
+	<RadixAccordion.Header asChild>
 		<RadixAccordion.Trigger
 			ref={forwardedRef}
-			className={`
-				group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200
-				${className ?? ''}
-			`}
+			className={twMerge(
+				'group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200',
+				className ?? ''
+			)}
 			{...props}
 		>
 			{children}
@@ -81,19 +79,27 @@ export const AccordionContent = forwardRef((
 	{
 		children,
 		className,
+		bodyClassName,
 		...props
 	},
 	forwardedRef
 ) => (
 	<RadixAccordion.Content
 		ref={forwardedRef}
-		className={`
-			border border-gray-200 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden
-			${className ?? ''}
-		`}
+		className={twMerge(
+			'border border-gray-200 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden',
+      	className ?? ''
+		)}
 		{...props}
 	>
-		<div className="p-4">{children}</div>
+		<div
+			className={twMerge(
+				'px-4 py-2',
+				bodyClassName ?? ''
+			)}
+		>
+			{children}
+		</div>
 	</RadixAccordion.Content>
 ));
 
