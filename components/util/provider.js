@@ -2,12 +2,16 @@
 
 import { Provider as RWBProvider } from 'react-wrap-balancer';
 
+import { SectionProvider } from '~/components/util/context/section';
+
 export function Provider({
 	children
 }) {
 	return (
-		<RWBProvider>
-			{children}
-		</RWBProvider>
+		<SectionProvider>
+			<RWBProvider>
+				{children}
+			</RWBProvider>
+		</SectionProvider>
 	);
 }

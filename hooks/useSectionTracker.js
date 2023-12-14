@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import trackEvent from '~/hooks/useEventTracker';
 
-import { SectionContext } from '~/components/modules/sections/sectionContext';
+import SectionContext from '~/components/util/context/section';
 
 const isBrowser = typeof window !== 'undefined';
 
