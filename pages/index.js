@@ -3,7 +3,7 @@ import Balancer from 'react-wrap-balancer';
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
-import Section from '~/components/modules/sections/default';
+import Section from '~/components/modules/section';
 import Button from '~/components/modules/button';
 
 import Next from '~/images/inline/next.svg';
