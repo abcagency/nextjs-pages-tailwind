@@ -49,6 +49,10 @@ module.exports = {
 					to: { height: 0 }
 				}
 			},
+			screens: {
+				xs: '475px',
+				...defaultTheme.screens
+			},
 			typography: {
 				DEFAULT: {
 					css: {
