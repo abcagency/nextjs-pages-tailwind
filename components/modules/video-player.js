@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import Image from 'next/image';
 
 import Icon from '~/components/modules/icon';
 
@@ -35,11 +34,11 @@ const VideoPlayer = ({
 	const [lightMode, setLightMode] = useState(placeholder);
 	const [isReady, setIsReady] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(autoPlay);
-	const [played, setPlayed] = useState(0);
 	const [seekTo, setSeekTo] = useState(null);
 	const [pageLoaded, setPageLoaded] = useState(false);
 	const playerRef = useRef(null);
 	const divRef = useRef(null);
+	const [lastPercentProgress, setLastPercentProgress] = useState(0);
 
 	useEffect(() => {
 		if (isBrowser) {
@@ -93,22 +92,35 @@ const VideoPlayer = ({
 						`}
 						url={url}
 						light={playOnLoad ? false : lightMode === false ? lightMode : placeholder}
-						progressInterval={3000}
-						// eslint-disable-next-line no-unused-vars
-						onProgress={(played, loaded) => {
-							setPlayed(played);
-							if (isBrowser) {
-								document.querySelectorAll('button:focus').forEach(el => el.blur());
-							}
+						onReady={() => {
+							setIsReady(true);
+							setIsPlaying(autoPlay);
 						}}
-						onReady={() => { setIsReady(true); setIsPlaying(autoPlay);}}
+						onStart={() => {
+							trackEvent('Engagement', 'video_start', title);
+						}}
 						onPlay={() => {
 							setIsPlaying(true);
-							trackEvent('Engagement', 'video_start', title);
 						}}
 						onPause={() => {
 							setIsPlaying(false);
 							trackEvent('Engagement', 'video_pause', title);
+						}}
+						progressInterval={1000}
+						onProgress={progress => {
+							const duration = playerRef.current.getDuration();
+							const percentPlayed = Math.floor((progress.playedSeconds * 10) / duration * 10);
+							// Only report progress if it's a multiple of 10 and not 0 nor 100 and not the last percent progress
+							if (percentPlayed !== 0 && percentPlayed !== 100 && percentPlayed % 10 === 0 && percentPlayed !== lastPercentProgress) {
+								trackEvent('Engagement', `video_progress_${progress}%`, title);
+								setLastPercentProgress(percentPlayed);
+							}
+							if (isBrowser) {
+								document.querySelectorAll('button:focus').forEach(el => el.blur());
+							}
+						}}
+						onEnded={() => {
+							trackEvent('Engagement', 'video_end', title);
 						}}
 						playing={isPlaying}
 						autoPlay={autoPlay}
