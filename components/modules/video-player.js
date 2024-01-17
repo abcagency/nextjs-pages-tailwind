@@ -4,6 +4,9 @@ import Image from 'next/image';
 
 import Icon from '~/components/modules/icon';
 
+// MAKE SURE TO KEEP THIS
+import trackEvent from '~/hooks/useEventTracker';
+
 /*
 Responsive video player using react-player
 @url: https://github.com/CookPete/react-player
@@ -99,8 +102,14 @@ const VideoPlayer = ({
 							}
 						}}
 						onReady={() => { setIsReady(true); setIsPlaying(autoPlay);}}
-						onPlay={() => setIsPlaying(true)}
-						onPause={() => setIsPlaying(false)}
+						onPlay={() => {
+							setIsPlaying(true);
+							trackEvent('Engagement', 'video_start', title);
+						}}
+						onPause={() => {
+							setIsPlaying(false);
+							trackEvent('Engagement', 'video_pause', title);
+						}}
 						playing={isPlaying}
 						autoPlay={autoPlay}
 						width="100%"
