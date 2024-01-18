@@ -112,7 +112,6 @@ const VideoPlayer = ({
 							const percentPlayed = Math.floor((progress.playedSeconds * 10) / duration * 10);
 							if ([10, 25, 50, 75].includes(percentPlayed) && percentPlayed !== lastPercentProgress) {
 								trackEvent('Engagement', `video_progress`, title, percentPlayed);
-								console.log(`Video progress: ${percentPlayed}%`);
 								setLastPercentProgress(percentPlayed);
 							}
 							if (isBrowser) {
