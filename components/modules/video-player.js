@@ -106,13 +106,13 @@ const VideoPlayer = ({
 							setIsPlaying(false);
 							trackEvent('Engagement', 'video_pause', title);
 						}}
-						progressInterval={1000}
+						progressInterval={500}
 						onProgress={progress => {
 							const duration = playerRef.current.getDuration();
 							const percentPlayed = Math.floor((progress.playedSeconds * 10) / duration * 10);
-							// Only report progress if it's a multiple of 10 and not 0 nor 100 and not the last percent progress
-							if (percentPlayed !== 0 && percentPlayed !== 100 && percentPlayed % 10 === 0 && percentPlayed !== lastPercentProgress) {
-								trackEvent('Engagement', `video_progress_${progress}%`, title);
+							if ([10, 25, 50, 75].includes(percentPlayed) && percentPlayed !== lastPercentProgress) {
+								trackEvent('Engagement', `video_progress`, title, percentPlayed);
+								console.log(`Video progress: ${percentPlayed}%`);
 								setLastPercentProgress(percentPlayed);
 							}
 							if (isBrowser) {
@@ -120,7 +120,7 @@ const VideoPlayer = ({
 							}
 						}}
 						onEnded={() => {
-							trackEvent('Engagement', 'video_end', title);
+							trackEvent('Engagement', 'video_complete', title);
 						}}
 						playing={isPlaying}
 						autoPlay={autoPlay}
