@@ -108,9 +108,9 @@ const AboutPage = () => {
 
 				<div className="max-w-2xl mx-auto mb-12">
 					<VideoPlayer
-						url="https://cdn.flowplayer.com/token:eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZGM0ZGEzMC1iOWJiLTQ1MWItYWJiNS0zY2RkYjQzMjZiNjQiLCJuYmYiOjE3MDYwMjM3MTksImlzcyI6Imh0dHBzOi8vd3d3LmZsb3dwbGF5ZXIuY29tIiwiZXhwIjoxNzA2MTEwMTE5LCJpYXQiOjE3MDYwMjM3MTl9.opGnkoSwJk9naZUrXL5ZBkScJBzIO9YSTc6NaMw8JppoDfWN8uxEuZe-Zv34Dp0P1iYBtM-bTt--6YHrp-uI48w9Af1P8WK3kwM09huGIHkD6XOswT6zgiarKEmPAC0__MOwGTwB1XOuCl0Ok9bxTLZwc30r7ipEKkJEk952AezPh2XHtYc1tZClg9mqhcd4XAmuGSD5tdMeMFHuQZpsEDsoyZ_VVrMZ3unGHYvuMpPL25LS15AOROCEv5qMBQMdJexlFM3yjPULwx4nN58f_seVLgTqGM74U0AEHNx3oON_8bA410ND47ZY_2dzxupdKsNjc43dNp3ayo1BqUw_GUgV30tVbtw013iHwxnma4Y2MPg69QTdTvq9LXgocUv2sIRCyOJbugXVNos8T778UedS7TZJgmubZVYTpDJ6Ew02wn6ZZgzRMa0B3s4-Nuinfm1DAWVcbz4OCM2kcRS2bgzIwUcPwnSMBFv88T-C5b8J-_KrEhXRZ8T0gnZKasPHVQxJ0ijx4KSXQKfTJpkz1JBta0q5A9T1hq5skG1Ef4iGCoUcofWIywJuPFgb0kQGCpajo3uvhQByXnLUjh01MZfH6hMdlOUalNLSicbsiQmYZ44ySnV7G7ZoilLXPCjt-fJdS_Ldwa0xnE8XCC3VRuDGNKHqLd30U0YFSTFTSUM/6c7629eb-c3af-4165-80d3-96cce8c83f78/hls/adc4da30-b9bb-451b-abb5-3cddb4326b64/playlist.m3u8"
-						title="Test Video"
-						placeholder="https://cdn.flowplayer.com/6c7629eb-c3af-4165-80d3-96cce8c83f78/i/v-i-adc4da30-b9bb-451b-abb5-3cddb4326b64-1.jpg"
+						url="https://www.youtube.com/embed/NpEaa2P7qZI"
+						title="QID CHW Project"
+						placeholder="https://img.youtube.com/vi/NpEaa2P7qZI/hqdefault.jpg"
 						playsinline={true}
 						controls={true}
 					/>
