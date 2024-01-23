@@ -20,6 +20,7 @@ const ButtonVariant = {
 };
 
 const ButtonSize = {
+	none: '',
 	sq: 'p-2.5',
 	sm: 'py-1.5 px-4 text-sm',
 	lg: 'py-4 px-10 text-lg'
