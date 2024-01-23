@@ -5,6 +5,7 @@ import Section from '~/components/modules/section';
 import Card from '~/components/modules/card';
 import Accordion from '~/components/modules/accordion';
 import SlideIn from '~/components/modules/animations/slidein';
+import Grid from '~/components/modules/grid';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
@@ -33,49 +34,36 @@ const AboutPage = () => {
 				className="container px-4 my-12"
 			>
 				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
-				<div className="md:grid md:grid-cols-2 md:gap-4 mb-12">
+				<Grid className="mb-12">
 					<SlideIn>
-						<Card.Default
-							image={
-								<Card.Image
-									image={FpoImage}
-									alt="FPO image"
-								/>
-							}
-							body={
-								<Card.Body>
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae.</p>
-								</Card.Body>
-							}
-							footer={
-								<Card.Footer>
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-								</Card.Footer>
-							}
-						/>
+						<Card.Default>
+							<Card.Image
+								image={FpoImage}
+								alt="FPO image"
+							/>
+							<Card.Body>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae.</p>
+							</Card.Body>
+							<Card.Footer>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+							</Card.Footer>
+						</Card.Default>
 					</SlideIn>
 					<SlideIn>
-						<Card.Link
-							href="#"
-							image={
-								<Card.Image
-									image={FpoImage}
-									alt="FPO image"
-								/>
-							}
-							body={
-								<Card.Body>
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae.</p>
-								</Card.Body>
-							}
-							footer={
-								<Card.Footer>
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-								</Card.Footer>
-							}
-						/>
+						<Card.Link href="#">
+							<Card.Image
+								image={FpoImage}
+								alt="FPO image"
+							/>
+							<Card.Body>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae.</p>
+							</Card.Body>
+							<Card.Footer>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+							</Card.Footer>
+						</Card.Link>
 					</SlideIn>
-				</div>
+				</Grid>
 			</Section>
 
 			<Section
