@@ -86,21 +86,27 @@ const AboutPage = () => {
 				<Accordion defaultValue="item-1">
 					<Accordion.Item
 						id="item-1"
-						trigger={<Accordion.Trigger>Item 1</Accordion.Trigger>}
 					>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						<Accordion.Trigger>Item 1</Accordion.Trigger>
+						<Accordion.Content>
+							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						</Accordion.Content>
 					</Accordion.Item>
 					<Accordion.Item
 						id="item-2"
-						trigger={<Accordion.Trigger>Item 2</Accordion.Trigger>}
 					>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						<Accordion.Trigger>Item 2</Accordion.Trigger>
+						<Accordion.Content>
+							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						</Accordion.Content>
 					</Accordion.Item>
 					<Accordion.Item
 						id="item-3"
-						trigger={<Accordion.Trigger>Item 3</Accordion.Trigger>}
 					>
-						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						<Accordion.Trigger>Item 3</Accordion.Trigger>
+						<Accordion.Content>
+							<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat dolor inventore deserunt, perferendis asperiores quibusdam repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat, qui dolor tenetur maiores at voluptate enim modi asperiores ab corrupti explicabo recusandae ea excepturi assumenda quae iure rem similique consectetur veritatis minima. Natus.</p>
+						</Accordion.Content>
 					</Accordion.Item>
 				</Accordion>
 			</Section>

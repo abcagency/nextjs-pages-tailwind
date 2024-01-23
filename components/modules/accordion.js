@@ -87,14 +87,14 @@ export const AccordionContent = forwardRef((
 	<RadixAccordion.Content
 		ref={forwardedRef}
 		className={twMerge(
-			'border border-gray-200 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden',
+			'data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden',
       	className ?? ''
 		)}
 		{...props}
 	>
 		<div
 			className={twMerge(
-				'px-4 py-2',
+				'px-4 py-2 border border-gray-200',
 				bodyClassName ?? ''
 			)}
 		>
