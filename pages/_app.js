@@ -21,9 +21,11 @@ const App = ({ Component, pageProps }) => {
 					}
 				}
 			/>
-			{(gtmId && process.env.NODE_ENV === 'production') &&
+			{/* {(gtmId && process.env.NODE_ENV === 'production') &&
 				<GoogleTagManager gtmId={site.analytics.gtmId} />
-			}
+			} */}
+			<GoogleTagManager gtmId={site.analytics.gtmId} />
+
 			<div
 				className={`
 					relative
