@@ -131,7 +131,7 @@ const VideoPlayer = ({
 								<span className="sr-only">Play</span>
 								<Icon
 									icon="fe:play"
-									sizeClasses="w-16 h-16"
+									size="w-16 h-16"
 									className="text-white drop-shadow-md translate-x-1"
 								/>
 							</button>
