@@ -15,7 +15,7 @@
 		}
 	},
 	"analytics": {
-		"gtmId": "GOOGLE_TAGMANAGER_ID"
+		"gtmId": ""
 	},
 	"social": [
 		{
