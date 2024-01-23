@@ -21,6 +21,7 @@ const isBrowser = typeof window !== 'undefined';
 
 const VideoPlayer = ({
 	url,
+	title,
 	imageAlt,
 	placeholder,
 	className,
