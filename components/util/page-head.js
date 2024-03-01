@@ -13,6 +13,16 @@ const PageHead = ({
 	const pageTitle = title || defaultTitle;
 	const metaDescription = description || site.description;
 
+	const schemaString = {
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		url: `${process.env.NEXT_PUBLIC_HOST}${router?.pathname}`,
+		legalName: defaultTitle,
+		name: pageTitle,
+		about: metaDescription,
+		brand: defaultTitle
+	};
+
 	return (
 		<Head>
 			<title>{title ? `${title} | ${defaultTitle}` : defaultTitle}</title>
@@ -35,17 +45,7 @@ const PageHead = ({
 			<meta name="twitter:title" content={pageTitle} />
 			<meta name="twitter:description" content={metaDescription} />
 			<script type="application/ld+json">
-				{`
-						{
-							"@context": "https://schema.org",
-							"@type": "WebPage",
-							"url": "${process.env.NEXT_PUBLIC_HOST}${router?.pathname}",
-							"legalName": "${defaultTitle}",
-							"name": "${pageTitle}",
-							"about": "${metaDescription}",
-							"brand": "${defaultTitle}"
-						}
-				`}
+				{JSON.stringify(schemaString)}
 			</script>
 
 			<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
