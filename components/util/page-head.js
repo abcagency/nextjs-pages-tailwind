@@ -13,16 +13,6 @@ const PageHead = ({
 	const pageTitle = title || defaultTitle;
 	const metaDescription = description || site.description;
 
-	const schemaString = {
-		'@context': 'https://schema.org',
-		'@type': 'WebPage',
-		url: `${process.env.NEXT_PUBLIC_HOST}${router?.pathname}`,
-		legalName: defaultTitle,
-		name: pageTitle,
-		about: metaDescription,
-		brand: defaultTitle
-	};
-
 	return (
 		<Head>
 			<title>{title ? `${title} | ${defaultTitle}` : defaultTitle}</title>
@@ -44,6 +34,20 @@ const PageHead = ({
 			<meta name="twitter:creator" content={site?.author} />
 			<meta name="twitter:title" content={pageTitle} />
 			<meta name="twitter:description" content={metaDescription} />
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@type': 'WebPage',
+						url: `${process.env.NEXT_PUBLIC_HOST}${router?.pathname}`,
+						legalName: defaultTitle,
+						name: pageTitle,
+						about: metaDescription,
+						brand: defaultTitle
+					})
+				}}
+			/>
 			<script type="application/ld+json">
 				{JSON.stringify(schemaString)}
 			</script>
