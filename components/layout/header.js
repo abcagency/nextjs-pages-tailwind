@@ -5,7 +5,11 @@ import Headroom from 'react-headroom';
 
 import Navbar from '~/components/modules/navigation/navbar';
 
+import { useHeadroom } from '~/components/util/context/headroom';
+
 const Header = () => {
+	const { headroomIsDisabled } = useHeadroom();
+
 	const [isPinned, setIsPinned] = useState(false);
 
 	return (
@@ -13,6 +17,7 @@ const Header = () => {
 			style={{ zIndex: 50 }}
 			onPin={() => setIsPinned(true)}
 			onUnfix={() => setIsPinned(false)}
+			disable={headroomIsDisabled}
 		>
 			<header>
 				<Navbar isPinned={isPinned} />
