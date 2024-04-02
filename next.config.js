@@ -1,5 +1,6 @@
 const site = require('./data/site.json');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const redirects = require('./data/redirects.js');
 
 module.exports = {
 	reactStrictMode: true,
@@ -9,6 +10,9 @@ module.exports = {
 	i18n: {
 		locales: ['en-US'],
 		defaultLocale: 'en-US'
+	},
+	async redirects() {
+		return redirects;
 	},
 	webpack(config) {
 		config.plugins.push(new FaviconsWebpackPlugin({
