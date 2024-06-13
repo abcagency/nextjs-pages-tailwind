@@ -23,15 +23,6 @@
 			"contributions": [
 				"code"
 			]
-		},
-		{
-			"login": "stuart905",
-			"name": "Stuart Thomas",
-			"avatar_url": "https://avatars.githubusercontent.com/u/25408000?s=120&v=4",
-			"profile": "https://abccreative.com/team/Stuart-Thomas",
-			"contributions": [
-				"code"
-			]
 		}
 	],
 	"contributorsPerLine": 4,
