@@ -120,7 +120,6 @@ npm i     # Update installed packages and package-lock.json
   <tr>
     <td align="center" style=""><img src="https://avatars.githubusercontent.com/u/6616625?s=60&v=4" width="100px;"  style="background-color: #000; border-radius: 9999px;" alt="Jason Cockerham"/><br /><sub><b>Jason Cockerham</b></sub></td>
 		<td align="center"><img src="https://avatars.githubusercontent.com/u/650202?s=120&v=4" width="100px;"  style="border-radius: 9999px;" alt="Chris Marts"/><br /><sub><b>Chris Marts</b></sub></td>
-		<td align="center"><img src="https://avatars.githubusercontent.com/u/25408000?s=120&v=4" width="100px;" style="border-radius: 9999px;" alt="Stuart Thomas"/><br /><sub><b>Stuart Thomas</b></sub></td>
   </tr>
 </table>
 <!-- markdownlint-enable -->
