@@ -119,7 +119,7 @@ export const CardTitle = ({
 	return (
 		<h3
 			className={twMerge(
-				'text-2xl font-bold',
+				'text-2xl font-bold text-pretty',
 				className ?? ''
 			)}
 		>
