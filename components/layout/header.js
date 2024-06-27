@@ -16,6 +16,7 @@ const Header = () => {
 		<Headroom
 			style={{ zIndex: 50 }}
 			onPin={() => setIsPinned(true)}
+			onUnpin={() => setIsPinned(false)}
 			onUnfix={() => setIsPinned(false)}
 			disable={headroomIsDisabled}
 		>
