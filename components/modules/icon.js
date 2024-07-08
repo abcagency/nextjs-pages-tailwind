@@ -1,25 +1,29 @@
 'use client';
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify-icon/react';
 
 const IconContained = ({
 	className,
 	size,
 	icon,
-	iconClasses,
+	iconClassName,
+	inline = false,
 	...iconProps
 }) => {
 	return (
 		<span
 			className={`
-				inline-block align-middle
+				inline-flex align-middle
 				${className ?? ''}
 				${size ?? ''}
 			`}
 		>
 			<Icon
 				icon={icon}
+				inline={inline}
+				height="100%"
+				width="100%"
 				className={`
-					${iconClasses ?? ''}
+					${iconClassName ?? ''}
 					${size ?? ''}
 				`}
 				{...iconProps}
