@@ -1,5 +1,5 @@
-'use client';
 import { Icon } from '@iconify-icon/react';
+import { twMerge } from 'tailwind-merge';
 
 const IconContained = ({
 	className,
@@ -11,7 +11,7 @@ const IconContained = ({
 }) => {
 	return (
 		<span
-			className={`
+			className={twMerge`
 				inline-flex align-middle
 				${className ?? ''}
 				${size ?? ''}
