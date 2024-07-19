@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 const IconContained = ({
 	className,
-	size,
+	size = 'size-4',
 	icon,
 	iconClassName,
 	inline = false,
