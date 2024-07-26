@@ -170,7 +170,7 @@ export const ButtonBody = ({
 
 export const ButtonIcon = ({
 	icon,
-	size = 'w-4 h-4',
+	size = 'size-4',
 	inline,
 	className
 }) => {
