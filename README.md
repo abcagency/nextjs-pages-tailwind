@@ -82,18 +82,6 @@ npm run build
 
 ---
 
-## [Unlighthouse](https://unlighthouse.dev/)
-
-Run lighthouse performance metrics on your entire site.
-
-```sh
-unlighthouse --site <your-site>
-```
-
-`<your-site>` is the URL of your site, e.g. `https://www.example.com`.
-
----
-
 ## Upgrade `package.json` package versions
 
 Install [npm-check-updates](https://www.npmjs.com/package/npm-check-updates):
@@ -110,6 +98,34 @@ Upgrade a project's package file:
 ncu -u    # Upgrade package.json
 npm i     # Update installed packages and package-lock.json
 ```
+
+---
+
+## [React Scan](https://github.com/aidenybai/react-scan)
+
+React Scan automatically detects performance issues in your React app.
+
+```sh
+# Start normal dev server
+
+npm run dev
+
+# Start React Scan
+
+npx react-scan@latest http://localhost:3000
+```
+
+---
+
+## [Unlighthouse](https://unlighthouse.dev/)
+
+Run lighthouse performance metrics on your entire site.
+
+```sh
+npx unlighthouse --site <your-site>
+```
+
+`<your-site>` is the URL of your site, e.g. `https://www.example.com`.
 
 ---
 
