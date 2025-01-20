@@ -30,7 +30,7 @@
 .button-link {
 	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
 
-	&.button-link--primary {
+	&.link-primary {
 		@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
 	}
 }
