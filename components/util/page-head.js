@@ -4,6 +4,7 @@ import Head from 'next/head';
 import site from '~/data/site.json';
 
 const PageHead = ({
+	shareImage,
 	description,
 	keywords,
 	title
@@ -12,6 +13,9 @@ const PageHead = ({
 	const defaultTitle = site.title;
 	const pageTitle = title || defaultTitle;
 	const metaDescription = description || site.description;
+
+	const shareImageSrc = shareImage?.src || shareImage;
+	const ogImage = shareImageSrc ? `${shareImageSrc[0] === '/' ? shareImageSrc : `${shareImageSrc}`}` : `${process.env.NEXT_PUBLIC_HOST}/${siteConfig.shareImage}`;
 
 	return (
 		<Head>
@@ -25,9 +29,7 @@ const PageHead = ({
 
 			<meta property="og:title" content={pageTitle} />
 			<meta property="og:description" content={metaDescription} />
-			{site?.shareImage &&
-				<meta property="og:image" content={`${process.env.NEXT_PUBLIC_HOST}/${site.shareImage}`} />
-			}
+			<meta property="og:image" content={ogImage} />
 			<meta property="og:type" content="website" />
 
 			<meta name="twitter:card" content="summary" />
