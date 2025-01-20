@@ -10,7 +10,7 @@ const buttonClasses = (variant, size, isBlock, hasUnderline, className) => twMer
 	isBlock && 'isBlock',
 	hasUnderline && 'hasUnderline',
 	variant ? variant : 'button button-primary',
-	size ? size : 'button-default',
+	size ? `button-${size}` : 'button-md',
 	className ?? ''
 );
 

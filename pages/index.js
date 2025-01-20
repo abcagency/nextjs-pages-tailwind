@@ -40,7 +40,7 @@ const Home = () => {
 					<Button.Link
 						href="/"
 						variant="button button-primary"
-						size="button-lg"
+						size="lg"
 					>
 						Large
 					</Button.Link>
