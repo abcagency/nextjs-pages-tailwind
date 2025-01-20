@@ -28,6 +28,32 @@ const Home = () => {
 			</Jumbotron>
 
 			<Section
+				id="test"
+				className="container px-4 mb-24"
+			>
+				<nav className="flex flex-wrap gap-4 items-start">
+					<Button.Link
+						href="/"
+					>
+						Default/Primary
+					</Button.Link>
+					<Button.Link
+						href="/"
+						variant="button button-primary"
+						size="button-lg"
+					>
+						Large
+					</Button.Link>
+					<Button.Link
+						href="/"
+						isBlock
+					>
+						Block
+					</Button.Link>
+				</nav>
+			</Section>
+
+			<Section
 				id="intro"
 				className="container px-4 mb-24"
 			>

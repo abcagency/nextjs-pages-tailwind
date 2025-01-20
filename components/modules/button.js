@@ -5,42 +5,12 @@ import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
 
-// Notes:
-// Button with a variant of 'link' should not contain a <Button.Body>.
-
-const linkDefaultClasses = "normal-case text-inherit !font-[inherit] [font-weight:inherit] !p-0 rounded-none";
-const underlineClasses = "!underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline";
-
-const ButtonVariant = {
-	none: '',
-	primary: 'bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800',
-	secondary: 'bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800',
-	link: `${linkDefaultClasses} text-indigo-700 hover:text-indigo-500 focus:text-indigo-500`,
-	icon: 'opacity-100 hover:opacity-80 focus:opacity-80'
-};
-
-const ButtonSize = {
-	none: '',
-	sq: 'p-2.5',
-	sm: 'py-1.5 px-4 text-sm',
-	lg: 'py-4 px-10 text-lg'
-};
-
-const ButtonDefaults = {
-	style: 'group font-bold uppercase text-center rounded transition',
-	size: 'py-2 px-6',
-	variant: ButtonVariant.primary,
-	block: 'block w-full'
-};
-
-const linkVariants = variant => variant === 'link';
-
 const buttonClasses = (variant, size, isBlock, hasUnderline, className) => twMerge(
-	isBlock ? ButtonDefaults.block : linkVariants(variant) ? 'inline' : 'inline-block',
-	ButtonDefaults.style,
-	variant ? ButtonVariant[variant] : ButtonDefaults.variant,
-	size ? ButtonSize[size] : ButtonDefaults.size,
-	hasUnderline ? underlineClasses : '',
+	'group',
+	isBlock && 'isBlock',
+	hasUnderline && 'hasUnderline',
+	variant ? variant : 'button button-primary',
+	size ? size : 'button-default',
 	className ?? ''
 );
 
