@@ -7,6 +7,9 @@ module.exports = {
 	experimental: {
 		scrollRestoration: true
 	},
+	eslint: {
+		dirs: ['components', 'hooks', 'lib', 'pages']
+	},
 	i18n: {
 		locales: ['en-US'],
 		defaultLocale: 'en-US'
