@@ -3,21 +3,14 @@ import SkipLink from '~/components/modules/navigation/skip-link';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 
-const RootLayout = ({
-	children
-}) => {
+const RootLayout = ({ children }) => {
 	return (
-		<div
-			id="top"
-			className="relative"
-		>
+		<div id="top" className="relative">
 			<Provider>
 				<SkipLink />
 				<Header />
 
-				<main id="start-of-content">
-					{children}
-				</main>
+				<main id="start-of-content">{children}</main>
 
 				<Footer />
 			</Provider>

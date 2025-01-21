@@ -4,17 +4,18 @@ import useSectionTracker from '~/hooks/useSectionTracker';
 
 const isBrowser = typeof window !== 'undefined';
 
-const Section = ({
-	children,
-	className,
-	...props
-}) => {
+const Section = ({ children, className, ...props }) => {
 	const sectionIsIntersecting = useSectionTracker();
 
 	const onChange = (inView, entry) => {
 		if (inView) {
 			if (entry.intersectionRatio > 0 && sectionIsIntersecting) {
-				sectionIsIntersecting(entry.target.id, entry.intersectionRatio, entry.intersectionRatio * entry.boundingClientRect.height / (isBrowser ? window.innerHeight : 1));
+				sectionIsIntersecting(
+					entry.target.id,
+					entry.intersectionRatio,
+					(entry.intersectionRatio * entry.boundingClientRect.height) /
+						(isBrowser ? window.innerHeight : 1)
+				);
 			}
 		}
 	};
@@ -35,11 +36,7 @@ const Section = ({
 	);
 };
 
-export const SectionTitle = ({
-	as = 'h2',
-	children,
-	className
-}) => {
+export const SectionTitle = ({ as = 'h2', children, className }) => {
 	const Title = as;
 
 	return (

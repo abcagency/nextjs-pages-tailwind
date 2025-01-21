@@ -54,7 +54,11 @@ const useSectionTracker = () => {
 		// Otherwise, add the section to the list
 		if (!found) {
 			setSections(sections => {
-				sections.push({ id, threshold: newThreshold, active: newThreshold < RATIO ? false : true });
+				sections.push({
+					id,
+					threshold: newThreshold,
+					active: newThreshold < RATIO ? false : true
+				});
 				return sections;
 			});
 		}
@@ -78,7 +82,7 @@ const useSectionTracker = () => {
 				setHash(ignore.some(id => id === sectionId) ? ' ' : sectionId);
 				trackEvent('Engagement', 'View Section', sectionId);
 				setCurrentSection(sectionId);
-			// } else {
+				// } else {
 			} else if (isBrowser && window.scrollY < 100) {
 				setCurrentSection(' ');
 				setHash(' ');

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const SlideIn = ({
-	as = "div",
+	as = 'div',
 	children,
 	delay = 0.05,
 	opacity = 1,
@@ -14,7 +14,7 @@ const SlideIn = ({
 
 	const { scrollYProgress } = useScroll({
 		target: ref,
-		offset: ["start end", `start 0.85`]
+		offset: ['start end', `start 0.85`]
 	});
 
 	const scaleContained = useTransform(scrollYProgress, [0, 1], [scale, 1]);

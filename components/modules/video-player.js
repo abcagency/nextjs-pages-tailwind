@@ -62,29 +62,27 @@ const VideoPlayer = ({
 	}, [isReady, seekTo]);
 
 	return (
-		<div
-			className={`${containerClassName ?? ''}`}
-		>
-			<div
-				ref={divRef}
-				className="block relative w-full overflow-hidden"
-			>
+		<div className={`${containerClassName ?? ''}`}>
+			<div ref={divRef} className="block relative w-full overflow-hidden">
 				{/*
 					Inline switch to set player aspect ratio
 					@default: 16x9
 					@usage: aspectRatio="21x9"
 				*/}
-				{
-					{
-						'21x9': <span className="block pt-[42.86%]" aria-hidden="true"></span>,
-						'16x9': <span className="block pt-[56.25%]" aria-hidden="true"></span>,
-						'4x3': <span className="block pt-[75%]" aria-hidden="true"></span>,
-						'1x1': <span className="block pt-[100%]" aria-hidden="true"></span>
-					}[aspectRatio]
-					|| <span className="block pt-[56.25%]" aria-hidden="true"></span>
-				}
+				{{
+					'21x9': (
+						<span className="block pt-[42.86%]" aria-hidden="true"></span>
+					),
+					'16x9': (
+						<span className="block pt-[56.25%]" aria-hidden="true"></span>
+					),
+					'4x3': <span className="block pt-[75%]" aria-hidden="true"></span>,
+					'1x1': <span className="block pt-[100%]" aria-hidden="true"></span>
+				}[aspectRatio] || (
+					<span className="block pt-[56.25%]" aria-hidden="true"></span>
+				)}
 
-				{pageLoaded &&
+				{pageLoaded && (
 					<ReactPlayer
 						ref={playerRef}
 						className={`
@@ -92,7 +90,9 @@ const VideoPlayer = ({
 							${className ?? ''}
 						`}
 						url={url}
-						light={playOnLoad ? false : lightMode === false ? lightMode : placeholder}
+						light={
+							playOnLoad ? false : lightMode === false ? lightMode : placeholder
+						}
 						onReady={() => {
 							setIsReady(true);
 							setIsPlaying(autoPlay);
@@ -110,13 +110,25 @@ const VideoPlayer = ({
 						progressInterval={500}
 						onProgress={progress => {
 							const duration = playerRef.current.getDuration();
-							const percentPlayed = Math.floor((progress.playedSeconds * 10) / duration * 10);
-							if ([10, 25, 50, 75].includes(percentPlayed) && percentPlayed !== lastPercentProgress) {
-								trackEvent('Engagement', `video_progress`, title, percentPlayed);
+							const percentPlayed = Math.floor(
+								((progress.playedSeconds * 10) / duration) * 10
+							);
+							if (
+								[10, 25, 50, 75].includes(percentPlayed) &&
+								percentPlayed !== lastPercentProgress
+							) {
+								trackEvent(
+									'Engagement',
+									`video_progress`,
+									title,
+									percentPlayed
+								);
 								setLastPercentProgress(percentPlayed);
 							}
 							if (isBrowser) {
-								document.querySelectorAll('button:focus').forEach(el => el.blur());
+								document
+									.querySelectorAll('button:focus')
+									.forEach(el => el.blur());
 							}
 						}}
 						onEnded={() => {
@@ -139,7 +151,7 @@ const VideoPlayer = ({
 						}
 						{...playerOptions}
 					/>
-				}
+				)}
 			</div>
 		</div>
 	);

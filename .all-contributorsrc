@@ -1,7 +1,5 @@
 {
-	"files": [
-		"README.md"
-	],
+	"files": ["README.md"],
 	"imageSize": 100,
 	"commit": false,
 	"contributors": [
@@ -10,19 +8,14 @@
 			"name": "Jason Cockerham",
 			"avatar_url": "https://avatars.githubusercontent.com/u/6616625?s=60&v=4",
 			"profile": "https://abccreative.com/team/Jason-Cockerham",
-			"contributions": [
-				"code",
-				"design"
-			]
+			"contributions": ["code", "design"]
 		},
 		{
 			"login": "chrismarts",
 			"name": "Chris Marts",
 			"avatar_url": "https://avatars.githubusercontent.com/u/650202?s=120&v=4",
 			"profile": "https://abccreative.com/team/Chris-Marts",
-			"contributions": [
-				"code"
-			]
+			"contributions": ["code"]
 		}
 	],
 	"contributorsPerLine": 4,

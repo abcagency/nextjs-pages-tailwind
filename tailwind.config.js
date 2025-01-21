@@ -25,7 +25,7 @@ export default {
 				}
 			},
 			fontFamily: {
-				'sans': ['var(--font-inter)', ...defaultTheme.fontFamily.sans]
+				sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans]
 			},
 			fontSize: {
 				'2xs': '0.65rem',
@@ -62,7 +62,7 @@ export default {
 						}
 					}
 				},
-				'sm': {
+				sm: {
 					css: {
 						video: {
 							'margin-bottom': 0,
@@ -70,7 +70,7 @@ export default {
 						}
 					}
 				},
-				'md': {
+				md: {
 					css: {
 						video: {
 							'margin-bottom': 0,
@@ -78,7 +78,7 @@ export default {
 						}
 					}
 				},
-				'lg': {
+				lg: {
 					css: {
 						video: {
 							'margin-bottom': 0,
@@ -86,7 +86,7 @@ export default {
 						}
 					}
 				},
-				'xl': {
+				xl: {
 					css: {
 						video: {
 							'margin-bottom': 0,
@@ -105,7 +105,7 @@ export default {
 			},
 			zIndex: {
 				'-1': '-1',
-				'1': '1'
+				1: '1'
 			}
 		}
 	},
