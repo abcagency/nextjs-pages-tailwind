@@ -15,7 +15,7 @@ const PageHead = ({
 	const metaDescription = description || site.description;
 
 	const shareImageSrc = shareImage?.src || shareImage;
-	const ogImage = shareImageSrc ? `${shareImageSrc[0] === '/' ? shareImageSrc : `${shareImageSrc}`}` : `${process.env.NEXT_PUBLIC_HOST}/${siteConfig.shareImage}`;
+	const ogImage = shareImageSrc ? `${shareImageSrc[0] === '/' ? shareImageSrc : `${shareImageSrc}`}` : `${process.env.NEXT_PUBLIC_HOST}/${site.shareImage}`;
 
 	return (
 		<Head>
