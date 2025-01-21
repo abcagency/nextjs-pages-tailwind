@@ -5,12 +5,20 @@ import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
 
-const buttonClasses = (variant, size, isBlock, hasUnderline, className) => twMerge(
+const buttonClasses = (
+	type = 'button',
+	variant = 'primary',
+	size = 'md',
+	isBlock,
+	hasUnderline,
+	className
+) => twMerge(
 	'group',
+	type,
 	isBlock && 'isBlock',
 	hasUnderline && 'hasUnderline',
-	variant ? `button-${variant}` : 'button button-primary',
-	size ? `button-${size}` : 'button-md',
+	variant && `${type}-${variant}`,
+	size && `${type}-${size}`,
 	className ?? ''
 );
 
@@ -26,6 +34,7 @@ export const Anchor = ({
 	children,
 	href,
 	className,
+	type,
 	size,
 	variant,
 	isBlock,
@@ -37,7 +46,7 @@ export const Anchor = ({
 		<a
 			href={href}
 			target={target}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
 			onClick={href === '#' ? e => {
 				e.preventDefault();
 			} : null}
@@ -54,6 +63,7 @@ export const AnchorLink = ({
 	className,
 	activeClassName,
 	partiallyActive = false,
+	type,
 	size,
 	variant,
 	isBlock,
@@ -66,7 +76,7 @@ export const AnchorLink = ({
 		<Link
 			href={href}
 			className={`
-				${buttonClasses(variant, size, isBlock, hasUnderline, className)}
+				${buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
 				${(activeClassName && router.pathname === href) || (router.pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
 			`}
 			{...rest}
@@ -81,6 +91,7 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 		children,
 		href,
 		className,
+		type,
 		size,
 		variant,
 		isBlock,
@@ -93,7 +104,7 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 			ref={ref}
 			href={`#${href}`}
 			scroll={false}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
 			{...rest}
 		>
 			{children}
@@ -104,8 +115,9 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 export const Btn = forwardRef((props, ref) => {
 	const {
 		children,
-		type = 'button',
+		btnType = 'button',
 		className,
+		type,
 		size,
 		variant,
 		isBlock,
@@ -115,8 +127,8 @@ export const Btn = forwardRef((props, ref) => {
 	return (
 		<button
 			ref={ref}
-			type={type}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			type={btnType}
+			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
 			{...rest}
 		>
 			{children}

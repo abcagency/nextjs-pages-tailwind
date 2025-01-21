@@ -27,14 +27,6 @@
 	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
 }
 
-.button-link {
-	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
-
-	&.link-primary {
-		@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
-	}
-}
-
 .button-primary {
 	@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;
 }
@@ -69,4 +61,13 @@
 
 .button-lg {
 	@apply py-3 px-6 text-lg;
+}
+
+/* Link */
+.link {
+	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
+}
+
+.link-primary {
+	@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
 }
