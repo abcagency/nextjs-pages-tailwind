@@ -2,12 +2,8 @@ import { forwardRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-const NavLink = ({
-	children
-}) => {
-	return (
-		{ children }
-	);
+const NavLink = ({ children }) => {
+	return { children };
 };
 
 export const Anchor = ({
@@ -19,7 +15,9 @@ export const Anchor = ({
 	...rest
 }) => {
 	const pathname = usePathname();
-	const isActive = (activeClassName && pathname === href) || (pathname.startsWith(`${href}/`) && partiallyActive);
+	const isActive =
+		(activeClassName && pathname === href) ||
+		(pathname.startsWith(`${href}/`) && partiallyActive);
 
 	return (
 		<Link

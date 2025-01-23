@@ -25,14 +25,8 @@ const Navbar = ({ isPinned }) => {
 					${isPinned ? 'md:translate-y-2 md:bg-white/20 md:border md:border-gray-400/20 md:!backdrop-blur md:rounded-full' : ''}
 				`}
 			>
-				<Link
-					href="/"
-					className="flex gap-2 items-center"
-				>
-					<Icon
-						icon="mdi:robot"
-						size="size-6"
-					/>
+				<Link href="/" className="flex gap-2 items-center">
+					<Icon icon="mdi:robot" size="size-6" />
 					<h1 className="text-gray-800 font-bold text-md no-underline">
 						{site.title}
 					</h1>

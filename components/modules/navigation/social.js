@@ -16,10 +16,7 @@ const NavSocial = () => {
 				>
 					<span className="sr-only">{data.label}</span>
 
-					<Button.Icon
-						icon={data.icon}
-						size="w-4 h-4"
-					/>
+					<Button.Icon icon={data.icon} size="w-4 h-4" />
 				</Button.Anchor>
 			))}
 		</nav>

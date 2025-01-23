@@ -32,20 +32,10 @@ const Grid = forwardRef((props, ref) => {
 	);
 });
 
-export const GridItem = ({
-	as = 'div',
-	children,
-	className
-}) => {
+export const GridItem = ({ as = 'div', children, className }) => {
 	const Container = as;
 
-	return (
-		<Container
-			className={className ?? ''}
-		>
-			{children}
-		</Container>
-	);
+	return <Container className={className ?? ''}>{children}</Container>;
 };
 
 Grid.Item = GridItem;

@@ -7,7 +7,7 @@ export default function useWindowSize() {
 		width: undefined,
 		height: undefined
 	});
-	
+
 	useEffect(() => {
 		// Handler to call on window resize
 		function handleResize() {
@@ -18,11 +18,11 @@ export default function useWindowSize() {
 			});
 		}
 		// Add event listener
-		window.addEventListener("resize", () => {
+		window.addEventListener('resize', () => {
 			window.requestAnimationFrame(handleResize);
 		});
 		// Remove event listener on cleanup
-		return () => window.removeEventListener("resize", handleResize);
+		return () => window.removeEventListener('resize', handleResize);
 	}, []); // Empty array ensures that effect is only run on mount
 	return windowSize;
 }
