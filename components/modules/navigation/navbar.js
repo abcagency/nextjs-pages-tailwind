@@ -15,8 +15,8 @@ const Navbar = ({ isPinned }) => {
 	return (
 		<div
 			className={`
-				px-4 transition-all border-b border-gray-400/20 backdrop-blur
-				${isPinned ? 'mb:bg-transparent md:border-0 md:backdrop-blur-[unset]' : ''}
+				px-4 transition-all border-b border-gray-400/20 backdrop-blur-sm
+				${isPinned ? 'mb:bg-transparent md:border-0 md:backdrop-blur-none' : ''}
 			`}
 		>
 			<div
