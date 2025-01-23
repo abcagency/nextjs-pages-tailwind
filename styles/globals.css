@@ -5,8 +5,6 @@
 @plugin '@tailwindcss/typography';
 @plugin 'tailwindcss-animate';
 
-/* @config '../tailwind.config.js'; */
-
 @theme {
 	/* Animations */
 	@keyframes slideDown {
