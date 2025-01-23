@@ -55,6 +55,10 @@
 	}
 }
 
+@utility container {
+	padding-inline: 2rem;
+}
+
 @utility track {
 	& * {
 		@apply pointer-events-none;
