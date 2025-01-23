@@ -1,0 +1,11 @@
+@utility container {
+	@apply mx-auto;
+}
+
+@utility track {
+	@apply bg-red-400!;
+
+	& * {
+		@apply pointer-events-none;
+	}
+}
