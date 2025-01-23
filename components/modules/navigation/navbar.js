@@ -22,7 +22,7 @@ const Navbar = ({ isPinned }) => {
 			<div
 				className={`
 					flex flex-wrap items-center justify-between py-2 px-6 container transition-all
-					${isPinned ? 'md:translate-y-2 md:bg-white/20 md:border md:border-gray-400/20 md:!backdrop-blur md:rounded-full' : ''}
+					${isPinned ? 'md:translate-y-2 md:bg-white/20 md:border md:border-gray-400/20 md:backdrop-blur-sm! md:rounded-full' : ''}
 				`}
 			>
 				<Link href="/" className="flex gap-2 items-center">
@@ -54,7 +54,7 @@ const Navbar = ({ isPinned }) => {
 							height="2"
 							className={`
 								transition
-								${isExpanded ? `transform-gpu rotate-45 translate-y-[0] translate-x-[6px]` : ``}
+								${isExpanded ? `transform-gpu rotate-45 translate-y-0 translate-x-[6px]` : ``}
 							`}
 						/>
 						<rect
@@ -89,7 +89,7 @@ const Navbar = ({ isPinned }) => {
 							key={link.title}
 							href={link.route}
 							className="block md:inline-block px-3.5 py-1.5 rounded-full border border-transparent text-xs text-gray-800 transition-colors hover:border-indigo-700 hover:text-indigo-700 focus:border-indigo-700  focus:text-indigo-700"
-							activeClassName="bg-indigo-700 !text-white"
+							activeClassName="bg-indigo-700 text-white!"
 						>
 							{link.title}
 						</NavLink.Anchor>
