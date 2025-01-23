@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
-const Jumbotron = ({
-	className,
-	contentClasses,
-	image,
-	children,
-	...rest
-}) => {
+const Jumbotron = ({ className, contentClasses, image, children, ...rest }) => {
 	return (
 		<section
 			className={twMerge(
@@ -30,17 +24,9 @@ const Jumbotron = ({
 	);
 };
 
-export const JumbotronTitle = ({
-	className,
-	children
-}) => {
+export const JumbotronTitle = ({ className, children }) => {
 	return (
-		<h1
-			className={twMerge(
-				'text-3xl font-bold text-pretty',
-				className ?? ''
-			)}
-		>
+		<h1 className={twMerge('text-3xl font-bold text-pretty', className ?? '')}>
 			{children}
 		</h1>
 	);
@@ -65,6 +51,7 @@ export const JumbotronImage = ({
 				width={image.width ? image.width : null}
 				height={image.height ? image.height : null}
 				alt={alt ?? ''}
+				priority
 				className={twMerge(
 					'md:col-start-1 h-full w-full object-cover object-center opacity-70 md:opacity-20',
 					className ?? ''

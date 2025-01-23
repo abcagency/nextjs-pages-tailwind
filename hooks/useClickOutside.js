@@ -1,6 +1,6 @@
 import useEventListener from '~/hooks/useEventListener';
 
-const isBrowser = typeof window !== "undefined";
+const isBrowser = typeof window !== 'undefined';
 
 const useClickOutside = (ref, cb) => {
 	useEventListener(

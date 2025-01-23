@@ -9,17 +9,10 @@ import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 const ContactPage = () => {
 	return (
 		<Layout>
-			<PageHead
-				title="Contact"
-			/>
+			<PageHead title="Contact" />
 
 			<Jumbotron
-				image={
-					<Jumbotron.Image
-						image={JumbotronFpoImage}
-						alt="FPO image"
-					/>
-				}
+				image={<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />}
 			>
 				<Jumbotron.Title className="text-center">Contact</Jumbotron.Title>
 			</Jumbotron>

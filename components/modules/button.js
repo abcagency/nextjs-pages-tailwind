@@ -12,22 +12,19 @@ const buttonClasses = (
 	isBlock,
 	hasUnderline,
 	className
-) => twMerge(
-	'group',
-	type,
-	isBlock && 'isBlock',
-	hasUnderline && 'hasUnderline',
-	variant && `${type}-${variant}`,
-	size && `${type}-${size}`,
-	className ?? ''
-);
-
-const Button = ({
-	children
-}) => {
-	return (
-		{ children }
+) =>
+	twMerge(
+		'group',
+		type,
+		isBlock && 'isBlock',
+		hasUnderline && 'hasUnderline',
+		variant && `${type}-${variant}`,
+		size && `${type}-${size}`,
+		className ?? ''
 	);
+
+const Button = ({ children }) => {
+	return { children };
 };
 
 export const Anchor = ({
@@ -46,10 +43,21 @@ export const Anchor = ({
 		<a
 			href={href}
 			target={target}
-			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
-			onClick={href === '#' ? e => {
-				e.preventDefault();
-			} : null}
+			className={buttonClasses(
+				type,
+				variant,
+				size,
+				isBlock,
+				hasUnderline,
+				className
+			)}
+			onClick={
+				href === '#'
+					? e => {
+							e.preventDefault();
+						}
+					: null
+			}
 			{...rest}
 		>
 			{children}
@@ -104,7 +112,14 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 			ref={ref}
 			href={`#${href}`}
 			scroll={false}
-			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
+			className={buttonClasses(
+				type,
+				variant,
+				size,
+				isBlock,
+				hasUnderline,
+				className
+			)}
 			{...rest}
 		>
 			{children}
@@ -128,7 +143,14 @@ export const Btn = forwardRef((props, ref) => {
 		<button
 			ref={ref}
 			type={btnType}
-			className={buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
+			className={buttonClasses(
+				type,
+				variant,
+				size,
+				isBlock,
+				hasUnderline,
+				className
+			)}
 			{...rest}
 		>
 			{children}
@@ -136,33 +158,22 @@ export const Btn = forwardRef((props, ref) => {
 	);
 });
 
-export const ButtonBody = ({
-	children,
-	className
-}) => {
+export const ButtonBody = ({ children, className }) => {
 	return (
-		<span className={`
+		<span
+			className={`
 			inline-flex w-full items-center justify-between gap-1.5
 			${className ?? ''}
-		`}>
+		`}
+		>
 			{children}
 		</span>
 	);
 };
 
-export const ButtonIcon = ({
-	icon,
-	size = 'size-4',
-	inline,
-	className
-}) => {
+export const ButtonIcon = ({ icon, size = 'size-4', inline, className }) => {
 	return (
-		<Icon
-			icon={icon}
-			size={size}
-			inline={inline}
-			className={className ?? ''}
-		/>
+		<Icon icon={icon} size={size} inline={inline} className={className ?? ''} />
 	);
 };
 
