@@ -9,7 +9,7 @@ import Icon from '~/components/modules/icon';
 // Button with a variant of 'link' should not contain a <Button.Body>.
 
 const linkDefaultClasses =
-	'normal-case text-inherit font-[inherit]! [font-weight:inherit] p-0! rounded-none';
+	'normal-case text-inherit font-[inherit]! [font-weight:inherit]! p-0! rounded-none';
 const underlineClasses =
 	'underline! decoration-1 underline-offset-2 hover:no-underline! focus:no-underline!';
 
