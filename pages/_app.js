@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }) => {
 			<div
 				className={`
 					relative
-					${inter.className}
+					${inter.variable}
 				`}
 			>
 				<Component {...pageProps} />
