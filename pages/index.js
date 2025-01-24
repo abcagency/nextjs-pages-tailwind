@@ -21,18 +21,6 @@ const Home = () => {
 				</div>
 			</Jumbotron>
 
-			<Section id="test" className="container px-4 mb-24">
-				<nav className="flex flex-wrap gap-4 items-start">
-					<Button.Link href="/">Default/Primary</Button.Link>
-					<Button.Link href="/" variant="primary" size="lg">
-						Large
-					</Button.Link>
-					<Button.Link href="/" isBlock>
-						Block
-					</Button.Link>
-				</nav>
-			</Section>
-
 			<Section id="intro" className="container px-4 mb-24">
 				<div className="text-center mt-16">
 					<h1 className="mb-6 text-4xl font-bold text-center">Hello, world!</h1>

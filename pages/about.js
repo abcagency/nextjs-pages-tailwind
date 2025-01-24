@@ -6,6 +6,7 @@ import Card from '~/components/modules/card';
 import Accordion from '~/components/modules/accordion';
 import SlideIn from '~/components/modules/animations/slidein';
 import Grid from '~/components/modules/grid';
+import Button from '~/components/modules/button';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
@@ -20,6 +21,30 @@ const AboutPage = () => {
 			>
 				<Jumbotron.Title className="text-center">About</Jumbotron.Title>
 			</Jumbotron>
+
+			<Section id="test" className="container px-4 my-12">
+				<nav className="flex flex-wrap gap-4 items-start">
+					<Button.Link href="/">Default/Primary</Button.Link>
+					<Button.Link href="/" variant="primary" size="lg">
+						Large
+					</Button.Link>
+					<Button.Link href="/" variant="secondary" size="sm">
+						Secondary/Sm
+					</Button.Link>
+					<Button.Link href="/" size="xs">
+						XSmall
+					</Button.Link>
+					<Button.Link href="/" variant="icon" size="sq">
+						<Button.Body>
+							<span className="sr-only">Instagram</span>
+							<Button.Icon icon="fa-brands:instagram" />
+						</Button.Body>
+					</Button.Link>
+					<Button.Link href="/" isBlock>
+						Block
+					</Button.Link>
+				</nav>
+			</Section>
 
 			<Section id="alpha" className="container px-4 my-12">
 				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
