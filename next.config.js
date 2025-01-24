@@ -21,7 +21,7 @@ module.exports = {
 		config.plugins.push(
 			new FaviconsWebpackPlugin({
 				logo: `public/${site.logo}`,
-				outputPath: './public',
+				outputPath: './',
 				inject: false,
 				favicons: {
 					appName: site.title,
