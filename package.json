@@ -23,6 +23,7 @@
 		"@iconify-icon/react": "^2.3.0",
 		"@iconify/react": "^5.2.0",
 		"@radix-ui/react-accordion": "^1.2.2",
+		"eslint-plugin-prettier": "^5.2.3",
 		"favicons": "^7.2.0",
 		"favicons-webpack-plugin": "^6.0.1",
 		"framer-motion": "^12.0.0",
