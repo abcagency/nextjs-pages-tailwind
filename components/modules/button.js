@@ -9,7 +9,7 @@ import Icon from '~/components/modules/icon';
 // Button with a variant of 'link' should not contain a <Button.Body>.
 
 const linkDefaultClasses =
-	'normal-case text-inherit font-[inherit]! [font-weight:inherit]! p-0! rounded-none';
+	'p-0! normal-case text-inherit font-[inherit]! [font-weight:inherit]! rounded-none';
 const underlineClasses =
 	'underline! decoration-1 underline-offset-2 hover:no-underline! focus:no-underline!';
 
@@ -24,13 +24,16 @@ const ButtonVariant = {
 const ButtonSize = {
 	none: '',
 	sq: 'p-2.5',
-	sm: 'py-1.5 px-4 text-sm',
-	lg: 'py-4 px-10 text-lg'
+	'2xs': 'py-0.5 px-2 text-2xs',
+	xs: 'py-1 px-2 text-xs',
+	sm: 'py-1.5 px-3 text-sm',
+	md: 'py-2 px-4 text-md',
+	lg: 'py-3 px-6 text-lg'
 };
 
 const ButtonDefaults = {
 	style: 'group font-bold uppercase text-center rounded-sm transition',
-	size: 'py-2 px-6',
+	size: ButtonSize.md,
 	variant: ButtonVariant.primary,
 	block: 'block w-full'
 };

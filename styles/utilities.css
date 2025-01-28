@@ -1,0 +1,9 @@
+@utility container {
+	@apply mx-auto;
+}
+
+@utility track {
+	& * {
+		@apply pointer-events-none;
+	}
+}
