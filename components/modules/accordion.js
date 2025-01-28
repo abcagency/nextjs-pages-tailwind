@@ -47,7 +47,7 @@ export const AccordionTrigger = forwardRef(
 			<RadixAccordion.Trigger
 				ref={forwardedRef}
 				className={twMerge(
-					'group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200',
+					'group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200',
 					className ?? ''
 				)}
 				{...props}
@@ -56,7 +56,7 @@ export const AccordionTrigger = forwardRef(
 				<Icon
 					icon="mdi:chevron-down"
 					size="w-4 h-4"
-					className="transition-transform !transform !translate-y-1 group-data-[state=open]:!rotate-180"
+					className="transition-transform transform! translate-y-1! group-data-[state=open]:rotate-180!"
 					aria-hidden="true"
 				/>
 			</RadixAccordion.Trigger>

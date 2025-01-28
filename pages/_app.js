@@ -4,7 +4,7 @@ import { inter } from '~/styles/fonts';
 
 import site from '~/data/site.json';
 
-import '~/styles/globals.css';
+import '~/styles/app.css';
 
 const App = ({ Component, pageProps }) => {
 	const gtmId = site?.analytics?.gtmId;
@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }) => {
 			<div
 				className={`
 					relative
-					${inter.className}
+					${inter.variable}
 				`}
 			>
 				<Component {...pageProps} />

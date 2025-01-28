@@ -142,7 +142,7 @@ const ContactForm = () => {
 									id={`transportation${value}`}
 									value={value}
 									type="checkbox"
-									className="rounded h-5 w-5 text-indigo-700 border-gray-800 transition-colors"
+									className="rounded-sm h-5 w-5 text-indigo-700 border-gray-800 transition-colors"
 								/>
 								<span className="ml-2">{value}</span>
 							</label>
@@ -300,7 +300,7 @@ const ContactForm = () => {
 
 			<button
 				type="submit"
-				className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded hover:border-gray-700 hover:bg-gray-600 transfrom disabled:bg-gray-200 disabled:text-gray-400 transition-colors"
+				className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded-sm hover:border-gray-700 hover:bg-gray-600 transfrom disabled:bg-gray-200 disabled:text-gray-400 transition-colors"
 				disabled={isSubmitting}
 			>
 				{isSubmitting ? 'Please wait...' : 'Submit'}

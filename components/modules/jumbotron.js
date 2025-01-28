@@ -51,6 +51,7 @@ export const JumbotronImage = ({
 				width={image.width ? image.width : null}
 				height={image.height ? image.height : null}
 				alt={alt ?? ''}
+				priority
 				className={twMerge(
 					'md:col-start-1 h-full w-full object-cover object-center opacity-70 md:opacity-20',
 					className ?? ''
