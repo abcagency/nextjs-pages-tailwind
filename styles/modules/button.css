@@ -1,6 +1,6 @@
 /* * Button * */
 .button {
-	@apply inline-block font-bold uppercase text-center rounded transition;
+	@apply font-bold uppercase rounded;
 }
 
 .isBlock {
@@ -50,9 +50,6 @@
 }
 
 /* * Link * */
-.link {
-	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
-}
 
 /* Link Variants */
 .link-primary {

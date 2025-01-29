@@ -14,8 +14,8 @@ const buttonClasses = (
 	className
 ) =>
 	twMerge`
-		group
-		${type}
+		group inline-block text-center transition
+		${type === 'link' ? 'inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none' : ''}
 		${isBlock && 'isBlock'}
 		${hasUnderline && 'hasUnderline'}
 		${variant && `${type}-${variant}`}
