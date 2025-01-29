@@ -3,12 +3,8 @@
 	@apply font-bold uppercase rounded;
 }
 
-.isBlock {
+.button-isBlock {
 	@apply block w-full;
-}
-
-.hasUnderline {
-	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
 }
 
 /* Button Variants */
@@ -50,6 +46,9 @@
 }
 
 /* * Link * */
+.link-hasUnderline {
+	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
+}
 
 /* Link Variants */
 .link-primary {

@@ -1,0 +1,30 @@
+/* * Card * */
+.card-hasShadow {
+	@apply shadow-lg;
+}
+
+.card-link {
+	@apply hover:shadow-xl focus:shadow-xl;
+}
+
+.card-body {
+	@apply p-4 md:px-6 lg:px-8;
+}
+
+.card-title {
+	@apply text-2xl font-bold;
+}
+
+.card-footer {
+	@apply py-2 px-4 md:px-6 lg:px-8;
+}
+
+/* Card Variants */
+.card-primary {
+	@apply bg-white border border-gray-100;
+
+	.card-footer {
+		@apply bg-black/5
+	}
+}
+

@@ -8,7 +8,7 @@ import trackEvent from '~/hooks/useEventTracker';
 
 const Accordion = ({
 	className,
-	variant = 'default',
+	variant = 'primary',
 	type = 'single',
 	defaultValue,
 	collapsible = true,
