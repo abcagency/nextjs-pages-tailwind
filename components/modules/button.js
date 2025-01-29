@@ -13,15 +13,15 @@ const buttonClasses = (
 	hasUnderline,
 	className
 ) =>
-	twMerge(
-		'group',
-		type,
-		isBlock && 'isBlock',
-		hasUnderline && 'hasUnderline',
-		variant && `${type}-${variant}`,
-		size && `${type}-${size}`,
-		className ?? ''
-	);
+	twMerge`
+		group
+		${type}
+		${isBlock && 'isBlock'}
+		${hasUnderline && 'hasUnderline'}
+		${variant && `${type}-${variant}`}
+		${size && `${type}-${size}`}
+		${className ?? ''}
+	`;
 
 const Button = ({ children }) => {
 	return { children };
