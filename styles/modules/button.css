@@ -1,4 +1,4 @@
-/* Button */
+/* * Button * */
 .button {
 	@apply inline-block font-bold uppercase text-center rounded transition;
 }
@@ -11,6 +11,7 @@
 	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
 }
 
+/* Button Variants */
 .button-primary {
 	@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;
 }
@@ -23,6 +24,7 @@
 	@apply opacity-100 hover:opacity-80 focus:opacity-80;
 }
 
+/* Button Sizes */
 .button-sq {
 	@apply p-2.5;
 }
@@ -47,11 +49,12 @@
 	@apply py-3 px-6 text-lg;
 }
 
-/* Link */
+/* * Link * */
 .link {
 	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
 }
 
+/* Link Variants */
 .link-primary {
 	@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
 }

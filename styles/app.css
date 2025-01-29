@@ -13,4 +13,5 @@
 @import './utilities.css';
 
 /* Modules */
+@import './modules/accordion.css';
 @import './modules/button.css';
