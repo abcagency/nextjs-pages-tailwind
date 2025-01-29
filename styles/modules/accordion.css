@@ -1,23 +1,10 @@
 /* * Accordion * */
-.accordion {
-	@apply space-y-px;
-}
-
 /* Accordion Trigger */
 .accordion-trigger {
-	@apply flex justify-between w-full p-4 font-bold text-left focus:outline-hidden focus-visible:ring-3 transition-colors;
+	@apply p-4 font-bold focus-visible:ring-3;
 
 	.trigger-icon {
-		@apply transform translate-y-0.5 transition-transform group-data-[state=open]:rotate-180;
-	}
-}
-
-/* Accordion Content */
-.accordion-content {
-	@apply overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp;
-
-	.content-body {
-		@apply px-4 py-2 border;
+		@apply translate-y-0.5 group-data-[state=open]:rotate-180;
 	}
 }
 
@@ -27,9 +14,7 @@
 		@apply text-gray-850 data-[state=closed]:bg-gray-200/50 data-[state=closed]:hover:bg-gray-200 data-[state=closed]:focus:bg-gray-200 data-[state=open]:bg-gray-200  focus-visible:ring-blue-600/75;
 	}
 
-	.accordion-content {
-		.content-body {
-			@apply border-gray-200;
-		}
+	.accordion-body {
+		@apply border border-gray-200;
 	}
 }

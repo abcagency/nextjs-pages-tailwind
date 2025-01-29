@@ -8,7 +8,7 @@ import trackEvent from '~/hooks/useEventTracker';
 
 const Accordion = ({
 	className,
-	variant = 'accordion-default',
+	variant = 'default',
 	type = 'single',
 	defaultValue,
 	collapsible = true,
@@ -20,8 +20,8 @@ const Accordion = ({
 			defaultValue={defaultValue ?? null}
 			collapsible={collapsible}
 			className={twMerge`
-				accordion
-				${variant}
+				space-y-px
+				${variant ? `accordion-${variant}` : ''}
 				${className ?? ''}
 			`}
 			onValueChange={value => trackEvent('Engagement', 'Open Accordion', value)}
@@ -55,7 +55,7 @@ export const AccordionTrigger = forwardRef(
 			<RadixAccordion.Trigger
 				ref={ref}
 				className={twMerge`
-					accordion-trigger group
+					accordion-trigger group flex justify-between w-full text-left focus:outline-hidden transition-colors
 					${className ?? ''}
 				`}
 				{...props}
@@ -64,7 +64,7 @@ export const AccordionTrigger = forwardRef(
 				<Icon
 					icon={icon}
 					size="size-5"
-					className="trigger-icon"
+					className="trigger-icon transition-transform"
 					aria-hidden="true"
 				/>
 			</RadixAccordion.Trigger>
@@ -77,14 +77,14 @@ export const AccordionContent = forwardRef(
 		<RadixAccordion.Content
 			ref={ref}
 			className={twMerge`
-				accordion-content
+				overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp
 				${className ?? ''}
 			`}
 			{...props}
 		>
 			<div
 				className={twMerge`
-					content-body
+					accordion-body px-4 py-2
 					${bodyClassName ?? ''}
 				`}
 			>
