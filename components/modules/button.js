@@ -99,8 +99,8 @@ export const AnchorLink = ({
 	);
 };
 
-export const ScrollAnchor = forwardRef((props, ref) => {
-	const {
+export const ScrollAnchor = forwardRef((
+	{
 		children,
 		href,
 		className,
@@ -111,8 +111,9 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 		isBlock,
 		hasUnderline,
 		...rest
-	} = props;
-
+	},
+	ref
+) => {
 	return (
 		<Link
 			ref={ref}
@@ -134,8 +135,8 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 	);
 });
 
-export const Btn = forwardRef((props, ref) => {
-	const {
+export const Btn = forwardRef((
+	{
 		children,
 		btnType = 'button',
 		className,
@@ -146,7 +147,9 @@ export const Btn = forwardRef((props, ref) => {
 		isBlock,
 		hasUnderline,
 		...rest
-	} = props;
+	},
+	ref
+) => {
 	return (
 		<button
 			ref={ref}
@@ -167,8 +170,8 @@ export const Btn = forwardRef((props, ref) => {
 	);
 });
 
-export const Span = forwardRef((props, ref) => {
-	const {
+export const Span = forwardRef((
+	{
 		children,
 		className,
 		type,
@@ -178,7 +181,9 @@ export const Span = forwardRef((props, ref) => {
 		isBlock,
 		hasUnderline,
 		...rest
-	} = props;
+	},
+	ref
+) => {
 	return (
 		<span
 			ref={ref}

@@ -34,8 +34,8 @@ export const Anchor = ({
 	);
 };
 
-export const ScrollAnchor = forwardRef((props, ref) => {
-	const {
+export const ScrollAnchor = forwardRef((
+	{
 		children,
 		href,
 		className,
@@ -44,7 +44,9 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 		isBlock,
 		hasUnderline,
 		...rest
-	} = props;
+	},
+	ref
+) => {
 
 	return (
 		<Link
