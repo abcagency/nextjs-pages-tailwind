@@ -1,0 +1,8 @@
+/* * Jumbotron * */
+.jumbotron {
+	@apply bg-gray-800 text-white;
+}
+
+.jumbotron-title {
+	@apply mb-4 text-3xl md:text-4xl font-bold;
+}

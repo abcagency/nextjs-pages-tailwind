@@ -17,10 +17,12 @@ const AboutPage = () => {
 		<Layout>
 			<PageHead title="About" />
 
-			<Jumbotron
-				image={<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />}
-			>
-				<Jumbotron.Title className="text-center">About</Jumbotron.Title>
+			<Jumbotron>
+				<Jumbotron.Body>
+					<Jumbotron.Title className="text-center">About</Jumbotron.Title>
+				</Jumbotron.Body>
+
+				<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />
 			</Jumbotron>
 
 			<Section id="accordion" className="container px-4 my-12">
