@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Slider from 'react-slider';
+import { Slider } from "radix-ui";
+
+import Button from '~/components/modules/button';
 
 import { validationSchema } from '~/lib/validators/contact';
 
@@ -9,9 +11,7 @@ const ContactForm = () => {
 	const {
 		register,
 		handleSubmit,
-		setValue,
 		control,
-		trigger,
 		reset,
 		formState: { errors }
 	} = useForm({
@@ -22,7 +22,8 @@ const ContactForm = () => {
 			message: '',
 			transportation: [],
 			favoriteColor: 'pink',
-			state: ''
+			state: '',
+			distance: [0]
 		},
 		resolver: yupResolver(validationSchema)
 	});
@@ -40,6 +41,10 @@ const ContactForm = () => {
 
 	const transportationOptions = ['Car', 'Boat', 'Plane'];
 	const favoriteColorOptions = ['blue', 'green', 'pink', 'red', 'yellow'];
+
+	const handleSliderValueChange = useCallback((field, value) => {
+    field.onChange(value);
+  }, []);
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -263,6 +268,48 @@ const ContactForm = () => {
 						<option value="WY">Wyoming</option>
 					</select>
 				</div>
+				<div className="mb-6 overflow-hidden">
+					<label
+						className="inline-block mb-2 text-xs font-bold uppercase"
+						htmlFor="distance"
+					>
+						Distance
+					</label>
+
+					{errors.distance &&
+						<span
+							id="distance-error"
+							name="distance"
+							className="inline-block text-red-500 uppercase text-xs font-bold ml-1"
+						>
+							{errors.distance?.message}
+						</span>
+					}
+
+					<Controller
+						name="distance"
+						control={control}
+						render={({ field }) =>
+							<Slider.Root
+								defaultValue={[0]}
+								onValueChange={(value) => handleSliderValueChange(field, value)}
+								aria-label="distance"
+								className="relative flex h-5 mt-3 touch-none select-none items-center"
+							>
+								<Slider.Track className="relative h-3 grow rounded-full bg-gray-200">
+									<Slider.Range className="absolute h-full rounded-full bg-indigo-600" />
+								</Slider.Track>
+								<Slider.Thumb
+									className={`
+										grid place-content-center size-9 p-1.5 rounded-full bg-indigo-600 text-white ring-4 ring-white text-center text-sm cursor-grab transition-colors focus:outline-none focus:bg-indigo-800 ${errors.distance && "!bg-red-500 !text-white"}
+									`}
+								>
+									{field.value}
+								</Slider.Thumb>
+							</Slider.Root>
+						}
+					/>
+				</div>
 			</div>
 
 			<div className="mb-6">
@@ -298,13 +345,14 @@ const ContactForm = () => {
 				/>
 			</div>
 
-			<button
+			<Button.Btn
 				btnType="submit"
-				className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded-sm hover:border-gray-700 hover:bg-gray-600 transfrom disabled:bg-gray-200 disabled:text-gray-400 transition-colors"
+				variant="primary"
 				disabled={isSubmitting}
+				className="disabled:bg-gray-200 disabled:text-gray-400"
 			>
 				{isSubmitting ? 'Please wait...' : 'Submit'}
-			</button>
+			</Button.Btn>
 		</form>
 	);
 };
