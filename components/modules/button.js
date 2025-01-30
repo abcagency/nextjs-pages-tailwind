@@ -15,8 +15,8 @@ const buttonClasses = (
 	className
 ) =>
 	twMerge`
-		group button inline-block text-center cursor-pointer transition
-		${type === 'link' ? 'inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none' : ''}
+		group inline-block text-center cursor-pointer transition
+		${type === 'link' ? 'inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none' : type}
 		${isBlock && 'button-isBlock'}
 		${hasUnderline && 'link-hasUnderline'}
 		${variant && `${type}-${variant}`}
