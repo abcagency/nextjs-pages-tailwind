@@ -35,7 +35,7 @@ const Home = () => {
 			</Section>
 
 			<Section id="alpha" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
+				<Section.Title>Alpha</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" type="link" variant="primary" hasUnderline>
@@ -76,7 +76,7 @@ const Home = () => {
 			</Section>
 
 			<Section id="beta" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Beta</h2>
+				<Section.Title>Beta</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" type="link" variant="primary" hasUnderline>
@@ -117,7 +117,7 @@ const Home = () => {
 			</Section>
 
 			<Section id="charlie" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Charlie</h2>
+				<Section.Title>Charlie</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" type="link" variant="primary" hasUnderline>
