@@ -1,0 +1,32 @@
+/* * Form * */
+.form {
+	@apply space-y-6;
+}
+
+.form-label {
+	@apply text-xs font-bold uppercase;
+
+	&.label-hasErrors {
+		@apply text-red-500;
+	}
+}
+
+.form-field {
+	@apply block w-full rounded-md bg-white border border-gray-400 placeholder:text-gray-300 transition-colors;
+
+	&.field-hasErrors {
+		@apply border-red-500;
+	}
+}
+
+.form-field--textarea {
+	@apply min-h-48 field-sizing-content;
+}
+
+.field-error {
+	@apply text-red-500 uppercase text-xs font-bold;
+}
+
+.field-help-text {
+	@apply mb-2 text-gray-400;
+}

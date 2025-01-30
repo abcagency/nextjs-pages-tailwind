@@ -21,8 +21,8 @@ const Textarea = forwardRef((
 			placeholder={placeholder}
 			rows={rows}
 			className={`
-				block w-full min-h-48 rounded-md transition-colors bg-white border placeholder:text-gray-300 field-sizing-content
-				${showError ? 'border-red-500' : 'border-gray-600'}
+				form-field form-field--textarea
+				${showError ? 'field-hasErrors' : ''}
 				${className ?? ''}
 			`}
 			aria-invalid={showError ? 'true' : null}

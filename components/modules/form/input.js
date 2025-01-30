@@ -22,8 +22,8 @@ const InputField = forwardRef((
 			name={fieldName}
 			placeholder={placeholder}
 			className={`
-				w-full rounded-md transition-colors bg-white border placeholder:text-gray-300
-				${showError ? 'border-red-500' : 'border-gray-600'}
+				form-field
+				${showError ? 'field-hasErrors' : ''}
 				${className ?? ''}
 			`}
 			aria-invalid={showError ? 'true' : null}

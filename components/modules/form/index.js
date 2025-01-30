@@ -49,7 +49,7 @@ const ContactForm = ({ className }) => {
   }, []);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={`space-y-6 ${className ?? ''}`}>
+		<form onSubmit={handleSubmit(onSubmit)} className={`form ${className ?? ''}`}>
 			<Grid columns="sm:grid-cols-2" gap="gap-4">
 				<FormField
 					{...register('name')}
@@ -103,7 +103,7 @@ const ContactForm = ({ className }) => {
 									id={`transportation${value}`}
 									value={value}
 									type="checkbox"
-									className="rounded-sm h-5 w-5 text-indigo-700 border-gray-800 transition-colors"
+									className="rounded-sm h-5 w-5 text-indigo-600 border-gray-400 transition-colors"
 								/>
 								<span className="ml-2">{value}</span>
 							</label>
@@ -132,7 +132,7 @@ const ContactForm = ({ className }) => {
 									value={value}
 									type="radio"
 									name="favoriteColor"
-									className="rounded-full h-5 w-5 text-indigo-700 border-gray-800  transition-colors"
+									className="rounded-full h-5 w-5 text-indigo-600 border-gray-400  transition-colors"
 								/>
 								<span className="ml-2 capitalize">{value}</span>
 							</label>

@@ -7,7 +7,8 @@ const LabelAndError = ({
 	displayName,
 	helpText,
 	required = false,
-	hideAsterisk = false,
+	icon = 'mdi:asterisk',
+	hideIcon = false,
 	errors
 }) => {
 	const showError = errors && (errors[fieldName] || errors[errorsFieldName]);
@@ -17,19 +18,19 @@ const LabelAndError = ({
 			<div className="flex gap-1 mb-2">
 				<label
 					className={`
-						flex gap-0.5 text-xs font-bold uppercase transition-colors
-						${showError ? 'text-red-500' : ''}
+						form-label flex gap-0.5 transition-colors
+						${showError ? 'label-hasErrors' : ''}
 					`}
 					htmlFor={fieldName}
 				>
 					{displayName}
-					{!hideAsterisk && required && (
+					{!hideIcon && required && (
 						<Icon
-							icon="mdi:asterisk"
+							icon={icon}
 							size="size-1.5"
 							className={`
 								align-text-top
-								${showError ? 'text-red-500' : ''}
+								${showError ? 'label-hasErrors' : ''}
 							`}
 						/>
 					)}
@@ -39,14 +40,14 @@ const LabelAndError = ({
 					<span
 						id={`${fieldName}-error`}
 						name={fieldName}
-						className="inline-block text-red-500 uppercase text-xs font-bold"
+						className="field-error inline-block"
 					>
 						{showError?.message}
 					</span>
 				)}
 			</div>
 
-			{helpText && <p className="text-gray-400 mb-2">{helpText}</p>}
+			{helpText && <p className="field-help-text">{helpText}</p>}
 		</div>
 	);
 };

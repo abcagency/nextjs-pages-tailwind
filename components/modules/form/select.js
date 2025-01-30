@@ -20,8 +20,8 @@ const SelectField = forwardRef((
 			ref={ref}
 			name={fieldName}
 			className={`
-				w-full rounded-md transition-colors bg-white border placeholder:text-gray-300
-				${showError ? 'border-red-500' : 'border-gray-600'}
+				form-field form-field--select
+				${showError ? 'field-hasErrors' : ''}
 				${className ?? ''}
 			`}
 			aria-invalid={showError ? 'true' : null}
