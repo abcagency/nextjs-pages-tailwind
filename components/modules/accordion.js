@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import * as RadixAccordion from '@radix-ui/react-accordion';
+import { Accordion as RadixAccordion } from 'radix-ui';
 import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
