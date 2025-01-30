@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Grid = forwardRef((props, ref) => {
-	const {
+const Grid = forwardRef((
+	{
 		as = 'div',
 		children,
 		className,
@@ -10,21 +10,21 @@ const Grid = forwardRef((props, ref) => {
 		columns = 'md:grid-cols-2',
 		gap = 'gap-12 lg:gap-16',
 		...rest
-	} = props;
-
+	},
+	ref
+) => {
 	const Container = as;
 
 	return (
 		<Container
 			ref={ref}
-			className={twMerge(
-				'grid',
-				gap,
-				autoRows ? 'auto-rows-min' : '',
-				'grid-cols-1',
-				columns,
-				className ?? ''
-			)}
+			className={twMerge`
+				grid grid-cols-1
+				${gap}
+				${autoRows ? 'auto-rows-min' : ''}
+				${columns}
+				${className ?? ''}
+			`}
 			{...rest}
 		>
 			{children}
