@@ -7,6 +7,10 @@
 	@apply block w-full;
 }
 
+.button-isRound {
+	@apply rounded-full;
+}
+
 /* Button Variants */
 .button-primary {
 	@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;

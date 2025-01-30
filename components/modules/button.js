@@ -9,17 +9,19 @@ const buttonClasses = (
 	type = 'button',
 	variant = 'primary',
 	size = 'md',
+	isRound,
 	isBlock,
 	hasUnderline,
 	className
 ) =>
 	twMerge`
-		group button inline-block text-center transition
+		group button inline-block text-center cursor-pointer transition
 		${type === 'link' ? 'inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none' : ''}
 		${isBlock && 'button-isBlock'}
 		${hasUnderline && 'link-hasUnderline'}
 		${variant && `${type}-${variant}`}
 		${size && `${type}-${size}`}
+		${isRound && 'button-isRound'}
 		${className ?? ''}
 	`;
 
@@ -34,6 +36,7 @@ export const Anchor = ({
 	type,
 	size,
 	variant,
+	isRound,
 	isBlock,
 	hasUnderline,
 	target = '_blank',
@@ -47,6 +50,7 @@ export const Anchor = ({
 				type,
 				variant,
 				size,
+				isRound,
 				isBlock,
 				hasUnderline,
 				className
@@ -74,6 +78,7 @@ export const AnchorLink = ({
 	type,
 	size,
 	variant,
+	isRound,
 	isBlock,
 	hasUnderline,
 	...rest
@@ -84,7 +89,7 @@ export const AnchorLink = ({
 		<Link
 			href={href}
 			className={`
-				${buttonClasses(type, variant, size, isBlock, hasUnderline, className)}
+				${buttonClasses(type, variant, size, isRound, isBlock, hasUnderline, className)}
 				${(activeClassName && router.pathname === href) || (router.pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
 			`}
 			{...rest}
@@ -102,6 +107,7 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 		type,
 		size,
 		variant,
+		isRound,
 		isBlock,
 		hasUnderline,
 		...rest
@@ -116,6 +122,7 @@ export const ScrollAnchor = forwardRef((props, ref) => {
 				type,
 				variant,
 				size,
+				isRound,
 				isBlock,
 				hasUnderline,
 				className
@@ -135,6 +142,7 @@ export const Btn = forwardRef((props, ref) => {
 		type,
 		size,
 		variant,
+		isRound,
 		isBlock,
 		hasUnderline,
 		...rest
@@ -147,6 +155,7 @@ export const Btn = forwardRef((props, ref) => {
 				type,
 				variant,
 				size,
+				isRound,
 				isBlock,
 				hasUnderline,
 				className
@@ -155,6 +164,37 @@ export const Btn = forwardRef((props, ref) => {
 		>
 			{children}
 		</button>
+	);
+});
+
+export const Span = forwardRef((props, ref) => {
+	const {
+		children,
+		className,
+		type,
+		size,
+		variant,
+		isRound,
+		isBlock,
+		hasUnderline,
+		...rest
+	} = props;
+	return (
+		<span
+			ref={ref}
+			className={buttonClasses(
+				type,
+				variant,
+				size,
+				isRound,
+				isBlock,
+				hasUnderline,
+				className
+			)}
+			{...rest}
+		>
+			{children}
+		</span>
 	);
 });
 
@@ -181,6 +221,7 @@ Button.Anchor = Anchor;
 Button.Link = AnchorLink;
 Button.Scroll = ScrollAnchor;
 Button.Btn = Btn;
+Button.Span = Span;
 Button.Body = ButtonBody;
 Button.Icon = ButtonIcon;
 
