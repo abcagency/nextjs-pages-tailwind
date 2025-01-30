@@ -1,7 +1,6 @@
 import React, { forwardRef, useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 
-import Icon from '~/components/modules/icon';
 import Button from '~/components/modules/button';
 
 // MAKE SURE TO KEEP THIS
