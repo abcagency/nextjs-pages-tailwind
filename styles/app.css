@@ -1,18 +1,19 @@
 @import 'tailwindcss';
 
 /* Tailwind Plugins */
+@plugin 'tailwindcss-animate';
 @plugin '@tailwindcss/aspect-ratio';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
-@plugin 'tailwindcss-animate';
 @plugin 'tailwindcss-quantity-queries';
 
 /* Global */
-@import './theme.css';
 @import './base.css';
+@import './theme.css';
 @import './utilities.css';
 
 /* Modules */
 @import './modules/accordion.css';
 @import './modules/button.css';
 @import './modules/card.css';
+@import './modules/section.css';

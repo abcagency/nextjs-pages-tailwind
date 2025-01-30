@@ -26,7 +26,7 @@ const Section = ({ children, className, ...props }) => {
 			threshold={[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
 			onChange={onChange}
 			className={`
-				scroll-mt-20
+				section scroll-mt-20
 				${className ?? ''}
 			`}
 			{...props}
@@ -42,7 +42,7 @@ export const SectionTitle = ({ as = 'h2', children, className }) => {
 	return (
 		<Title
 			className={`
-				mb-4 text-2xl text-pretty
+				section-title text-pretty
 				${className ?? ''}
 			`}
 		>
