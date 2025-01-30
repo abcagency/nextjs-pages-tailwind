@@ -1,4 +1,5 @@
 import { InView } from 'react-intersection-observer';
+import { twMerge } from 'tailwind-merge';
 
 import useSectionTracker from '~/hooks/useSectionTracker';
 
@@ -25,7 +26,7 @@ const Section = ({ children, className, ...props }) => {
 			as="section"
 			threshold={[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}
 			onChange={onChange}
-			className={`
+			className={twMerge`
 				section scroll-mt-20
 				${className ?? ''}
 			`}
@@ -41,7 +42,7 @@ export const SectionTitle = ({ as = 'h2', children, className }) => {
 
 	return (
 		<Title
-			className={`
+			className={twMerge`
 				section-title text-pretty
 				${className ?? ''}
 			`}
