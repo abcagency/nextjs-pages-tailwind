@@ -1,5 +1,3 @@
-import Balancer from 'react-wrap-balancer';
-
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
