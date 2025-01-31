@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
 const cardClasses = (className, hasShadow) =>
-	twMerge(
-		'relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100',
-		hasShadow ? 'shadow-lg' : '',
-		className ?? ''
-	);
+	twMerge`
+		relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100
+		${hasShadow ? 'shadow-lg' : ''}
+		${className ?? ''}
+	`;
 
 const Card = ({ children }) => {
 	return { children };
@@ -48,10 +48,10 @@ const CardLink = ({
 	return (
 		<Container
 			href={href}
-			className={twMerge(
-				cardClasses(className, hasShadow),
-				'group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300'
-			)}
+			className={twMerge`
+				${cardClasses(className, hasShadow)}
+				group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300
+			`}
 			{...rest}
 		>
 			{image && image}
@@ -70,13 +70,18 @@ export const CardImage = ({
 	...rest
 }) => {
 	return (
-		<div className={twMerge('w-full', className ?? '')}>
+		<div
+			className={twMerge`
+				w-full
+				${className ?? ''}
+			`}
+		>
 			<Image
 				src={image || image.src}
 				width={image.width ? image.width : null}
 				height={image.height ? image.height : null}
 				alt={alt ?? ''}
-				className={twMerge('w-full h-auto', imageClassName ?? '')}
+				className={twMerge`w-full h-auto ${imageClassName ?? ''}`}
 				{...rest}
 			/>
 		</div>
@@ -85,7 +90,12 @@ export const CardImage = ({
 
 export const CardBody = ({ children, className }) => {
 	return (
-		<div className={twMerge('flex-auto p-4 md:px-6 lg:px-8', className ?? '')}>
+		<div
+			className={twMerge`
+				flex-auto p-4 md:px-6 lg:px-8
+				${className ?? ''}
+			`}
+		>
 			{children}
 		</div>
 	);
@@ -93,7 +103,12 @@ export const CardBody = ({ children, className }) => {
 
 export const CardTitle = ({ children, className }) => {
 	return (
-		<h3 className={twMerge('text-2xl font-bold text-pretty', className ?? '')}>
+		<h3
+			className={twMerge`
+				text-2xl font-bold text-pretty
+				${className ?? ''}
+			`}
+		>
 			{children}
 		</h3>
 	);
@@ -102,10 +117,10 @@ export const CardTitle = ({ children, className }) => {
 export const CardFooter = ({ children, className }) => {
 	return (
 		<div
-			className={twMerge(
-				'py-2 px-4 md:px-6 lg:px-8 bg-gray-100',
-				className ?? ''
-			)}
+			className={twMerge`
+				py-2 px-4 md:px-6 lg:px-8 bg-gray-100
+				${className ?? ''}
+			`}
 		>
 			{children}
 		</div>

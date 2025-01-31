@@ -17,14 +17,13 @@ const Grid = forwardRef((props, ref) => {
 	return (
 		<Container
 			ref={ref}
-			className={twMerge(
-				'grid',
-				gap,
-				autoRows ? 'auto-rows-min' : '',
-				'grid-cols-1',
-				columns,
-				className ?? ''
-			)}
+			className={twMerge`
+				grid grid-cols-1
+				${gap}
+				${autoRows ? 'auto-rows-min' : ''}
+				${columns}
+				${className ?? ''}
+			`}
 			{...rest}
 		>
 			{children}

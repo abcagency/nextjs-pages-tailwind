@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import * as RadixAccordion from '@radix-ui/react-accordion';
+import { Accordion as RadixAccordion } from 'radix-ui';
 import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
@@ -27,10 +27,10 @@ const Accordion = ({
 };
 
 export const AccordionItem = forwardRef(
-	({ id, children, className, ...props }, forwardedRef) => {
+	({ id, children, className, ...props }, ref) => {
 		return (
 			<RadixAccordion.Item
-				ref={forwardedRef}
+				ref={ref}
 				value={id}
 				className={className ?? ''}
 				{...props}
@@ -42,14 +42,14 @@ export const AccordionItem = forwardRef(
 );
 
 export const AccordionTrigger = forwardRef(
-	({ children, className, ...props }, forwardedRef) => (
+	({ children, className, ...props }, ref) => (
 		<RadixAccordion.Header asChild>
 			<RadixAccordion.Trigger
-				ref={forwardedRef}
-				className={twMerge(
-					'group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200',
-					className ?? ''
-				)}
+				ref={ref}
+				className={twMerge`
+					group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200
+					${className ?? ''}
+				`}
 				{...props}
 			>
 				{children}
@@ -65,20 +65,20 @@ export const AccordionTrigger = forwardRef(
 );
 
 export const AccordionContent = forwardRef(
-	({ children, className, bodyClassName, ...props }, forwardedRef) => (
+	({ children, className, bodyClassName, ...props }, ref) => (
 		<RadixAccordion.Content
-			ref={forwardedRef}
-			className={twMerge(
-				'data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden',
-				className ?? ''
-			)}
+			ref={ref}
+			className={twMerge`
+				data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden
+				${className ?? ''}
+			`}
 			{...props}
 		>
 			<div
-				className={twMerge(
-					'px-4 py-2 border border-gray-200',
-					bodyClassName ?? ''
-				)}
+				className={twMerge`
+					px-4 py-2 border border-gray-200
+					${bodyClassName ?? ''}
+				`}
 			>
 				{children}
 			</div>

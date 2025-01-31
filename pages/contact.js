@@ -11,10 +11,11 @@ const ContactPage = () => {
 		<Layout>
 			<PageHead title="Contact" />
 
-			<Jumbotron
-				image={<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />}
-			>
-				<Jumbotron.Title className="text-center">Contact</Jumbotron.Title>
+			<Jumbotron>
+				<Jumbotron.Body>
+					<Jumbotron.Title className="text-center">Contact</Jumbotron.Title>
+				</Jumbotron.Body>
+				<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />
 			</Jumbotron>
 
 			<Section className="container px-4 py-12">
