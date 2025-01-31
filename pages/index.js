@@ -1,5 +1,3 @@
-import Balancer from 'react-wrap-balancer';
-
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
@@ -25,11 +23,9 @@ const Home = () => {
 				<div className="text-center mt-16">
 					<h1 className="mb-6 text-4xl font-bold text-center">Hello, world!</h1>
 					<p className="max-w-lg mx-auto">
-						<Balancer>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
-							dolor inventore deserunt, perferendis asperiores quibusdam
-							repudiandae.
-						</Balancer>
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
+						dolor inventore deserunt, perferendis asperiores quibusdam
+						repudiandae.
 					</p>
 				</div>
 			</Section>
