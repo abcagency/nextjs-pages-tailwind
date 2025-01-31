@@ -73,8 +73,6 @@ const AboutPage = () => {
 				</Accordion>
 			</Section>
 
-
-
 			<Section id="button" className="container px-4 my-12">
 				<Section.Title>Button</Section.Title>
 				<nav className="flex flex-wrap gap-4 items-start">
@@ -85,18 +83,14 @@ const AboutPage = () => {
 					<Button.Btn variant="secondary" size="sm">
 						Secondary/Sm
 					</Button.Btn>
-					<Button.Btn size="xs">
-						XSmall
-					</Button.Btn>
+					<Button.Btn size="xs">XSmall</Button.Btn>
 					<Button.Btn variant="icon" size="sq">
 						<Button.Body>
 							<span className="sr-only">Instagram</span>
 							<Button.Icon icon="fa-brands:instagram" />
 						</Button.Body>
 					</Button.Btn>
-					<Button.Btn isBlock>
-						Block
-					</Button.Btn>
+					<Button.Btn isBlock>Block</Button.Btn>
 				</nav>
 			</Section>
 

@@ -45,11 +45,14 @@ const ContactForm = ({ className }) => {
 	const favoriteColorOptions = ['blue', 'green', 'pink', 'red', 'yellow'];
 
 	const handleSliderValueChange = useCallback((field, value) => {
-    field.onChange(value);
-  }, []);
+		field.onChange(value);
+	}, []);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={`form ${className ?? ''}`}>
+		<form
+			onSubmit={handleSubmit(onSubmit)}
+			className={`form ${className ?? ''}`}
+		>
 			<Grid columns="sm:grid-cols-2" gap="gap-4">
 				<FormField
 					{...register('name')}
@@ -61,15 +64,15 @@ const ContactForm = ({ className }) => {
 					isSubmitting={isSubmitting}
 				/>
 				<FormField
-						{...register('email')}
-						required={true}
-						fieldType="email"
-						fieldName="email"
-						displayName="Email"
-						placeholder="user@domain.com"
-						errors={errors}
-						isSubmitting={isSubmitting}
-					/>
+					{...register('email')}
+					required={true}
+					fieldType="email"
+					fieldName="email"
+					displayName="Email"
+					placeholder="user@domain.com"
+					errors={errors}
+					isSubmitting={isSubmitting}
+				/>
 			</Grid>
 
 			<Grid columns="sm:grid-cols-2" gap="gap-4">
@@ -213,7 +216,7 @@ const ContactForm = ({ className }) => {
 						Distance
 					</label>
 
-					{errors.distance &&
+					{errors.distance && (
 						<span
 							id="distance-error"
 							name="distance"
@@ -221,15 +224,15 @@ const ContactForm = ({ className }) => {
 						>
 							{errors.distance?.message}
 						</span>
-					}
+					)}
 
 					<Controller
 						name="distance"
 						control={control}
-						render={({ field }) =>
+						render={({ field }) => (
 							<Slider.Root
 								defaultValue={[0]}
-								onValueChange={(value) => handleSliderValueChange(field, value)}
+								onValueChange={value => handleSliderValueChange(field, value)}
 								aria-label="distance"
 								className="relative flex h-5 mt-2 touch-none select-none items-center"
 							>
@@ -238,13 +241,13 @@ const ContactForm = ({ className }) => {
 								</Slider.Track>
 								<Slider.Thumb
 									className={`
-										grid place-content-center size-9 p-1.5 rounded-full bg-indigo-600 text-white ring-4 ring-white text-center text-sm cursor-grab transition-colors focus:outline-none focus:bg-indigo-800 ${errors.distance && "!bg-red-500 !text-white"}
+										grid place-content-center size-9 p-1.5 rounded-full bg-indigo-600 text-white ring-4 ring-white text-center text-sm cursor-grab transition-colors focus:outline-none focus:bg-indigo-800 ${errors.distance && '!bg-red-500 !text-white'}
 									`}
 								>
 									{field.value}
 								</Slider.Thumb>
 							</Slider.Root>
-						}
+						)}
 					/>
 				</Grid.Item>
 			</Grid>

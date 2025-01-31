@@ -24,7 +24,6 @@
 	@apply bg-white border border-gray-100;
 
 	.card-footer {
-		@apply bg-black/5
+		@apply bg-black/5;
 	}
 }
-

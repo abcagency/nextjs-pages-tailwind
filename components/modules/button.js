@@ -99,109 +99,115 @@ export const AnchorLink = ({
 	);
 };
 
-export const ScrollAnchor = forwardRef((
-	{
-		children,
-		href,
-		className,
-		type,
-		size,
-		variant,
-		isRound,
-		isBlock,
-		hasUnderline,
-		...rest
-	},
-	ref
-) => {
-	return (
-		<Link
-			ref={ref}
-			href={`#${href}`}
-			scroll={false}
-			className={buttonClasses(
-				type,
-				variant,
-				size,
-				isRound,
-				isBlock,
-				hasUnderline,
-				className
-			)}
-			{...rest}
-		>
-			{children}
-		</Link>
-	);
-});
+export const ScrollAnchor = forwardRef(
+	(
+		{
+			children,
+			href,
+			className,
+			type,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<Link
+				ref={ref}
+				href={`#${href}`}
+				scroll={false}
+				className={buttonClasses(
+					type,
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</Link>
+		);
+	}
+);
 
-export const Btn = forwardRef((
-	{
-		children,
-		btnType = 'button',
-		className,
-		type,
-		size,
-		variant,
-		isRound,
-		isBlock,
-		hasUnderline,
-		...rest
-	},
-	ref
-) => {
-	return (
-		<button
-			ref={ref}
-			type={btnType}
-			className={buttonClasses(
-				type,
-				variant,
-				size,
-				isRound,
-				isBlock,
-				hasUnderline,
-				className
-			)}
-			{...rest}
-		>
-			{children}
-		</button>
-	);
-});
+export const Btn = forwardRef(
+	(
+		{
+			children,
+			btnType = 'button',
+			className,
+			type,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<button
+				ref={ref}
+				type={btnType}
+				className={buttonClasses(
+					type,
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</button>
+		);
+	}
+);
 
-export const Span = forwardRef((
-	{
-		children,
-		className,
-		type,
-		size,
-		variant,
-		isRound,
-		isBlock,
-		hasUnderline,
-		...rest
-	},
-	ref
-) => {
-	return (
-		<span
-			ref={ref}
-			className={buttonClasses(
-				type,
-				variant,
-				size,
-				isRound,
-				isBlock,
-				hasUnderline,
-				className
-			)}
-			{...rest}
-		>
-			{children}
-		</span>
-	);
-});
+export const Span = forwardRef(
+	(
+		{
+			children,
+			className,
+			type,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<span
+				ref={ref}
+				className={buttonClasses(
+					type,
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</span>
+		);
+	}
+);
 
 export const ButtonBody = ({ children, className }) => {
 	return (

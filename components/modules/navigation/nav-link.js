@@ -34,32 +34,39 @@ export const Anchor = ({
 	);
 };
 
-export const ScrollAnchor = forwardRef((
-	{
-		children,
-		href,
-		className,
-		size,
-		variant,
-		isBlock,
-		hasUnderline,
-		...rest
-	},
-	ref
-) => {
-
-	return (
-		<Link
-			ref={ref}
-			href={`#${href}`}
-			scroll={false}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
-			{...rest}
-		>
-			{children}
-		</Link>
-	);
-});
+export const ScrollAnchor = forwardRef(
+	(
+		{
+			children,
+			href,
+			className,
+			size,
+			variant,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<Link
+				ref={ref}
+				href={`#${href}`}
+				scroll={false}
+				className={buttonClasses(
+					variant,
+					size,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</Link>
+		);
+	}
+);
 
 NavLink.Anchor = Anchor;
 NavLink.ScrollAnchor = ScrollAnchor;

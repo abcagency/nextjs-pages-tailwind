@@ -140,19 +140,19 @@ const VideoPlayer = forwardRef(
 							width="100%"
 							height="100%"
 							muted={muted}
-							playIcon={ playButton ? playButton :
-								<Button.Btn
-									variant="primary"
-									size="sq"
-									isRound
-								>
-									<span className="sr-only">Play</span>
-									<Button.Icon
-										icon="iconoir:play-solid"
-										size="size-14"
-										className="text-white drop-shadow-md translate-x-1"
-									/>
-								</Button.Btn>
+							playIcon={
+								playButton ? (
+									playButton
+								) : (
+									<Button.Btn variant="primary" size="sq" isRound>
+										<span className="sr-only">Play</span>
+										<Button.Icon
+											icon="iconoir:play-solid"
+											size="size-14"
+											className="text-white drop-shadow-md translate-x-1"
+										/>
+									</Button.Btn>
+								)
 							}
 							{...playerOptions}
 						/>
