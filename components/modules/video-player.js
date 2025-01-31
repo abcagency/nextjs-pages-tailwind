@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState, useEffect } from 'react';
+import { forwardRef, useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 
 import Button from '~/components/modules/button';
