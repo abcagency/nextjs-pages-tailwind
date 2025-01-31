@@ -32,7 +32,8 @@ const ButtonSize = {
 };
 
 const ButtonDefaults = {
-	style: 'group font-bold uppercase text-center rounded-sm transition',
+	style:
+		'group font-bold uppercase text-center rounded-sm cursor-pointer transition',
 	size: ButtonSize.md,
 	variant: ButtonVariant.primary,
 	block: 'block w-full'
@@ -40,7 +41,14 @@ const ButtonDefaults = {
 
 const linkVariants = variant => variant === 'link';
 
-const buttonClasses = (variant, size, isBlock, hasUnderline, className) =>
+const buttonClasses = (
+	variant,
+	size,
+	isRound,
+	isBlock,
+	hasUnderline,
+	className
+) =>
 	twMerge(
 		isBlock
 			? ButtonDefaults.block
@@ -50,6 +58,7 @@ const buttonClasses = (variant, size, isBlock, hasUnderline, className) =>
 		ButtonDefaults.style,
 		variant ? ButtonVariant[variant] : ButtonDefaults.variant,
 		size ? ButtonSize[size] : ButtonDefaults.size,
+		isRound && 'rounded-full',
 		hasUnderline ? underlineClasses : '',
 		className ?? ''
 	);
@@ -64,6 +73,7 @@ export const Anchor = ({
 	className,
 	size,
 	variant,
+	isRound,
 	isBlock,
 	hasUnderline,
 	target = '_blank',
@@ -73,7 +83,14 @@ export const Anchor = ({
 		<a
 			href={href}
 			target={target}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
+			className={buttonClasses(
+				variant,
+				size,
+				isRound,
+				isBlock,
+				hasUnderline,
+				className
+			)}
 			onClick={
 				href === '#'
 					? e => {
@@ -96,6 +113,7 @@ export const AnchorLink = ({
 	partiallyActive = false,
 	size,
 	variant,
+	isRound,
 	isBlock,
 	hasUnderline,
 	...rest
@@ -106,7 +124,7 @@ export const AnchorLink = ({
 		<Link
 			href={href}
 			className={`
-				${buttonClasses(variant, size, isBlock, hasUnderline, className)}
+				${buttonClasses(variant, size, isRound, isBlock, hasUnderline, className)}
 				${(activeClassName && router.pathname === href) || (router.pathname.startsWith(href) && partiallyActive) ? activeClassName : ''}
 			`}
 			{...rest}
@@ -116,53 +134,109 @@ export const AnchorLink = ({
 	);
 };
 
-export const ScrollAnchor = forwardRef((props, ref) => {
-	const {
-		children,
-		href,
-		className,
-		size,
-		variant,
-		isBlock,
-		hasUnderline,
-		...rest
-	} = props;
+export const ScrollAnchor = forwardRef(
+	(
+		{
+			children,
+			href,
+			className,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<Link
+				ref={ref}
+				href={`#${href}`}
+				scroll={false}
+				className={buttonClasses(
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</Link>
+		);
+	}
+);
 
-	return (
-		<Link
-			ref={ref}
-			href={`#${href}`}
-			scroll={false}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
-			{...rest}
-		>
-			{children}
-		</Link>
-	);
-});
+export const Btn = forwardRef(
+	(
+		{
+			children,
+			type = 'button',
+			className,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<button
+				ref={ref}
+				type={type}
+				className={buttonClasses(
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</button>
+		);
+	}
+);
 
-export const Btn = forwardRef((props, ref) => {
-	const {
-		children,
-		type = 'button',
-		className,
-		size,
-		variant,
-		isBlock,
-		hasUnderline,
-		...rest
-	} = props;
-	return (
-		<button
-			ref={ref}
-			type={type}
-			className={buttonClasses(variant, size, isBlock, hasUnderline, className)}
-			{...rest}
-		>
-			{children}
-		</button>
-	);
-});
+export const Span = forwardRef(
+	(
+		{
+			children,
+			className,
+			size,
+			variant,
+			isRound,
+			isBlock,
+			hasUnderline,
+			...rest
+		},
+		ref
+	) => {
+		return (
+			<span
+				ref={ref}
+				className={buttonClasses(
+					variant,
+					size,
+					isRound,
+					isBlock,
+					hasUnderline,
+					className
+				)}
+				{...rest}
+			>
+				{children}
+			</span>
+		);
+	}
+);
 
 export const ButtonBody = ({ children, className }) => {
 	return (
@@ -187,6 +261,7 @@ Button.Anchor = Anchor;
 Button.Link = AnchorLink;
 Button.Scroll = ScrollAnchor;
 Button.Btn = Btn;
+Button.Span = Span;
 Button.Body = ButtonBody;
 Button.Icon = ButtonIcon;
 
