@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ReactPlayer from 'react-player/lazy';
 
 import Icon from '~/components/modules/icon';
