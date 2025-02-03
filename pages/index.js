@@ -19,7 +19,7 @@ const Home = () => {
 				</div>
 			</Jumbotron>
 
-			<Section id="intro" className="container px-4 mb-24">
+			<Section id="intro" className="!mb-24">
 				<div className="text-center mt-16">
 					<h1 className="mb-6 text-4xl font-bold text-center">Hello, world!</h1>
 					<p className="max-w-lg mx-auto text-balance">
@@ -30,7 +30,7 @@ const Home = () => {
 				</div>
 			</Section>
 
-			<Section id="alpha" className="container px-4 my-12">
+			<Section id="alpha">
 				<Section.Title>Alpha</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
@@ -71,7 +71,7 @@ const Home = () => {
 				</p>
 			</Section>
 
-			<Section id="beta" className="container px-4 my-12">
+			<Section id="beta">
 				<Section.Title>Beta</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
@@ -112,7 +112,7 @@ const Home = () => {
 				</p>
 			</Section>
 
-			<Section id="charlie" className="container px-4 my-12">
+			<Section id="charlie">
 				<Section.Title>Charlie</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}

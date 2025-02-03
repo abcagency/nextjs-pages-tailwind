@@ -19,7 +19,7 @@ const ContactPage = () => {
 				<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />
 			</Jumbotron>
 
-			<Section className="container px-4 py-12">
+			<Section>
 				<Form />
 			</Section>
 		</Layout>

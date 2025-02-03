@@ -3,6 +3,19 @@
 	@apply scroll-mt-20;
 }
 
+.section-container {
+	@apply container px-4;
+}
+
 .section-title {
 	@apply mb-4 text-xl md:text-2xl font-bold;
+}
+
+/* Section Variants */
+.section-default {
+	@apply container px-4 my-20;
+}
+
+.section-primary {
+	@apply mx-0 px-4 py-20 my-0 bg-blue-600 text-white;
 }

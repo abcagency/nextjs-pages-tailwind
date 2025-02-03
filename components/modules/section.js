@@ -5,7 +5,7 @@ import useSectionTracker from '~/hooks/useSectionTracker';
 
 const isBrowser = typeof window !== 'undefined';
 
-const Section = ({ children, className, ...props }) => {
+const Section = ({ children, variant = 'default', className, ...props }) => {
 	const sectionIsIntersecting = useSectionTracker();
 
 	const onChange = (inView, entry) => {
@@ -28,12 +28,28 @@ const Section = ({ children, className, ...props }) => {
 			onChange={onChange}
 			className={twMerge`
 				section
+				${variant ? `section-${variant}` : ''}
 				${className ?? ''}
 			`}
 			{...props}
 		>
 			{children}
 		</InView>
+	);
+};
+
+export const SectionContainer = ({ as = 'div', children, className }) => {
+	const Container = as;
+
+	return (
+		<Container
+			className={twMerge`
+				section-container
+				${className ?? ''}
+			`}
+		>
+			{children}
+		</Container>
 	);
 };
 
@@ -52,6 +68,7 @@ export const SectionTitle = ({ as = 'h2', children, className }) => {
 	);
 };
 
+Section.Container = SectionContainer;
 Section.Title = SectionTitle;
 
 export default Section;
