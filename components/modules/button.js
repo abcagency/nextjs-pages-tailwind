@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import Icon from '~/components/modules/icon';
 
 const buttonClasses = (
-	type = 'button',
+	type = 'btn',
 	variant = 'primary',
 	size = 'md',
 	isRound,
@@ -16,12 +16,12 @@ const buttonClasses = (
 ) =>
 	twMerge`
 		group inline-block text-center cursor-pointer transition
-		${type === 'link' ? 'inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none' : type}
-		${isBlock && 'button-isBlock'}
+		${type}
+		${isBlock && 'btn-isBlock'}
 		${hasUnderline && 'link-hasUnderline'}
 		${variant && `${type}-${variant}`}
 		${size && `${type}-${size}`}
-		${isRound && 'button-isRound'}
+		${isRound && 'btn-isRound'}
 		${className ?? ''}
 	`;
 
@@ -213,7 +213,7 @@ export const ButtonBody = ({ children, className }) => {
 	return (
 		<span
 			className={`
-			inline-flex w-full items-center justify-between gap-1.5
+			btn-body
 			${className ?? ''}
 		`}
 		>
@@ -224,7 +224,12 @@ export const ButtonBody = ({ children, className }) => {
 
 export const ButtonIcon = ({ icon, size = 'size-4', inline, className }) => {
 	return (
-		<Icon icon={icon} size={size} inline={inline} className={className ?? ''} />
+		<Icon
+			icon={icon}
+			size={size}
+			inline={inline}
+			className={`btn-icon ${className ?? ''}`}
+		/>
 	);
 };
 

@@ -1,55 +1,63 @@
 /* * Button * */
-.button {
+.btn {
 	@apply font-bold uppercase rounded;
 }
 
-.button-isBlock {
+.btn-body {
+	@apply inline-flex w-full items-center justify-between gap-1.5;
+}
+
+.btn-isBlock {
 	@apply block w-full;
 }
 
-.button-isRound {
+.btn-isRound {
 	@apply rounded-full;
 }
 
 /* Button Variants */
-.button-primary {
+.btn-primary {
 	@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;
 }
 
-.button-secondary {
+.btn-secondary {
 	@apply bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800;
 }
 
-.button-icon {
+.btn-icon {
 	@apply opacity-100 hover:opacity-80 focus:opacity-80;
 }
 
 /* Button Sizes */
-.button-sq {
+.btn-sq {
 	@apply p-2.5;
 }
 
-.button-2xs {
+.btn-2xs {
 	@apply py-0.5 px-2 text-2xs;
 }
 
-.button-xs {
+.btn-xs {
 	@apply py-1 px-2 text-xs;
 }
 
-.button-sm {
+.btn-sm {
 	@apply py-1.5 px-3 text-sm;
 }
 
-.button-md {
+.btn-md {
 	@apply py-2 px-4 text-base;
 }
 
-.button-lg {
+.btn-lg {
 	@apply py-3 px-6 text-lg;
 }
 
 /* * Link * */
+.link {
+	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
+}
+
 .link-hasUnderline {
 	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
 }
