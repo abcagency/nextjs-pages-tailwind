@@ -1,8 +1,29 @@
 /* * Jumbotron * */
 .jumbotron {
-	@apply bg-gray-800 text-white;
+	@apply relative grid grid-cols-1 auto-rows-min md:grid-rows-1 overflow-hidden;
+}
+
+.jumbotron-body {
+	@apply md:row-span-full col-span-full grid place-content-center relative z-10 container p-4;
 }
 
 .jumbotron-title {
 	@apply mb-4 text-3xl md:text-4xl font-bold;
+}
+
+.jumbotron-image-container {
+	@apply relative order-first md:order-last row-span-full col-span-full;
+}
+
+.jumbotron-image {
+	@apply md:col-start-1 h-full w-full object-cover object-center;
+}
+
+/* Jumbotron Variants */
+.jumbotron-primary {
+	@apply bg-gray-800 text-white;
+
+	.jumbotron-image {
+		@apply opacity-70 md:opacity-20;
+	}
 }

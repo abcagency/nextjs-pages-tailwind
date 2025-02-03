@@ -3,12 +3,16 @@ import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
 const Jumbotron = forwardRef(
-	({ className, contentClasses, children, ...rest }, ref) => {
+	(
+		{ variant = 'primary', className, contentClasses, children, ...rest },
+		ref
+	) => {
 		return (
 			<section
 				ref={ref}
 				className={twMerge`
-					jumbotron relative grid grid-cols-1 auto-rows-min md:grid-rows-1 overflow-hidden
+					jumbotron
+					${variant ? `jumbotron-${variant}` : ''}
 					${className ?? ''}
 				`}
 				{...rest}
@@ -23,7 +27,7 @@ export const JumbotronBody = ({ className, children }) => {
 	return (
 		<div
 			className={twMerge`
-				md:row-span-full col-span-full grid place-content-center relative z-10 container p-4
+				jumbotron-body
 				${className ?? ''}
 			`}
 		>
@@ -55,7 +59,7 @@ export const JumbotronImage = ({
 	return (
 		<div
 			className={twMerge`
-				jumbotron-image relative order-first md:order-last row-span-full col-span-full
+				jumbotron-image-container
 				${containerClassName ?? ''}
 			`}
 		>
@@ -66,7 +70,7 @@ export const JumbotronImage = ({
 				alt={alt ?? ''}
 				priority
 				className={twMerge`
-					md:col-start-1 h-full w-full object-cover object-center opacity-70 md:opacity-20
+					jumbotron-image
 					${className ?? ''}
 				`}
 				{...rest}
