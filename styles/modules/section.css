@@ -1,4 +1,8 @@
 /* * Section * */
+.section {
+	@apply scroll-mt-20;
+}
+
 .section-title {
 	@apply mb-4 text-xl md:text-2xl font-bold;
 }
