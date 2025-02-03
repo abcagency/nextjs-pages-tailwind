@@ -20,7 +20,7 @@ const Accordion = ({
 			defaultValue={defaultValue ?? null}
 			collapsible={collapsible}
 			className={twMerge`
-				space-y-px
+				accordion
 				${variant ? `accordion-${variant}` : ''}
 				${className ?? ''}
 			`}
@@ -55,7 +55,7 @@ export const AccordionTrigger = forwardRef(
 			<RadixAccordion.Trigger
 				ref={ref}
 				className={twMerge`
-					accordion-trigger group flex justify-between w-full text-left focus:outline-hidden transition-colors
+					accordion-trigger group
 					${className ?? ''}
 				`}
 				{...props}
@@ -64,7 +64,7 @@ export const AccordionTrigger = forwardRef(
 				<Icon
 					icon={icon}
 					size="size-5"
-					className="trigger-icon transition-transform"
+					className="trigger-icon"
 					aria-hidden="true"
 				/>
 			</RadixAccordion.Trigger>
@@ -77,14 +77,14 @@ export const AccordionContent = forwardRef(
 		<RadixAccordion.Content
 			ref={ref}
 			className={twMerge`
-				overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp
+				accordion-content
 				${className ?? ''}
 			`}
 			{...props}
 		>
 			<div
 				className={twMerge`
-					accordion-body px-4 py-2
+					accordion-body
 					${bodyClassName ?? ''}
 				`}
 			>
