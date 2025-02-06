@@ -1,0 +1,4 @@
+/* * Icon * */
+.icon-container {
+	@apply inline-flex align-middle;
+}

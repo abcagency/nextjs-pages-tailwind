@@ -12,7 +12,7 @@ const IconContained = ({
 	return (
 		<span
 			className={twMerge`
-				inline-flex align-middle
+				icon-container
 				${className ?? ''}
 				${size ?? ''}
 			`}
@@ -23,6 +23,7 @@ const IconContained = ({
 				height="100%"
 				width="100%"
 				className={`
+					icon
 					${iconClassName ?? ''}
 					${size ?? ''}
 				`}
