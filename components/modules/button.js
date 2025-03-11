@@ -15,7 +15,7 @@ const buttonClasses = (
 	className
 ) =>
 	twMerge`
-		group inline-block text-center cursor-pointer transition-all
+		group inline-block text-center cursor-pointer transition
 		${type}
 		${variant && variant}
 		${size && size}
