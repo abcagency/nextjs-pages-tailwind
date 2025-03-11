@@ -1,3 +1,5 @@
+@reference "~/lib/tailwind/theme.css";
+
 /* * Button * */
 .btn {
 	@apply font-bold rounded;
@@ -47,42 +49,52 @@
 }
 
 .2xs {
-	@apply text-2xs;
-
 	.btn& {
-		@apply py-0.5 px-2;
+		@apply py-0.5 px-2 text-2xs;
+	}
+
+	.link& {
+		@apply text-2xs!;
 	}
 }
 
 .xs {
-	@apply text-xs;
-
 	.btn& {
-		@apply py-1 px-2;
+		@apply py-1 px-2 text-xs;
+	}
+
+	.link& {
+		@apply text-xs!;
 	}
 }
 
 .sm {
-	@apply text-sm;
-
 	.btn& {
-		@apply py-1.5 px-3;
+		@apply py-1.5 px-3 text-sm;
+	}
+
+	.link& {
+		@apply text-sm!;
 	}
 }
 
 .md {
-	@apply text-base;
-
 	.btn& {
-		@apply py-2 px-4;
+		@apply py-2 px-4 text-base;
+	}
+
+	.link& {
+		@apply text-base!;
 	}
 }
 
 .lg {
-	@apply text-lg;
-
 	.btn& {
-		@apply py-3 px-6;
+		@apply py-3 px-6 text-lg;
+	}
+
+	.link& {
+		@apply text-lg!;
 	}
 }
 
