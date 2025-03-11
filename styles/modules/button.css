@@ -1,68 +1,103 @@
+/* * Button/Link * */
+.btn,
+.link {
+	&.is-block {
+		@apply block w-full;
+	}
+
+	&.is-round {
+		@apply rounded-full;
+	}
+
+	&.has-underline {
+		@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
+	}
+}
+
 /* * Button * */
 .btn {
-	@apply font-bold uppercase rounded;
+	@apply font-bold rounded;
 }
 
 .btn-body {
 	@apply inline-flex w-full items-center justify-between gap-1.5;
 }
 
-.btn-isBlock {
-	@apply block w-full;
-}
-
-.btn-isRound {
-	@apply rounded-full;
-}
-
-/* Button Variants */
-.btn-primary {
-	@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;
-}
-
-.btn-secondary {
-	@apply bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800;
-}
-
-.btn-icon {
-	@apply opacity-100 hover:opacity-80 focus:opacity-80;
-}
-
-/* Button Sizes */
-.btn-sq {
-	@apply p-2.5;
-}
-
-.btn-2xs {
-	@apply py-0.5 px-2 text-2xs;
-}
-
-.btn-xs {
-	@apply py-1 px-2 text-xs;
-}
-
-.btn-sm {
-	@apply py-1.5 px-3 text-sm;
-}
-
-.btn-md {
-	@apply py-2 px-4 text-base;
-}
-
-.btn-lg {
-	@apply py-3 px-6 text-lg;
-}
-
 /* * Link * */
 .link {
-	@apply inline !p-0 normal-case text-inherit !font-[inherit] [font-weight:inherit] rounded-none;
+	@apply inline p-0! normal-case [font-size:inherit]! font-[inherit]! rounded-none;
 }
 
-.link-hasUnderline {
-	@apply !underline decoration-1 underline-offset-2 hover:!no-underline focus:!no-underline;
+/* * Variants * */
+.primary {
+	.btn& {
+		@apply bg-blue-600 text-white hover:bg-blue-800 focus:bg-blue-800;
+	}
+
+	.link& {
+		@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
+	}
 }
 
-/* Link Variants */
-.link-primary {
-	@apply text-indigo-700 hover:text-indigo-500 focus:text-indigo-500;
+.secondary {
+	.btn& {
+		@apply bg-pink-600 text-white hover:bg-pink-800 focus:bg-pink-800;
+	}
+
+	.link& {
+		@apply text-pink-600 hover:text-pink-800 focus:text-pink-800;
+	}
+}
+
+.icon {
+	.btn& {
+		@apply opacity-100 hover:opacity-80 focus:opacity-80;
+	}
+}
+
+/* * Button Sizes * */
+.sq {
+	.btn& {
+		@apply p-2.5;
+	}
+}
+
+.2xs {
+	@apply text-2xs;
+
+	.btn& {
+		@apply py-0.5 px-2;
+	}
+}
+
+.xs {
+	@apply text-xs;
+
+	.btn& {
+		@apply py-1 px-2;
+	}
+}
+
+.sm {
+	@apply text-sm;
+
+	.btn& {
+		@apply py-1.5 px-3;
+	}
+}
+
+.md {
+	@apply text-base;
+
+	.btn& {
+		@apply py-2 px-4;
+	}
+}
+
+.lg {
+	@apply text-lg;
+
+	.btn& {
+		@apply py-3 px-6;
+	}
 }

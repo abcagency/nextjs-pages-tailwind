@@ -91,6 +91,9 @@ const AboutPage = () => {
 						</Button.Body>
 					</Button.Btn>
 					<Button.Btn isBlock>Block</Button.Btn>
+					<Button.Btn type="link" hasUnderline>
+						This is a link
+					</Button.Btn>
 				</nav>
 			</Section>
 

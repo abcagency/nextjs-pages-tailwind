@@ -17,11 +17,11 @@ const buttonClasses = (
 	twMerge`
 		group inline-block text-center cursor-pointer transition
 		${type}
-		${isBlock && 'btn-isBlock'}
-		${hasUnderline && 'link-hasUnderline'}
-		${variant && `${type}-${variant}`}
-		${size && `${type}-${size}`}
-		${isRound && 'btn-isRound'}
+		${variant && variant}
+		${size && size}
+		${isBlock && 'is-block'}
+		${isRound && 'is-round'}
+		${hasUnderline && 'has-underline'}
 		${className ?? ''}
 	`;
 
