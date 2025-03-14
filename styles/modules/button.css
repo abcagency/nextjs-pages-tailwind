@@ -1,5 +1,3 @@
-@reference "~/lib/tailwind/theme.css";
-
 /* * Button * */
 .btn {
 	@apply font-bold rounded;
