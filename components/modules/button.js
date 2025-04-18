@@ -27,7 +27,7 @@ const ButtonSize = {
 	'2xs': 'py-0.5 px-2 text-2xs',
 	xs: 'py-1 px-2 text-xs',
 	sm: 'py-1.5 px-3 text-sm',
-	md: 'py-2 px-4 text-md',
+	md: 'py-2 px-4 text-base',
 	lg: 'py-3 px-6 text-lg'
 };
 
