@@ -1,5 +1,5 @@
 @layer base {
 	html {
-		@apply font-display text-450 text-gray-850 scroll-smooth;
+		@apply font-sans text-450 text-gray-850 scroll-smooth;
 	}
 }
