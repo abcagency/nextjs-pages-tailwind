@@ -8,16 +8,24 @@ import Navbar from '~/components/modules/navigation/navbar';
 import { useHeadroom } from '~/components/util/context/headroom';
 
 const Header = () => {
-	const { headroomIsDisabled } = useHeadroom();
-
+	const { headroomIsDisabled, setHeadroomIsPinned } = useHeadroom();
 	const [isPinned, setIsPinned] = useState(false);
 
 	return (
 		<Headroom
 			style={{ zIndex: 50 }}
-			onPin={() => setIsPinned(true)}
-			onUnpin={() => setIsPinned(false)}
-			onUnfix={() => setIsPinned(false)}
+			onPin={() => {
+				setIsPinned(true);
+				setHeadroomIsPinned(true);
+			}}
+			onUnpin={() => {
+				setIsPinned(false);
+				setHeadroomIsPinned(false);
+			}}
+			onUnfix={() => {
+				setIsPinned(false);
+				setHeadroomIsPinned(false);
+			}}
 			disable={headroomIsDisabled}
 		>
 			<header>

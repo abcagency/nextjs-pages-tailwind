@@ -11,13 +11,16 @@ export const useHeadroom = () => {
 };
 
 export const HeadroomProvider = ({ children }) => {
+	const [headroomIsPinned, setHeadroomIsPinned] = useState(false);
 	const [headroomIsDisabled, setHeadroomIsDisabled] = useState();
 
 	return (
 		<HeadroomContext.Provider
 			value={{
 				headroomIsDisabled,
-				setHeadroomIsDisabled
+				setHeadroomIsDisabled,
+				headroomIsPinned,
+				setHeadroomIsPinned
 			}}
 		>
 			{children}
