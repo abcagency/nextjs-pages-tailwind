@@ -9,6 +9,8 @@ import Icon from '~/components/modules/icon';
 import routes from '~/data/routes.json';
 import site from '~/data/site.json';
 
+import Horns from '~/images/inline/horns.svg';
+
 const Navbar = ({ isPinned }) => {
 	const [isExpanded, toggleExpansion] = useState(false);
 
@@ -26,7 +28,7 @@ const Navbar = ({ isPinned }) => {
 				`}
 			>
 				<Link href="/" className="flex gap-2 items-center">
-					<Icon icon="mdi:robot" size="size-6" />
+					<Horns role="img" aria-hidden="true" className="size-6" />
 					<h1 className="text-gray-800 font-bold text-md no-underline">
 						{site.title}
 					</h1>
