@@ -10,4 +10,5 @@
 /* Global */
 @import './theme.css';
 @import './base.css';
+@import './components.css';
 @import './utilities.css';

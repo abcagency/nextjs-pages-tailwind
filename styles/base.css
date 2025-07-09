@@ -2,4 +2,13 @@
 	html {
 		@apply font-sans text-450 text-gray-850 scroll-smooth;
 	}
+
+	::selection {
+		@apply bg-pink-600 text-white;
+	}
+
+	a,
+	button {
+		@apply cursor-pointer;
+	}
 }
