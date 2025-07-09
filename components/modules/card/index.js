@@ -2,9 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
-const cardClasses = (className, hasShadow) =>
+const CardVariant = {
+	none: '',
+	white: 'bg-white text-gray-850'
+};
+
+const cardClasses = (className, variant, hasShadow, hasBorder) =>
 	twMerge`
-		relative flex flex-wrap flex-col bg-clip-border break-words bg-white border border-gray-100
+		relative flex flex-wrap flex-col bg-clip-border break-words
+		${variant ? CardVariant[variant] : CardVariant.white}
+		${hasBorder ? 'border border-gray-850/5' : ''}
+		${hasShadow ? 'shadow-lg' : ''}
 		${hasShadow ? 'shadow-lg' : ''}
 		${className ?? ''}
 	`;
@@ -15,7 +23,9 @@ const Card = ({ children }) => {
 
 const CardDefault = ({
 	className,
-	hasShadow = true,
+	variant,
+	hasBorder = true,
+	hasShadow,
 	image,
 	body,
 	children,
@@ -23,7 +33,10 @@ const CardDefault = ({
 	...rest
 }) => {
 	return (
-		<div className={cardClasses(className, hasShadow)} {...rest}>
+		<div
+			className={cardClasses(className, variant, hasShadow, hasBorder)}
+			{...rest}
+		>
 			{image}
 			{children}
 			{body}
@@ -36,7 +49,9 @@ const CardLink = ({
 	as = 'link',
 	href,
 	className,
-	hasShadow = true,
+	variant,
+	hasBorder = true,
+	hasShadow,
 	image,
 	body,
 	children,
@@ -49,7 +64,7 @@ const CardLink = ({
 		<Container
 			href={href}
 			className={twMerge`
-				${cardClasses(className, hasShadow)}
+				${cardClasses(className, variant, hasShadow, hasBorder)}
 				group transition hover:shadow-xl hover:border-indigo-300 focus:shadow-xl  focus:border-indigo-300
 			`}
 			{...rest}
