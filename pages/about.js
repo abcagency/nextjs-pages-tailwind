@@ -28,20 +28,17 @@ const AboutPage = () => {
 
 				<Dialog
 					title="Dialog Title"
-					body={
-						<>
-							<p className="text-pretty">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								Placeat dolor inventore deserunt, perferendis asperiores
-								quibusdam repudiandae.
-							</p>
-						</>
-					}
 					button={{
 						text: 'Open Dialog',
 						icon: 'mdi:dialogue-plus'
 					}}
-				/>
+				>
+					<p className="text-pretty">
+						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
+						dolor inventore deserunt, perferendis asperiores quibusdam
+						repudiandae.
+					</p>
+				</Dialog>
 
 				<Grid className="my-12">
 					<SlideIn>

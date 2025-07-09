@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import {
 	Dialog,
 	DialogPanel,
+	DialogTitle,
 	Transition,
 	TransitionChild
 } from '@headlessui/react';
@@ -16,6 +17,7 @@ const DialogDefault = ({
 	dialogWidth = 'max-w-3xl',
 	title,
 	body,
+	children,
 	isOpen = false,
 	setIsOpen,
 	dialogBodyClasses
@@ -109,9 +111,12 @@ const DialogDefault = ({
 									`}
 								>
 									<div className="flex gap-2 justify-between items-start border-b border-gray-200 pb-2 mb-6">
-										<h4 className="text-xl font-semibold">{title}</h4>
+										<DialogTitle className="text-xl font-semibold">
+											{title}
+										</DialogTitle>
 									</div>
 									<div className="md:px-4">{body}</div>
+									{children}
 
 									<Button.Btn
 										variant="icon"
@@ -132,6 +137,20 @@ const DialogDefault = ({
 				</Dialog>
 			</Transition>
 		</>
+	);
+};
+
+export const DialogBody = ({ children, className, ...props }) => {
+	return (
+		<div
+			className={`
+				md:px-4
+				${className ?? ''}
+			`}
+			{...props}
+		>
+			{children}
+		</div>
 	);
 };
 
