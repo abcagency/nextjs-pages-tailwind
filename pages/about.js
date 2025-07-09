@@ -6,6 +6,7 @@ import Card from '~/components/modules/card';
 import Accordion from '~/components/modules/accordion';
 import SlideIn from '~/components/modules/animations/slidein';
 import Grid from '~/components/modules/grid';
+import Dialog from '~/components/modules/dialog';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
@@ -24,7 +25,25 @@ const AboutPage = () => {
 
 			<Section id="alpha" className="container px-4 my-12">
 				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
-				<Grid className="mb-12">
+
+				<Dialog
+					title="Dialog Title"
+					body={
+						<>
+							<p className="text-pretty">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Placeat dolor inventore deserunt, perferendis asperiores
+								quibusdam repudiandae.
+							</p>
+						</>
+					}
+					button={{
+						text: 'Open Dialog',
+						icon: 'mdi:dialogue-plus'
+					}}
+				/>
+
+				<Grid className="my-12">
 					<SlideIn>
 						<Card.Default>
 							<Card.Image image={FpoImage} alt="FPO image" />
