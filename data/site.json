@@ -22,19 +22,19 @@
 			"platform": "Facebook",
 			"label": "Like us on Facebook",
 			"url": "https://www.facebook.com/abcCreativeIntelligence",
-			"icon": "fa-brands:facebook-f"
+			"icon": "fa7-brands:facebook-f"
 		},
 		{
 			"platform": "Instagram",
 			"label": "Follow us on Instagram",
 			"url": "https://www.instagram.com/abc_creative/",
-			"icon": "fa-brands:instagram"
+			"icon": "fa7-brands:instagram"
 		},
 		{
 			"platform": "Twitter",
-			"label": "Follow us on Twitter",
+			"label": "Follow us on X",
 			"url": "https://twitter.com/abc_Creative",
-			"icon": "fa-brands:twitter"
+			"icon": "fa7-brands:x-twitter"
 		}
 	],
 	"copyright": {
