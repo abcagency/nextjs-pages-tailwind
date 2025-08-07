@@ -13,7 +13,6 @@ const cardClasses = (className, variant, hasShadow, hasBorder) =>
 		${variant ? CardVariant[variant] : CardVariant.white}
 		${hasBorder ? 'border border-gray-850/5' : ''}
 		${hasShadow ? 'shadow-lg' : ''}
-		${hasShadow ? 'shadow-lg' : ''}
 		${className ?? ''}
 	`;
 
