@@ -10,14 +10,16 @@
 	--color-gray-850: #141414;
 
 	/* Fonts */
-	--font-fallback-sans: ui-sans-serif, system-ui, sans-serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-	--font-fallback-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times,
-		serif;
+	--font-fallback-sans:
+		ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-fallback-serif:
+		ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 
 	--text-2xs: 0.65rem;
 	--text-300: clamp(0.7rem, 0.66rem + 0.2vw, 0.8rem);
 	--text-400: clamp(0.88rem, 0.83rem + 0.24vw, 1rem);
+	--text-425: clamp(1rem, 0.88rem + 0.28vw, 1.09rem);
 	--text-450: clamp(1rem, 1rem + 0.33vw, 1.33rem);
 	--text-500: clamp(1.09rem, 1rem + 0.47vw, 1.33rem);
 	--text-600: clamp(1.37rem, 1.21rem + 0.8vw, 1.78rem);
