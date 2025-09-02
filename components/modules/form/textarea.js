@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const Textarea = forwardRef(
 	(
@@ -10,6 +11,9 @@ const Textarea = forwardRef(
 			placeholder,
 			rows = '8',
 			isSubmitting,
+			value,
+			onChange,
+			onBlur,
 			...rest
 		},
 		ref
@@ -21,11 +25,14 @@ const Textarea = forwardRef(
 				name={fieldName}
 				placeholder={placeholder}
 				rows={rows}
-				className={`
-				block w-full min-h-48 field-sizing-content rounded-md bg-white border placeholder:text-gray-300 transition-colors
-				${showError ? 'border-red-500' : 'border-gray-400'}
-				${className ?? ''}
-			`}
+				{...(value !== undefined ? { value: value || '' } : {})}
+				onChange={onChange}
+				onBlur={onBlur}
+				className={twMerge`
+					block w-full min-h-32 px-4 field-sizing-content rounded bg-white border placeholder:text-gray-300 transition-colors
+					${showError ? 'border-red-500' : 'border-gray-400'}
+					${className ?? ''}
+				`}
 				aria-invalid={showError ? 'true' : null}
 				aria-describedby={showError ? `${fieldName}-error` : null}
 				aria-required={required}

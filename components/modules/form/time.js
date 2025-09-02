@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-const SelectField = forwardRef(
+const TimeInput = forwardRef(
 	(
 		{
 			className,
@@ -10,7 +10,6 @@ const SelectField = forwardRef(
 			placeholder,
 			isSubmitting,
 			disabled = false,
-			options,
 			value,
 			onChange,
 			onBlur,
@@ -19,10 +18,12 @@ const SelectField = forwardRef(
 		ref
 	) => {
 		return (
-			<select
+			<input
 				{...rest}
 				ref={ref}
+				type="time"
 				name={fieldName}
+				placeholder={placeholder}
 				{...(value !== undefined ? { value: value || '' } : {})}
 				onChange={onChange}
 				onBlur={onBlur}
@@ -35,18 +36,11 @@ const SelectField = forwardRef(
 				aria-describedby={showError ? `${fieldName}-error` : null}
 				aria-required={required}
 				disabled={disabled || isSubmitting}
-			>
-				<option value="">{placeholder}</option>
-				{options.map(option => (
-					<option key={option.value} value={option.value}>
-						{option.label}
-					</option>
-				))}
-			</select>
+			/>
 		);
 	}
 );
 
-SelectField.displayName = 'SelectField';
+TimeInput.displayName = 'TimeInput';
 
-export default SelectField;
+export default TimeInput;

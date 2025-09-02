@@ -41,8 +41,18 @@ const ContactForm = ({ className }) => {
 		}, 1000);
 	};
 
-	const transportationOptions = ['Car', 'Boat', 'Plane'];
-	const favoriteColorOptions = ['blue', 'green', 'pink', 'red', 'yellow'];
+	const transportationOptions = [
+		{ value: 'car', label: 'Car' },
+		{ value: 'boat', label: 'Boat' },
+		{ value: 'plane', label: 'Plane' }
+	];
+	const favoriteColorOptions = [
+		{ value: 'blue', label: 'Blue' },
+		{ value: 'green', label: 'Green' },
+		{ value: 'pink', label: 'Pink' },
+		{ value: 'red', label: 'Red' },
+		{ value: 'yellow', label: 'Yellow' }
+	];
 
 	const handleSliderValueChange = useCallback((field, value) => {
 		field.onChange(value);
@@ -77,70 +87,41 @@ const ContactForm = ({ className }) => {
 
 			<Grid columns="sm:grid-cols-2" gap="gap-4">
 				<Grid.Item>
-					<h3
-						id="transportation-group-title"
-						className="inline-block text-xs uppercase font-bold mb-2"
-					>
-						Transportation
-					</h3>
-
-					{errors.transportation && (
-						<span
-							id="transportation-error"
-							name="email"
-							className="inline-block text-red-500 uppercase text-xs font-bold ml-1"
-						>
-							{errors.transportation?.message}
-						</span>
-					)}
-
-					<div
-						role="group"
-						aria-labelledby="transportation-group-title"
-						className="flex flex-col items-start"
-					>
-						{transportationOptions.map(value => (
-							<label key={value} className="inline-flex items-center mb-3">
-								<input
-									{...register(`transportation`)}
-									id={`transportation${value}`}
-									value={value}
-									type="checkbox"
-									className="rounded-sm h-5 w-5 text-indigo-600 border-gray-400 transition-colors"
-								/>
-								<span className="ml-2">{value}</span>
-							</label>
-						))}
-					</div>
+					<Controller
+						name="transportation"
+						control={control}
+						render={({ field: { value, onChange } }) => (
+							<FormField
+								type="checkbox-group"
+								fieldName="transportation"
+								displayName="Transportation"
+								options={transportationOptions}
+								value={value}
+								onChange={onChange}
+								errors={errors}
+								isSubmitting={isSubmitting}
+							/>
+						)}
+					/>
 				</Grid.Item>
 
 				<Grid.Item>
-					<h3
-						id="favorite-color-group-title"
-						className="inline-block text-xs uppercase font-bold mb-2"
-					>
-						Favorite color
-					</h3>
-
-					<div
-						role="group"
-						aria-labelledby="favorite-color-group-title"
-						className="flex flex-col items-start"
-					>
-						{favoriteColorOptions.map(value => (
-							<label key={value} className="inline-flex items-center mb-3">
-								<input
-									{...register(`favoriteColor`)}
-									id={`favoriteColor${value}`}
-									value={value}
-									type="radio"
-									name="favoriteColor"
-									className="rounded-full h-5 w-5 text-indigo-600 border-gray-400  transition-colors"
-								/>
-								<span className="ml-2 capitalize">{value}</span>
-							</label>
-						))}
-					</div>
+					<Controller
+						name="favoriteColor"
+						control={control}
+						render={({ field: { value, onChange } }) => (
+							<FormField
+								type="radio-group"
+								fieldName="favoriteColor"
+								displayName="Favorite Color"
+								options={favoriteColorOptions}
+								value={value}
+								onChange={onChange}
+								errors={errors}
+								isSubmitting={isSubmitting}
+							/>
+						)}
+					/>
 				</Grid.Item>
 			</Grid>
 
@@ -209,44 +190,19 @@ const ContactForm = ({ className }) => {
 				/>
 
 				<Grid.Item>
-					<label
-						className="inline-block mb-2 text-xs font-bold uppercase"
-						htmlFor="distance"
-					>
-						Distance
-					</label>
-
-					{errors.distance && (
-						<span
-							id="distance-error"
-							name="distance"
-							className="inline-block text-red-500 uppercase text-xs font-bold ml-1"
-						>
-							{errors.distance?.message}
-						</span>
-					)}
-
 					<Controller
 						name="distance"
 						control={control}
-						render={({ field }) => (
-							<Slider.Root
-								defaultValue={[0]}
-								onValueChange={value => handleSliderValueChange(field, value)}
-								aria-label="distance"
-								className="relative flex h-5 mt-2 touch-none select-none items-center"
-							>
-								<Slider.Track className="relative h-3 grow rounded-full bg-gray-200">
-									<Slider.Range className="absolute h-full rounded-full bg-indigo-600" />
-								</Slider.Track>
-								<Slider.Thumb
-									className={`
-										grid place-content-center size-9 p-1.5 rounded-full bg-indigo-600 text-white ring-4 ring-white text-center text-sm cursor-grab transition-colors focus:outline-none focus:bg-indigo-800 ${errors.distance && '!bg-red-500 !text-white'}
-									`}
-								>
-									{field.value}
-								</Slider.Thumb>
-							</Slider.Root>
+						render={({ field: { value, onChange } }) => (
+							<FormField
+								type="range"
+								fieldName="distance"
+								displayName="Distance"
+								value={value}
+								onChange={onChange}
+								errors={errors}
+								isSubmitting={isSubmitting}
+							/>
 						)}
 					/>
 				</Grid.Item>

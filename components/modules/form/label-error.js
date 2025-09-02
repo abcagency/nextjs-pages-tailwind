@@ -18,8 +18,8 @@ const LabelAndError = ({
 			<div className="flex gap-1 mb-2">
 				<label
 					className={`
-						flex gap-0.5 text-xs font-bold uppercase transition-colors
-						${showError ? 'text-red-500' : ''}
+						flex gap-0.5 text-2xs font-bold uppercase transition-colors
+						${showError ? 'text-red-750' : 'text-blue-850'}
 					`}
 					htmlFor={fieldName}
 				>
@@ -30,7 +30,7 @@ const LabelAndError = ({
 							size="size-1.5"
 							className={`
 								align-text-top
-								${showError ? 'text-red-500' : ''}
+								${showError ? 'text-red-750' : ''}
 							`}
 						/>
 					)}
@@ -40,7 +40,7 @@ const LabelAndError = ({
 					<span
 						id={`${fieldName}-error`}
 						name={fieldName}
-						className="text-red-500 uppercase text-xs font-bold inline-block"
+						className="text-red-700 text-2xs font-bold inline-block"
 					>
 						{showError?.message}
 					</span>
