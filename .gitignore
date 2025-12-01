@@ -19,17 +19,6 @@
 .DS_Store
 *.pem
 
-# Generated Favicon files
-/public/android-chrome-192x192.png
-/public/android-chrome-512x512.png
-/public/apple-touch-icon-180x180.png
-/public/apple-touch-icon.png
-/public/favicon-16x16.png
-/public/favicon-32x32.png
-/public/favicon-48x48.png
-/public/favicon.ico
-/public/manifest.webmanifest
-
 # debug
 npm-debug.log*
 yarn-debug.log*
