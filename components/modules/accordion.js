@@ -1,53 +1,58 @@
 import { forwardRef } from 'react';
-import { Accordion as RadixAccordion } from 'radix-ui';
+import { Accordion as BaseAccordion } from '@base-ui/react/accordion';
 import { twMerge } from 'tailwind-merge';
 
 import Icon from '~/components/modules/icon';
 
 import trackEvent from '~/hooks/useEventTracker';
 
-const Accordion = ({
-	className,
-	type = 'single',
-	defaultValue,
-	collapsible = true,
-	children
-}) => {
+const Accordion = ({ className, type = 'single', defaultValue, children }) => {
 	return (
-		<RadixAccordion.Root
-			type={type}
-			defaultValue={defaultValue ?? null}
-			collapsible={collapsible}
+		<BaseAccordion.Root
+			multiple={type === 'multiple'}
+			defaultValue={
+				defaultValue
+					? Array.isArray(defaultValue)
+						? defaultValue
+						: [defaultValue]
+					: undefined
+			}
 			className={className ?? ''}
-			onValueChange={value => trackEvent('Engagement', 'Open Accordion', value)}
+			onValueChange={value =>
+				trackEvent(
+					'Engagement',
+					'Open Accordion',
+					Array.isArray(value) ? value.join(',') : value
+				)
+			}
 		>
 			{children}
-		</RadixAccordion.Root>
+		</BaseAccordion.Root>
 	);
 };
 
 export const AccordionItem = forwardRef(
 	({ id, children, className, ...props }, ref) => {
 		return (
-			<RadixAccordion.Item
+			<BaseAccordion.Item
 				ref={ref}
 				value={id}
 				className={className ?? ''}
 				{...props}
 			>
 				{children}
-			</RadixAccordion.Item>
+			</BaseAccordion.Item>
 		);
 	}
 );
 
 export const AccordionTrigger = forwardRef(
-	({ children, className, ...props }, ref) => (
-		<RadixAccordion.Header asChild>
-			<RadixAccordion.Trigger
+	({ children, className, iconClassName, ...props }, ref) => (
+		<BaseAccordion.Header>
+			<BaseAccordion.Trigger
 				ref={ref}
 				className={twMerge`
-					group flex justify-between w-full p-4 font-bold text-left text-gray-700 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-[state=closed]:bg-gray-100 data-[state=open]:bg-gray-200
+					group flex justify-between w-full p-4 font-bold text-left text-gray-700 bg-gray-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-purple-500 focus-visible:ring-opacity-75 hover:bg-gray-200 focus:bg-gray-200 transition-colors border-b border-white data-panel-open:bg-gray-200
 					${className ?? ''}
 				`}
 				{...props}
@@ -55,21 +60,25 @@ export const AccordionTrigger = forwardRef(
 				{children}
 				<Icon
 					icon="mdi:chevron-down"
-					size="w-4 h-4"
-					className="transition-transform transform! translate-y-1! group-data-[state=open]:rotate-180!"
+					size="size-5"
+					className={twMerge`
+						transition-transform transform! translate-y-1! group-data-panel-open:rotate-180!
+						${iconClassName ?? ''}
+					`}
 					aria-hidden="true"
 				/>
-			</RadixAccordion.Trigger>
-		</RadixAccordion.Header>
+			</BaseAccordion.Trigger>
+		</BaseAccordion.Header>
 	)
 );
 
 export const AccordionContent = forwardRef(
 	({ children, className, bodyClassName, ...props }, ref) => (
-		<RadixAccordion.Content
+		<BaseAccordion.Panel
 			ref={ref}
+			keepMounted={true}
 			className={twMerge`
-				data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden
+				h-(--accordion-panel-height) overflow-hidden transition-[height] duration-600 ease-(--slide-timing-function) data-ending-style:h-0 data-starting-style:h-0
 				${className ?? ''}
 			`}
 			{...props}
@@ -82,7 +91,7 @@ export const AccordionContent = forwardRef(
 			>
 				{children}
 			</div>
-		</RadixAccordion.Content>
+		</BaseAccordion.Panel>
 	)
 );
 
