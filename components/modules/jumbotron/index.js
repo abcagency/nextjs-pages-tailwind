@@ -32,7 +32,7 @@ export const JumbotronTitle = ({ className, children }) => {
 	return (
 		<h1
 			className={twMerge`
-				text-3xl font-bold text-pretty
+				text-2xl md:text-3xl font-bold text-pretty
 				${className ?? ''}
 			`}
 		>

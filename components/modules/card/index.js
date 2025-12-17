@@ -115,16 +115,30 @@ export const CardBody = ({ children, className }) => {
 	);
 };
 
-export const CardTitle = ({ children, className }) => {
+export const CardTitle = ({ as = 'h3', children, className }) => {
+	const Title = as;
 	return (
-		<h3
+		<Title
 			className={twMerge`
-				text-2xl font-bold text-pretty
+				text-lg md:text-xl font-bold text-pretty
 				${className ?? ''}
 			`}
 		>
 			{children}
-		</h3>
+		</Title>
+	);
+};
+
+export const CardHeader = ({ children, className }) => {
+	return (
+		<div
+			className={twMerge`
+				py-2 px-4 md:px-6 lg:px-8
+				${className ?? ''}
+			`}
+		>
+			{children}
+		</div>
 	);
 };
 
@@ -146,6 +160,7 @@ Card.Link = CardLink;
 Card.Image = CardImage;
 Card.Body = CardBody;
 Card.Title = CardTitle;
+Card.Header = CardHeader;
 Card.Footer = CardFooter;
 
 export default Card;

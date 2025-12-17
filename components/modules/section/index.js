@@ -42,7 +42,7 @@ export const SectionTitle = ({ as = 'h2', children, className }) => {
 	return (
 		<Title
 			className={`
-				mb-4 text-2xl text-pretty
+				mb-4 text-xl md:text-2xl text-pretty
 				${className ?? ''}
 			`}
 		>
