@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
-/* Tailwind Plugins */
+/* Tailwind Plugins/Imports */
 @plugin '@tailwindcss/aspect-ratio';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
-@plugin 'tailwindcss-animate';
 @plugin 'tailwindcss-quantity-queries';
+@import 'tw-animate-css';
 
 /* Global */
 @import './theme.css';
