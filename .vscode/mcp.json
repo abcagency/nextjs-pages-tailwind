@@ -1,0 +1,10 @@
+{
+	"servers": {
+		"datocms": {
+			"command": "npx",
+			"args": ["-y", "@datocms/mcp@latest"],
+			"envFile": "${workspaceFolder}/.env.development"
+		}
+	},
+	"inputs": []
+}
