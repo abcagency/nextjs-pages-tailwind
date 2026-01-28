@@ -4,6 +4,10 @@
 			"command": "npx",
 			"args": ["-y", "@datocms/mcp@latest"],
 			"envFile": "${workspaceFolder}/.env.development"
+		},
+		"figma": {
+			"url": "http://127.0.0.1:3845/mcp",
+			"type": "http"
 		}
 	},
 	"inputs": []
