@@ -23,6 +23,7 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 ├── /public/                    # Static assets
 ├── /pages/                     # Pages
 ├── /styles/                    # Styles
+├── /types/                     # Types
 ├── /.env.*                     # Environment variables
 ├── /next-config.js             # Next.js configuration
 ├── /postcss.config.js          # PostCSS config
@@ -41,8 +42,11 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 ### UI
 
 - [TailwindCSS](https://tailwindcss.com/)
+- [Shadcn](https://ui.shadcn.com/)
+- [BaseUI](https://base-ui.com/)
 - [HeadlessUI](https://headlessui.dev/)
-- [Framer Motion](https://www.framer.com/motion/)
+- [Motion](https://motion.dev/)
+- [React Hook Form](https://react-hook-form.com/)
 - [Iconify](https://iconify.design/)
 
 ---
