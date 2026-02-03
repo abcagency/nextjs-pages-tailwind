@@ -43,7 +43,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 				onChange={onChange}
 				onBlur={onBlur}
 				className={twMerge(
-					'block w-full min-h-32 px-4 field-sizing-content rounded bg-white border placeholder:text-gray-300 transition-colors',
+					'block w-full min-h-32 px-4 field-sizing-content rounded-md bg-white border placeholder:text-gray-300 transition-colors',
 					showError ? 'border-red-500' : 'border-gray-400',
 					className ?? ''
 				)}

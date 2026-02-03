@@ -48,7 +48,7 @@ const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
 				onChange={onChange}
 				onBlur={onBlur}
 				className={`
-					block w-full rounded px-4 bg-white border placeholder:text-gray-300 transition-colors
+					block w-full rounded-md px-4 bg-white border placeholder:text-gray-300 transition-colors
 					${showError ? 'border-red-500' : 'border-gray-400'}
 					${className ?? ''}
 				`}

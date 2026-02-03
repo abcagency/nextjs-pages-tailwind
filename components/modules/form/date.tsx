@@ -68,7 +68,7 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 								variant="none"
 								size="none"
 								className={`
-									justify-between w-full px-3 py-2.5 rounded bg-white border text-left font-normal shadow-sm
+									justify-between w-full px-3 py-2.5 rounded-md bg-white border text-left font-normal shadow-sm
 									hover:bg-gray-100 focus:hover:bg-gray-100
 									${!date && 'text-gray-400'}
 									${showError ? 'border-red-500' : 'border-gray-400'}

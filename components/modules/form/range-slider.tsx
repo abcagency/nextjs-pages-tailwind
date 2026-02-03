@@ -10,7 +10,8 @@ const formatNumber = (
 
 	let formattedNum = num;
 
-	const isAtMax = maxValue !== undefined && maxValue !== null && num >= maxValue;
+	const isAtMax =
+		maxValue !== undefined && maxValue !== null && num >= maxValue;
 
 	if (isAtMax) {
 		formattedNum = maxValue ?? num;
@@ -106,7 +107,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 				/>
 				<div
 					className={`
-						flex items-center gap-2 py-1.5 px-4 bg-white ring-1 rounded transition-colors
+						flex items-center gap-2 py-1.5 px-4 bg-white ring-1 rounded-md transition-colors
 						${showError ? 'ring-red-500' : 'ring-gray-400'}
 						${disabled || isSubmitting ? 'opacity-50 pointer-events-none' : ''}
 						${className ?? ''}
@@ -122,7 +123,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 						disabled={disabled || isSubmitting}
 						className="w-full accent-blue-500 cursor-grab active:cursor-grabbing"
 					/>
-					<div className="w-[6rem] flex items-center gap-0.5">
+					<div className="w-24 flex items-center gap-0.5">
 						<input
 							type="text"
 							value={formatNumber(displayValue, { maxValue })}

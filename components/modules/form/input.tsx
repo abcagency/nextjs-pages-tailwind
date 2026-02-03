@@ -45,7 +45,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 			name: fieldName,
 			placeholder,
 			className: `
-				block w-full rounded px-4 bg-white border placeholder:text-gray-300 transition-colors
+				block w-full rounded-md px-4 bg-white border placeholder:text-gray-300 transition-colors
 				${showError ? 'border-red-500' : 'border-gray-400'}
 				${className ?? ''}
 			`,
@@ -66,7 +66,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 				ref,
 				unmask,
 				value: maskedValue,
-				onAccept: (acceptedValue: string, maskInstance: { unmaskedValue: string }) => {
+				onAccept: (
+					acceptedValue: string,
+					maskInstance: { unmaskedValue: string }
+				) => {
 					if (onChange) {
 						onChange({
 							target: {
@@ -85,12 +88,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 				return <IMaskInput {...sharedMaskedProps} mask={mask} />;
 			}
 
-			return (
-				<IMaskInput
-					mask={mask}
-					{...sharedMaskedProps}
-				/>
-			);
+			return <IMaskInput mask={mask} {...sharedMaskedProps} />;
 		}
 
 		return (
