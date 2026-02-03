@@ -49,9 +49,8 @@ const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
 		},
 		ref
 	) => {
-		const [lightMode] = useState<ReactPlayerComponentProps['light']>(
-			placeholder
-		);
+		const [lightMode] =
+			useState<ReactPlayerComponentProps['light']>(placeholder);
 		const [isPlaying, setIsPlaying] = useState(autoPlay);
 		const [pageLoaded, setPageLoaded] = useState(false);
 		const divRef = useRef<HTMLDivElement | null>(null);
@@ -124,13 +123,11 @@ const VideoPlayer = forwardRef<HTMLDivElement, VideoPlayerProps>(
 									setLastPercentProgress(percentPlayed);
 								}
 								if (isBrowser) {
-									document
-										.querySelectorAll('button:focus')
-										.forEach(element => {
-											if (element instanceof HTMLButtonElement) {
-												element.blur();
-											}
-										});
+									document.querySelectorAll('button:focus').forEach(element => {
+										if (element instanceof HTMLButtonElement) {
+											element.blur();
+										}
+									});
 								}
 							}}
 							onEnded={() => {

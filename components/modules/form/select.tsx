@@ -1,69 +1,100 @@
+'use client';
+
 import type { ComponentPropsWithoutRef } from 'react';
 import { forwardRef } from 'react';
 
-type SelectOption = {
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectItemIndicator,
+	SelectItemText,
+	SelectList,
+	SelectTrigger,
+	SelectValue
+} from '~/components/modules/core/select';
+import { cn } from '~/lib/utils';
+
+export type SelectOption = {
 	value: string;
 	label: string;
+	disabled?: boolean;
 };
 
 type SelectFieldProps = Omit<
 	ComponentPropsWithoutRef<'select'>,
-	'className' | 'name'
+	'className' | 'name' | 'value' | 'onChange'
 > & {
 	className?: string;
-	required?: boolean;
-	fieldName: string;
+	name?: string;
+	fieldName?: string;
 	showError?: boolean;
 	placeholder?: string;
-	isSubmitting?: boolean;
-	disabled?: boolean;
 	options: SelectOption[];
-	value?: ComponentPropsWithoutRef<'select'>['value'];
+	value?: string;
+	onChange?: (value: string) => void;
 };
 
-const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
+const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(
 	(
 		{
 			className,
-			required = false,
 			fieldName,
+			name,
 			showError,
 			placeholder,
-			isSubmitting,
-			disabled = false,
 			options,
 			value,
 			onChange,
-			onBlur,
 			...rest
 		},
 		ref
 	) => {
+		const inputName = fieldName ?? name;
+		const resolveLabel = (selectedValue: string | null) =>
+			options.find(option => option.value === selectedValue)?.label ??
+			selectedValue;
+
 		return (
-			<select
-				{...rest}
-				ref={ref}
-				name={fieldName}
-				{...(value !== undefined ? { value } : {})}
-				onChange={onChange}
-				onBlur={onBlur}
-				className={`
-					block w-full rounded-md px-4 bg-white border placeholder:text-muted-foreground transition-colors
-					${showError ? 'border-destructive' : 'border-ring'}
-					${className ?? ''}
-				`}
-				aria-invalid={showError ? true : undefined}
-				aria-describedby={showError ? `${fieldName}-error` : undefined}
-				aria-required={required}
-				disabled={disabled || isSubmitting}
+			<Select
+				value={value ?? ''}
+				onValueChange={nextValue => onChange?.(nextValue ?? '')}
+				name={inputName}
 			>
-				<option value="">{placeholder}</option>
-				{options.map(option => (
-					<option key={option.value} value={option.value}>
-						{option.label}
-					</option>
-				))}
-			</select>
+				<SelectTrigger
+					ref={ref}
+					className={cn(
+						showError && 'border-destructive focus-visible:ring-destructive/20',
+						className
+					)}
+				>
+					<SelectValue>
+						{selectedValue =>
+							selectedValue ? (
+								resolveLabel(selectedValue)
+							) : (
+								<span className="text-muted-foreground">
+									{placeholder ?? 'Select an option…'}
+								</span>
+							)
+						}
+					</SelectValue>
+				</SelectTrigger>
+				<SelectContent>
+					<SelectList>
+						{options.map(option => (
+							<SelectItem
+								key={option.value}
+								value={option.value}
+								disabled={option.disabled}
+							>
+								<SelectItemText>{option.label}</SelectItemText>
+								<SelectItemIndicator>Selected</SelectItemIndicator>
+							</SelectItem>
+						))}
+					</SelectList>
+				</SelectContent>
+			</Select>
 		);
 	}
 );

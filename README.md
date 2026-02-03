@@ -44,7 +44,6 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 - [TailwindCSS](https://tailwindcss.com/)
 - [Shadcn](https://ui.shadcn.com/)
 - [BaseUI](https://base-ui.com/)
-- [HeadlessUI](https://headlessui.dev/)
 - [Motion](https://motion.dev/)
 - [React Hook Form](https://react-hook-form.com/)
 - [Iconify](https://iconify.design/)
@@ -79,6 +78,12 @@ npm run dev
 ```sh
 npm run build
 ```
+
+---
+
+## UI Documentation
+
+See `docs/components/ui-components.md` for the compound form API, masking, and the new Base UI wrappers.
 
 ### Run production build
 

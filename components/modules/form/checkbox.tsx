@@ -1,75 +1,136 @@
+'use client';
+
 import type { ComponentPropsWithoutRef } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
+import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
+
+import { Switch, SwitchThumb } from '~/components/modules/core/switch';
+import { Toggle } from '~/components/modules/core/toggle';
+import { cn } from '~/lib/utils';
+
+export type CheckboxDisplay = 'checkbox' | 'switch' | 'toggle';
 
 type CheckboxProps = Omit<
-	ComponentPropsWithoutRef<'input'>,
-	'className' | 'type' | 'name' | 'value'
+	ComponentPropsWithoutRef<typeof BaseCheckbox.Root>,
+	'checked' | 'onCheckedChange'
 > & {
 	className?: string;
+	name?: string;
+	fieldName?: string;
+	label?: string;
+	description?: string;
 	required?: boolean;
-	fieldName: string;
-	showError?: boolean;
-	displayName: string;
-	isSubmitting?: boolean;
 	disabled?: boolean;
-	value?: boolean;
+	showError?: boolean;
+	display?: CheckboxDisplay;
+	checked?: boolean;
+	onCheckedChange?: (checked: boolean) => void;
 };
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 	(
 		{
 			className,
-			required = false,
+			name,
 			fieldName,
-			showError,
-			displayName,
-			isSubmitting,
+			label,
+			description,
+			required = false,
 			disabled = false,
-			value,
-			onChange,
-			onBlur,
+			showError,
+			display = 'checkbox',
+			checked,
+			onCheckedChange,
 			...rest
 		},
 		ref
 	) => {
-		const id = `${fieldName}-checkbox`;
+		const inputName = fieldName ?? name;
+		const generatedId = useId();
+		const id = inputName ? `${inputName}-${generatedId}` : generatedId;
+
+		const sharedLabel = (
+			<div className="flex flex-col">
+				{label && (
+					<span
+						className={cn(
+							'text-sm font-medium',
+							disabled ? 'text-muted-foreground' : 'text-foreground'
+						)}
+					>
+						{label}
+						{required && <span className="text-destructive ml-1">*</span>}
+					</span>
+				)}
+				{description && (
+					<span className="text-xs text-muted-foreground">{description}</span>
+				)}
+			</div>
+		);
+
+		if (display === 'toggle') {
+			return (
+				<Toggle
+					ref={ref as React.Ref<HTMLButtonElement>}
+					type="button"
+					pressed={checked}
+					onPressedChange={onCheckedChange}
+					disabled={disabled}
+					className={cn(
+						showError && 'border-destructive text-destructive',
+						className
+					)}
+				>
+					{label ?? 'Toggle'}
+				</Toggle>
+			);
+		}
+
+		const control =
+			display === 'switch' ? (
+				<Switch
+					ref={ref as React.Ref<HTMLElement>}
+					checked={checked}
+					onCheckedChange={onCheckedChange}
+					name={inputName}
+					disabled={disabled}
+					className={cn(showError && 'ring-destructive/30 ring-2', className)}
+				>
+					<SwitchThumb />
+				</Switch>
+			) : (
+				<BaseCheckbox.Root
+					ref={ref}
+					id={id}
+					name={inputName}
+					disabled={disabled}
+					required={required}
+					checked={checked}
+					onCheckedChange={onCheckedChange}
+					className={cn(
+						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]',
+						showError && 'border-destructive',
+						className
+					)}
+					{...rest}
+				>
+					<BaseCheckbox.Indicator className="text-primary-foreground text-xs">
+						✓
+					</BaseCheckbox.Indicator>
+				</BaseCheckbox.Root>
+			);
+
+		if (!label && !description) {
+			return control;
+		}
 
 		return (
 			<label
-				htmlFor={id}
-				className={`
-					flex items-start gap-2 cursor-pointer group
-					${className ?? ''}
-				`}
+				htmlFor={display === 'checkbox' ? id : undefined}
+				className="flex items-start gap-2"
 			>
-				<input
-					{...rest}
-					ref={ref}
-					id={id}
-					type="checkbox"
-					name={fieldName}
-					checked={Boolean(value)}
-					onChange={onChange}
-					onBlur={onBlur}
-					disabled={disabled || isSubmitting}
-					className={`
-						mt-0.5 size-4 rounded-xs text-primary focus:ring-primary
-						${disabled || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-						${showError ? 'border-destructive' : 'border-ring'}
-					`}
-					aria-invalid={showError ? 'true' : undefined}
-					aria-describedby={showError ? `${fieldName}-error` : undefined}
-					aria-required={required}
-				/>
-				<span
-					className={`
-						text-sm leading-5
-						${disabled ? 'text-muted-foreground' : 'text-foreground'}
-					`}
-				>
-					{displayName}
-					{required && <span className="text-destructive ml-1">*</span>}
-				</span>
+				{control}
+				{sharedLabel}
 			</label>
 		);
 	}

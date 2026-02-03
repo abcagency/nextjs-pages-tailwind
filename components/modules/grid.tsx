@@ -9,8 +9,8 @@ type GridProps = {
 	columns?: string;
 	gap?: string;
 } & Omit<ComponentPropsWithoutRef<'div'>, 'className'> & {
-	className?: string;
-};
+		className?: string;
+	};
 
 const GridBase = forwardRef<HTMLDivElement, GridProps>(
 	(

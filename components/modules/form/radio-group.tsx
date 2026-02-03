@@ -1,9 +1,16 @@
+'use client';
+
 import type { ComponentPropsWithoutRef } from 'react';
 import { forwardRef } from 'react';
+import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
+import { Radio } from '@base-ui/react/radio';
 
-type RadioOption = {
+import { cn } from '~/lib/utils';
+
+export type RadioOption = {
 	value: string;
 	label: string;
+	description?: string;
 };
 
 type RadioGroupProps = Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> & {
@@ -11,15 +18,12 @@ type RadioGroupProps = Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> & {
 	options?: RadioOption[];
 	value?: string;
 	onChange?: (value: string) => void;
-	onBlur?: ComponentPropsWithoutRef<'input'>['onBlur'];
 	className?: string;
 	labelClassName?: string;
 	disabled?: boolean;
 	required?: boolean;
-	isSubmitting?: boolean;
 	showError?: boolean;
 	layout?: 'vertical' | 'horizontal';
-	orientation?: 'vertical' | 'horizontal';
 };
 
 const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
@@ -29,69 +33,66 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 			options = [],
 			value,
 			onChange,
-			onBlur,
-			className = '',
-			labelClassName = '',
+			className,
+			labelClassName,
 			disabled = false,
 			required = false,
-			isSubmitting = false,
 			showError = false,
 			layout = 'vertical',
-			orientation,
 			...rest
 		},
 		ref
 	) => {
-		const resolvedLayout = orientation || layout;
-		const isHorizontal = resolvedLayout === 'horizontal';
+		const isHorizontal = layout === 'horizontal';
 
 		return (
-			<div
+			<RadioGroupPrimitive
 				ref={ref}
-				role="radiogroup"
-				aria-required={required}
-				aria-invalid={showError ? 'true' : undefined}
-				aria-describedby={showError ? `${name}-error` : undefined}
-				className={`flex
-					${isHorizontal ? 'flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4' : 'flex-col gap-3'}
-					${showError ? 'ring-1 ring-destructive rounded-md p-2' : ''}
-					${className ?? ''}
-				`}
+				name={name}
+				value={value}
+				onValueChange={nextValue => onChange?.(String(nextValue))}
+				disabled={disabled}
+				required={required}
+				className={cn(
+					'flex gap-3',
+					isHorizontal ? 'flex-row flex-wrap' : 'flex-col',
+					showError && 'ring-1 ring-destructive rounded-md p-2',
+					className
+				)}
 				{...rest}
 			>
-				{options.map(option => {
-					const id = `${name}-${String(option.value).replace(/\s+/g, '-')}`;
-					const checked = value === option.value;
-
-					return (
-						<label
-							key={option.value}
-							htmlFor={id}
-							className={`flex items-start gap-2 cursor-pointer group ${labelClassName ?? ''}`}
+				{options.map(option => (
+					<label
+						key={option.value}
+						className={cn(
+							'flex items-start gap-2',
+							disabled ? 'opacity-60' : 'cursor-pointer',
+							labelClassName
+						)}
+					>
+						<Radio.Root
+							value={option.value}
+							disabled={disabled}
+							required={required}
+							className={cn(
+								'border-border data-checked:border-primary data-checked:bg-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-full border transition-colors focus-visible:ring-[3px]'
+							)}
 						>
-							<input
-								id={id}
-								type="radio"
-								name={name}
-								value={option.value}
-								checked={Boolean(checked)}
-								onChange={() => onChange?.(option.value)}
-								onBlur={onBlur}
-								disabled={disabled || isSubmitting}
-								className={`
-									mt-0.5 size-4 text-primary border-ring focus:ring-primary
-									${disabled || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
-								`}
-							/>
-							<span
-								className={`text-sm leading-5 ${disabled ? 'text-muted-foreground' : 'text-foreground'}`}
-							>
+							<Radio.Indicator className="text-primary-foreground size-2 rounded-full bg-primary-foreground" />
+						</Radio.Root>
+						<div className="flex flex-col">
+							<span className="text-sm font-medium text-foreground">
 								{option.label}
 							</span>
-						</label>
-					);
-				})}
-			</div>
+							{option.description && (
+								<span className="text-xs text-muted-foreground">
+									{option.description}
+								</span>
+							)}
+						</div>
+					</label>
+				))}
+			</RadioGroupPrimitive>
 		);
 	}
 );

@@ -1,6 +1,11 @@
+'use client';
+
 import type { ComponentPropsWithoutRef } from 'react';
 import { forwardRef } from 'react';
 import type { UseFormSetValue } from 'react-hook-form';
+import { Slider } from '@base-ui/react/slider';
+
+import { cn } from '~/lib/utils';
 
 const formatNumber = (
 	num: number,
@@ -37,12 +42,8 @@ type RangeSliderProps = Omit<
 > & {
 	className?: string;
 	fieldClassName?: string;
-	required?: boolean;
 	fieldName: string;
-	disabled?: boolean;
-	placeholder?: string;
 	showError?: boolean;
-	isSubmitting?: boolean;
 	min?: number;
 	max?: number;
 	maxValue?: number | null;
@@ -59,12 +60,8 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 		{
 			className,
 			fieldClassName,
-			required = false,
 			fieldName,
-			disabled = false,
-			placeholder,
 			showError,
-			isSubmitting,
 			min = 0,
 			max = 100,
 			maxValue,
@@ -90,55 +87,51 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 		const handleInputChange = (inputValue: string) => {
 			const numValue = parseNumberInput(inputValue);
 			const clampedValue = Math.min(Math.max(numValue, min), effectiveMax);
-			onChange?.(clampedValue);
-			setFieldValue?.(clampedValue);
-			setValue?.(fieldName, clampedValue, { shouldValidate: true });
+			handleRangeChange(clampedValue);
 		};
 
 		return (
-			<>
+			<div
+				className={cn(
+					'border-border bg-background flex w-full items-center gap-3 rounded-md border px-4 py-3',
+					showError && 'border-destructive',
+					className
+				)}
+			>
 				<input
 					{...rest}
 					ref={ref}
 					value={displayValue}
 					type="hidden"
 					name={fieldName}
-					aria-required={required}
 				/>
-				<div
-					className={`
-						flex items-center gap-2 py-1.5 px-4 bg-white ring-1 rounded-md transition-colors
-						${showError ? 'ring-destructive' : 'ring-ring'}
-						${disabled || isSubmitting ? 'opacity-50 pointer-events-none' : ''}
-						${className ?? ''}
-					`}
+				<Slider.Root
+					value={[displayValue]}
+					min={min}
+					max={effectiveMax}
+					step={step}
+					onValueChange={nextValue => handleRangeChange(nextValue[0] ?? min)}
+					className="flex w-full items-center"
 				>
-					<input
-						type="range"
-						min={min}
-						max={effectiveMax}
-						step={step}
-						value={displayValue}
-						onChange={event => handleRangeChange(Number(event.target.value))}
-						disabled={disabled || isSubmitting}
-						className="w-full accent-primary cursor-grab active:cursor-grabbing"
-					/>
-					<div className="w-24 flex items-center gap-0.5">
-						<input
-							type="text"
-							value={formatNumber(displayValue, { maxValue })}
-							onChange={event => handleInputChange(event.target.value)}
-							onFocus={event => event.target.select()}
-							disabled={disabled || isSubmitting}
-							placeholder={placeholder}
-							className={`
-								block w-full py-0.5 pl-1 pr-0 text-center rounded-full bg-gray-50 border border-ring transition-colors focus:bg-white
-								${fieldClassName ?? ''}
-							`}
-						/>
-					</div>
-				</div>
-			</>
+					<Slider.Control className="relative h-2 w-full">
+						<Slider.Track className="bg-muted h-2 rounded-full">
+							<Slider.Indicator className="bg-primary h-2 rounded-full" />
+						</Slider.Track>
+						<Slider.Thumb className="border-border bg-background ring-ring/20 size-4 rounded-full border shadow-sm ring-1" />
+					</Slider.Control>
+				</Slider.Root>
+				<input
+					type="text"
+					value={formatNumber(displayValue, { maxValue })}
+					onChange={event => handleInputChange(event.target.value)}
+					onFocus={event => event.target.select()}
+					className={cn(
+						'border-border bg-muted text-foreground focus-visible:ring-ring/20 focus-visible:border-ring w-24 rounded-full border px-2 py-1 text-center text-sm outline-none focus-visible:ring-[3px]',
+						fieldClassName
+					)}
+					placeholder="0…"
+				/>
+			</div>
 		);
 	}
 );

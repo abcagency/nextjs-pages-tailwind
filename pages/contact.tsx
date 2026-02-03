@@ -9,11 +9,13 @@ import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 const ContactPage = () => {
 	return (
 		<Layout>
-			<PageHead title="Contact" />
+			<PageHead title="Insurance Claim" />
 
 			<Jumbotron>
 				<Jumbotron.Body>
-					<Jumbotron.Title className="text-center">Contact</Jumbotron.Title>
+					<Jumbotron.Title className="text-center">
+						Insurance Claim Intake
+					</Jumbotron.Title>
 				</Jumbotron.Body>
 				<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />
 			</Jumbotron>

@@ -1,87 +1,39 @@
-import type { ChangeEvent, ComponentPropsWithoutRef, FocusEvent } from 'react';
-import { forwardRef } from 'react';
-import { IMaskInput } from 'react-imask';
+'use client';
 
-type CurrencyInputProps = Omit<
-	ComponentPropsWithoutRef<'input'>,
-	'className' | 'name' | 'type'
-> & {
-	className?: string;
-	required?: boolean;
-	fieldName: string;
-	showError?: boolean;
-	placeholder?: string;
-	isSubmitting?: boolean;
-	trigger?: (fieldName: string) => void;
-	value?: ComponentPropsWithoutRef<'input'>['value'];
+import type { ComponentPropsWithoutRef } from 'react';
+import { forwardRef } from 'react';
+
+import Input from '~/components/modules/form/input';
+
+type CurrencyInputProps = ComponentPropsWithoutRef<typeof Input>;
+
+const currencyMask = {
+	mask: Number,
+	scale: 2,
+	radix: '.',
+	thousandsSeparator: ',',
+	normalizeZeros: true,
+	padFractionalZeros: false,
+	signed: false,
+	prefix: '$'
 };
 
-const CurrencyInputField = forwardRef<HTMLInputElement, CurrencyInputProps>(
-	(
-		{
-			className,
-			required = false,
-			fieldName,
-			showError,
-			placeholder,
-			isSubmitting,
-			trigger,
-			value,
-			onChange,
-			onBlur,
-			...rest
-		},
-		ref
-	) => {
-		const maskedValue =
-			typeof value === 'string' || typeof value === 'number'
-				? String(value)
-				: '';
-
+const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
+	({ inputMode, autoComplete, ...props }, ref) => {
 		return (
-			<IMaskInput
-				{...rest}
+			<Input
+				{...props}
 				ref={ref}
-				mask="$num"
-				unmask={true}
-				blocks={{
-					num: {
-						mask: Number,
-						thousandsSeparator: ','
-					}
-				}}
-				value={maskedValue}
-				onAccept={(acceptedValue, maskInstance) => {
-					if (onChange) {
-						onChange({
-							target: {
-								name: fieldName,
-								value: maskInstance.unmaskedValue
-							}
-						} as unknown as ChangeEvent<HTMLInputElement>);
-					}
-				}}
-				onBlur={event => {
-					trigger?.(fieldName);
-					onBlur?.(event as FocusEvent<HTMLInputElement>);
-				}}
-				type="tel"
-				name={fieldName}
-				placeholder={placeholder}
-				className={`
-					block w-full rounded-md px-4 bg-white border placeholder:text-muted-foreground transition-colors
-					${showError ? 'border-destructive' : 'border-ring'}
-					${className ?? ''}
-				`}
-				aria-invalid={showError ? true : undefined}
-				aria-describedby={showError ? `${fieldName}-error` : undefined}
-				aria-required={required}
-				disabled={isSubmitting}
+				type="text"
+				inputMode={inputMode ?? 'decimal'}
+				autoComplete={autoComplete ?? 'off'}
+				mask={currencyMask}
+				unmask="typed"
 			/>
 		);
 	}
 );
 
-CurrencyInputField.displayName = 'CurrencyInputField';
+CurrencyInput.displayName = 'CurrencyInput';
 
-export default CurrencyInputField;
+export default CurrencyInput;
