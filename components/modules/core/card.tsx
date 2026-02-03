@@ -1,20 +1,52 @@
 import * as React from 'react';
+import Image, { type ImageProps } from 'next/image';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '~/lib/utils';
 
-function Card({
+const cardVariants = cva(
+	'gap-6 overflow-hidden rounded-xl py-6 text-sm shadow-xs has-[>img:first-child]:pt-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col',
+	{
+		variants: {
+			variant: {
+				none: '',
+				default: 'bg-card text-card-foreground',
+				secondary: 'bg-secondary text-secondary-foreground'
+			},
+			hasBorder: {
+				false: null,
+				true: 'ring-1 ring-foreground/10'
+			}
+		},
+		defaultVariants: {
+			variant: 'default',
+			hasBorder: true
+		}
+	}
+);
+
+type CardProps<T extends React.ElementType = 'div'> = {
+	as?: T;
+	size?: 'default' | 'sm';
+	variant?: VariantProps<typeof cardVariants>['variant'];
+	hasBorder?: VariantProps<typeof cardVariants>['hasBorder'];
+} & React.ComponentPropsWithoutRef<T>;
+
+function Card<T extends React.ElementType = 'div'>({
+	as,
 	className,
 	size = 'default',
+	variant = 'default',
+	hasBorder = true,
 	...props
-}: React.ComponentProps<'div'> & { size?: 'default' | 'sm' }) {
+}: CardProps<T>) {
+	const Container = as ?? 'div';
+
 	return (
-		<div
+		<Container
 			data-slot="card"
 			data-size={size}
-			className={cn(
-				'ring-foreground/10 bg-card text-card-foreground gap-6 overflow-hidden rounded-xl py-6 text-sm shadow-xs ring-1 has-[>img:first-child]:pt-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col',
-				className
-			)}
+			className={cn(cardVariants({ variant, hasBorder }), className)}
 			{...props}
 		/>
 	);
@@ -28,6 +60,17 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
 				'gap-1 rounded-t-xl px-6 group-data-[size=sm]/card:px-4 [.border-b]:pb-6 group-data-[size=sm]/card:[.border-b]:pb-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]',
 				className
 			)}
+			{...props}
+		/>
+	);
+}
+
+function CardImage({ className, alt, ...props }: ImageProps) {
+	return (
+		<Image
+			data-slot="card-image"
+			className={cn('w-full h-auto', className)}
+			alt={alt ?? ''}
 			{...props}
 		/>
 	);
@@ -73,7 +116,7 @@ function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
 		<div
 			data-slot="card-content"
-			className={cn('px-6 group-data-[size=sm]/card:px-4', className)}
+			className={cn('flex-auto px-6 group-data-[size=sm]/card:px-4', className)}
 			{...props}
 		/>
 	);
@@ -95,6 +138,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
 export {
 	Card,
 	CardHeader,
+	CardImage,
 	CardFooter,
 	CardTitle,
 	CardAction,
