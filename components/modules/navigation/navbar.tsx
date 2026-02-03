@@ -6,7 +6,7 @@ import Link from 'next/link';
 import NavLink from '~/components/modules/navigation/nav-link';
 import { BurgerButton } from '~/components/modules/navigation/burger';
 
-import routes from '~/data/routes.json';
+import { RouteGroups } from '~/lib/utils';
 import site from '~/data/site.json';
 
 import Horns from '~/images/inline/horns.svg';
@@ -17,6 +17,7 @@ type NavbarProps = {
 
 const Navbar = ({ isPinned }: NavbarProps) => {
 	const [isExpanded, toggleExpansion] = useState(false);
+	const navbarRoutes = RouteGroups('navbar');
 
 	return (
 		<div className="bg-background border-b border-border">
@@ -39,14 +40,14 @@ const Navbar = ({ isPinned }: NavbarProps) => {
 						(isExpanded ? ' block' : ' hidden')
 					}
 				>
-					{routes.map(link => (
+					{navbarRoutes.map((route: { title: string; slug: string }) => (
 						<NavLink.Anchor
-							key={link.title}
-							href={link.route}
+							key={route.title}
+							href={route.slug}
 							className="block md:inline-block px-3.5 py-1.5 rounded-md border border-transparent text-xs text-foreground transition-colors hover:border-primary hover:text-primary focus:border-primary focus:text-primary"
 							activeClassName="bg-primary text-white!"
 						>
-							{link.title}
+							{route.title}
 						</NavLink.Anchor>
 					))}
 				</nav>
