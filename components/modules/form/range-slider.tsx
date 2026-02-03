@@ -106,11 +106,15 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 					name={fieldName}
 				/>
 				<Slider.Root
-					value={[displayValue]}
+					value={displayValue}
 					min={min}
 					max={effectiveMax}
 					step={step}
-					onValueChange={nextValue => handleRangeChange(nextValue[0] ?? min)}
+					onValueChange={nextValue =>
+						handleRangeChange(
+							Array.isArray(nextValue) ? (nextValue[0] ?? min) : nextValue
+						)
+					}
 					className="flex w-full items-center"
 				>
 					<Slider.Control className="relative h-2 w-full">
