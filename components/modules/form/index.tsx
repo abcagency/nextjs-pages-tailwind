@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Grid from '~/components/modules/grid';
 import FormField from '~/components/modules/form/field';
-import Button from '~/components/modules/button';
+import { Button } from '~/components/modules/core/button';
 
 import type { ContactFormValues } from '~/lib/validators/contact';
 import { validationSchema } from '~/lib/validators/contact';
@@ -247,14 +247,13 @@ const ContactForm = ({ className }: ContactFormProps) => {
 				isSubmitting={isSubmitting}
 			/>
 
-			<Button.Btn
+			<Button
 				type="submit"
-				variant="primary"
 				disabled={isSubmitting}
 				className="disabled:bg-gray-200 disabled:text-gray-400"
 			>
 				{isSubmitting ? 'Please wait…' : 'Submit'}
-			</Button.Btn>
+			</Button>
 		</form>
 	);
 };

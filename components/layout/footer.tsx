@@ -1,5 +1,8 @@
+import Link from 'next/link';
+
 import NavSocial from '~/components/modules/navigation/social';
-import Button from '~/components/modules/button';
+import Icon from '~/components/modules/icon';
+import { Button } from '~/components/modules/core/button';
 
 import site from '~/data/site.json';
 
@@ -24,10 +27,15 @@ const Footer = () => {
 				<div className="flex items-center gap-3">
 					<NavSocial />
 
-					<Button.Scroll href="top" variant="icon" size="sq">
-						<span className="sr-only">To the top!</span>
-						<Button.Icon icon="mdi:arrow-collapse-up" size="w-4 h-4" />
-					</Button.Scroll>
+					<Button
+						variant="ghost"
+						size="icon"
+						render={
+							<Link href="#top" aria-label="To the top!">
+								<Icon icon="mdi:arrow-collapse-up" />
+							</Link>
+						}
+					/>
 				</div>
 			</div>
 		</footer>

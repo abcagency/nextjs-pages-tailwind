@@ -3,14 +3,12 @@ import { forwardRef, useState } from 'react';
 import {
 	Popover,
 	PopoverContent,
-	PopoverDescription,
-	PopoverHeader,
-	PopoverTitle,
 	PopoverTrigger
 } from '~/components/modules/core/popover';
 import { DayPicker } from 'react-day-picker';
 
-import Button from '~/components/modules/button';
+import { Button } from '~/components/modules/core/button';
+import Icon from '~/components/modules/icon';
 import DisplayDate from '~/components/modules/display-date';
 
 type DateInputProps = Omit<
@@ -66,11 +64,11 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 				<Popover>
 					<PopoverTrigger
 						render={
-							<Button.Btn
+							<Button
 								variant="none"
 								size="none"
 								className={`
-									block w-full px-3 py-2 rounded bg-white border text-left font-normal shadow-sm
+									justify-between w-full px-3 py-2.5 rounded bg-white border text-left font-normal shadow-sm
 									hover:bg-gray-100 focus:hover:bg-gray-100
 									${!date && 'text-gray-400'}
 									${showError ? 'border-red-500' : 'border-gray-400'}
@@ -78,17 +76,12 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 								`}
 								disabled={disabled || isSubmitting}
 							>
-								<Button.Body className="justify-between">
-									<DisplayDate
-										date={displayValue || new Date()}
-										format="MM/DD/YYYY"
-									/>
-									<Button.Icon
-										icon="uil:calendar"
-										className="mt-0.5 text-gray-850"
-									/>
-								</Button.Body>
-							</Button.Btn>
+								<DisplayDate
+									date={displayValue || new Date()}
+									format="MM/DD/YYYY"
+								/>
+								<Icon icon="uil:calendar" className="mt-0.5 text-gray-850" />
+							</Button>
 						}
 					/>
 

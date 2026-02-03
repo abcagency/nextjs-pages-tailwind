@@ -8,7 +8,8 @@ import {
 	TransitionChild
 } from '@headlessui/react';
 
-import Button from '~/components/modules/button';
+import { Button } from '~/components/modules/core/button';
+import Icon from '~/components/modules/icon';
 
 import trackEvent from '~/hooks/useEventTracker';
 
@@ -16,8 +17,25 @@ type DialogButton = {
 	text: string;
 	icon?: string;
 	iconClassName?: string;
-	size?: 'none' | 'sq' | '2xs' | 'xs' | 'sm' | 'md' | 'lg';
-	variant?: 'none' | 'primary' | 'secondary' | 'link' | 'icon';
+	size?:
+		| 'none'
+		| 'xs'
+		| 'sm'
+		| 'default'
+		| 'lg'
+		| 'link'
+		| 'icon'
+		| 'icon-xs'
+		| 'icon-sm'
+		| 'icon-lg';
+	variant?:
+		| 'none'
+		| 'default'
+		| 'outline'
+		| 'secondary'
+		| 'ghost'
+		| 'destructive'
+		| 'link';
 	className?: string;
 	hasUnderline?: boolean;
 };
@@ -64,39 +82,22 @@ const DialogDefault = ({
 	return (
 		<>
 			{!hideButton && (
-				<Button.Btn
+				<Button
 					size={button.size}
 					variant={button.variant}
 					className={button.className ?? ''}
 					hasUnderline={button.hasUnderline}
 					onClick={openModal}
 				>
-					{button.variant === 'link' ? (
-						<>
-							{button.text}
-							{button.icon && (
-								<Button.Icon
-									icon={button.icon}
-									className={button.iconClassName ?? ''}
-								/>
-							)}
-						</>
-					) : (
-						<Button.Body>
-							{button.text}
-							{button.icon && (
-								<Button.Icon
-									icon={button.icon}
-									className={button.iconClassName ?? ''}
-								/>
-							)}
-						</Button.Body>
+					{button.text}
+					{button.icon && (
+						<Icon icon={button.icon} className={button.iconClassName ?? ''} />
 					)}
-				</Button.Btn>
+				</Button>
 			)}
 
 			<Transition appear show={isOpen || dialogIsOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-[99]" onClose={closeDialog}>
+				<Dialog as="div" className="relative z-99" onClose={closeDialog}>
 					<TransitionChild
 						as={Fragment}
 						enter="ease-out duration-1000"
@@ -140,18 +141,15 @@ const DialogDefault = ({
 									<div className="md:px-4">{body}</div>
 									{children}
 
-									<Button.Btn
-										variant="icon"
-										size="sq"
+									<Button
+										variant="ghost"
+										size="icon-sm"
 										aria-label="Close"
 										onClick={closeDialog}
-										className="absolute top-1.5 right-0"
+										className="absolute top-1 right-1"
 									>
-										<Button.Body>
-											<span className="sr-only">Close</span>
-											<Button.Icon icon="mdi:times" />
-										</Button.Body>
-									</Button.Btn>
+										<Icon icon="mdi:times" />
+									</Button>
 								</DialogPanel>
 							</TransitionChild>
 						</div>
@@ -167,7 +165,11 @@ type DialogBodyProps = {
 	className?: string;
 };
 
-export const DialogBody = ({ children, className, ...props }: DialogBodyProps) => {
+export const DialogBody = ({
+	children,
+	className,
+	...props
+}: DialogBodyProps) => {
 	return (
 		<div
 			className={`
