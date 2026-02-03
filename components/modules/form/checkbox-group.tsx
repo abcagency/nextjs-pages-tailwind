@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import { CheckboxGroup as CheckboxGroupPrimitive } from '@base-ui/react/checkbox-group';
 import { Checkbox } from '@base-ui/react/checkbox';
 
+import Icon from '~/components/modules/icon';
 import { cn } from '~/lib/utils';
 
 export type CheckboxOption = {
@@ -81,11 +82,11 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
 							required={required}
 							disabled={disabled}
 							className={cn(
-								'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]'
+								'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]'
 							)}
 						>
-							<Checkbox.Indicator className="text-primary-foreground text-xs">
-								✓
+							<Checkbox.Indicator className="text-primary-foreground flex items-center justify-center">
+								<Icon icon="ph:check-bold" size="size-3" aria-hidden="true" />
 							</Checkbox.Indicator>
 						</Checkbox.Root>
 						<div className="flex flex-col">

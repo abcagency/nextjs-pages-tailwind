@@ -108,13 +108,13 @@ function FormLabel({
 			)}
 			{...props}
 		>
-			<span className="inline-flex items-center gap-1">
-				{children}
+			<span className="inline-flex items-start gap-1">
+				<span>{children}</span>
 				{required && (
 					<Icon
 						icon="mdi:asterisk"
 						size="size-2"
-						className="text-destructive"
+						className="text-destructive self-start"
 					/>
 				)}
 			</span>

@@ -6,6 +6,7 @@ import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 
 import { Switch, SwitchThumb } from '~/components/modules/core/switch';
 import { Toggle } from '~/components/modules/core/toggle';
+import Icon from '~/components/modules/icon';
 import { cn } from '~/lib/utils';
 
 export type CheckboxDisplay = 'checkbox' | 'switch' | 'toggle';
@@ -33,6 +34,7 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 			className,
 			name,
 			fieldName,
+			id: idProp,
 			label,
 			description,
 			required = false,
@@ -47,32 +49,15 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 	) => {
 		const inputName = fieldName ?? name;
 		const generatedId = useId();
-		const id = inputName ? `${inputName}-${generatedId}` : generatedId;
-
-		const sharedLabel = (
-			<div className="flex flex-col">
-				{label && (
-					<span
-						className={cn(
-							'text-sm font-medium',
-							disabled ? 'text-muted-foreground' : 'text-foreground'
-						)}
-					>
-						{label}
-						{required && <span className="text-destructive ml-1">*</span>}
-					</span>
-				)}
-				{description && (
-					<span className="text-xs text-muted-foreground">{description}</span>
-				)}
-			</div>
-		);
+		const controlId = idProp ?? generatedId;
+		const descriptionId = description ? `${controlId}-description` : undefined;
 
 		if (display === 'toggle') {
 			return (
 				<Toggle
 					ref={ref as React.Ref<HTMLButtonElement>}
 					type="button"
+					id={controlId}
 					pressed={checked}
 					onPressedChange={onCheckedChange}
 					disabled={disabled}
@@ -90,10 +75,12 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 			display === 'switch' ? (
 				<Switch
 					ref={ref as React.Ref<HTMLElement>}
+					id={controlId}
 					checked={checked}
 					onCheckedChange={onCheckedChange}
 					name={inputName}
 					disabled={disabled}
+					aria-describedby={descriptionId}
 					className={cn(showError && 'ring-destructive/30 ring-2', className)}
 				>
 					<SwitchThumb />
@@ -101,21 +88,22 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 			) : (
 				<BaseCheckbox.Root
 					ref={ref}
-					id={id}
+					id={controlId}
 					name={inputName}
 					disabled={disabled}
 					required={required}
 					checked={checked}
 					onCheckedChange={onCheckedChange}
+					aria-describedby={descriptionId}
 					className={cn(
-						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]',
+						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]',
 						showError && 'border-destructive',
 						className
 					)}
 					{...rest}
 				>
-					<BaseCheckbox.Indicator className="text-primary-foreground text-xs">
-						✓
+					<BaseCheckbox.Indicator className="text-primary-foreground flex items-center justify-center">
+						<Icon icon="ph:check-bold" size="size-3" aria-hidden="true" />
 					</BaseCheckbox.Indicator>
 				</BaseCheckbox.Root>
 			);
@@ -125,13 +113,30 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 		}
 
 		return (
-			<label
-				htmlFor={display === 'checkbox' ? id : undefined}
-				className="flex items-start gap-2"
-			>
+			<div className="flex items-start gap-2">
 				{control}
-				{sharedLabel}
-			</label>
+				<div className="flex flex-col">
+					{label && (
+						<label
+							htmlFor={controlId}
+							className={cn(
+								'text-sm font-medium',
+								disabled
+									? 'text-muted-foreground cursor-not-allowed'
+									: 'text-foreground cursor-pointer'
+							)}
+						>
+							{label}
+							{required && <span className="text-destructive ml-1">*</span>}
+						</label>
+					)}
+					{description && (
+						<span id={descriptionId} className="text-xs text-muted-foreground">
+							{description}
+						</span>
+					)}
+				</div>
+			</div>
 		);
 	}
 );

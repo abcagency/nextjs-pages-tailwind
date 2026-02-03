@@ -8,14 +8,18 @@ import Input from '~/components/modules/form/input';
 type CurrencyInputProps = ComponentPropsWithoutRef<typeof Input>;
 
 const currencyMask = {
-	mask: Number,
-	scale: 2,
-	radix: '.',
-	thousandsSeparator: ',',
-	normalizeZeros: true,
-	padFractionalZeros: false,
-	signed: false,
-	prefix: '$'
+	mask: '$num',
+	blocks: {
+		num: {
+			mask: Number,
+			scale: 2,
+			radix: '.',
+			thousandsSeparator: ',',
+			normalizeZeros: true,
+			padFractionalZeros: false
+		}
+	},
+	lazy: false
 };
 
 const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(

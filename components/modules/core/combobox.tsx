@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 
+import Icon from '~/components/modules/icon';
 import { cn } from '~/lib/utils';
 
 type ComboboxProps<Value, Multiple extends boolean | undefined = false> =
@@ -108,9 +109,11 @@ function ComboboxItemIndicator({
 	return (
 		<ComboboxPrimitive.ItemIndicator
 			data-slot="combobox-item-indicator"
-			className={cn('text-primary ml-auto text-xs', className)}
+			className={cn('text-primary ml-auto flex items-center justify-center', className)}
 			{...props}
-		/>
+		>
+			<Icon icon="ph:check-bold" size="size-3" aria-hidden="true" />
+		</ComboboxPrimitive.ItemIndicator>
 	);
 }
 

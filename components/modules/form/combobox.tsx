@@ -109,7 +109,7 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 										disabled={option.disabled}
 									>
 										<span>{option.label}</span>
-										<ComboboxItemIndicator>Selected</ComboboxItemIndicator>
+										<ComboboxItemIndicator />
 									</ComboboxItem>
 								))}
 							</ComboboxGroup>

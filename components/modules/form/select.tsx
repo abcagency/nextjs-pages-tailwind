@@ -89,7 +89,7 @@ const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(
 								disabled={option.disabled}
 							>
 								<SelectItemText>{option.label}</SelectItemText>
-								<SelectItemIndicator>Selected</SelectItemIndicator>
+								<SelectItemIndicator />
 							</SelectItem>
 						))}
 					</SelectList>

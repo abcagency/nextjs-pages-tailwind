@@ -51,10 +51,15 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 				typeof value === 'string' || typeof value === 'number'
 					? String(value)
 					: '';
+			const maskProps =
+				typeof mask === 'object' && mask !== null && 'mask' in mask
+					? (mask as Record<string, unknown>)
+					: { mask };
 
 			return (
 				<IMaskInput
 					{...rest}
+					{...maskProps}
 					ref={ref}
 					name={inputName}
 					className={baseClassName}

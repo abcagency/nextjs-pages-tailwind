@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 
+import Icon from '~/components/modules/icon';
 import { cn } from '~/lib/utils';
 
 type SelectProps<Value, Multiple extends boolean | undefined = false> =
@@ -17,7 +18,7 @@ function Select<Value, Multiple extends boolean | undefined = false>(
 const SelectTrigger = React.forwardRef<
 	HTMLButtonElement,
 	SelectPrimitive.Trigger.Props
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
 	return (
 		<SelectPrimitive.Trigger
 			ref={ref}
@@ -27,7 +28,10 @@ const SelectTrigger = React.forwardRef<
 				className
 			)}
 			{...props}
-		/>
+		>
+			{children}
+			<Icon icon="ph:caret-down" className="text-muted-foreground" />
+		</SelectPrimitive.Trigger>
 	);
 });
 
@@ -115,9 +119,11 @@ function SelectItemIndicator({
 	return (
 		<SelectPrimitive.ItemIndicator
 			data-slot="select-item-indicator"
-			className={cn('text-primary text-xs', className)}
+			className={cn('text-primary flex items-center justify-center', className)}
 			{...props}
-		/>
+		>
+			<Icon icon="ph:check-bold" size="size-3" aria-hidden="true" />
+		</SelectPrimitive.ItemIndicator>
 	);
 }
 
