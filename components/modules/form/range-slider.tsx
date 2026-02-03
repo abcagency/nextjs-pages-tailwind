@@ -108,7 +108,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 				<div
 					className={`
 						flex items-center gap-2 py-1.5 px-4 bg-white ring-1 rounded-md transition-colors
-						${showError ? 'ring-red-500' : 'ring-gray-400'}
+						${showError ? 'ring-destructive' : 'ring-ring'}
 						${disabled || isSubmitting ? 'opacity-50 pointer-events-none' : ''}
 						${className ?? ''}
 					`}
@@ -121,7 +121,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 						value={displayValue}
 						onChange={event => handleRangeChange(Number(event.target.value))}
 						disabled={disabled || isSubmitting}
-						className="w-full accent-blue-500 cursor-grab active:cursor-grabbing"
+						className="w-full accent-primary cursor-grab active:cursor-grabbing"
 					/>
 					<div className="w-24 flex items-center gap-0.5">
 						<input
@@ -132,7 +132,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
 							disabled={disabled || isSubmitting}
 							placeholder={placeholder}
 							className={`
-								block w-full py-0.5 pl-1 pr-0 text-center rounded-full bg-gray-50 border border-gray-400 transition-colors focus:bg-white
+								block w-full py-0.5 pl-1 pr-0 text-center rounded-full bg-gray-50 border border-ring transition-colors focus:bg-white
 								${fieldClassName ?? ''}
 							`}
 						/>

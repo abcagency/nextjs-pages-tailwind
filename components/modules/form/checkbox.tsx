@@ -53,9 +53,9 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 					onBlur={onBlur}
 					disabled={disabled || isSubmitting}
 					className={`
-						mt-0.5 size-4 rounded-xs text-blue-600 focus:ring-blue-500
+						mt-0.5 size-4 rounded-xs text-primary focus:ring-primary
 						${disabled || isSubmitting ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-						${showError ? 'border-red-500' : 'border-gray-400'}
+						${showError ? 'border-destructive' : 'border-ring'}
 					`}
 					aria-invalid={showError ? 'true' : undefined}
 					aria-describedby={showError ? `${fieldName}-error` : undefined}
@@ -64,11 +64,11 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 				<span
 					className={`
 						text-sm leading-5
-						${disabled ? 'text-gray-400' : 'text-gray-700 group-hover:text-gray-900'}
+						${disabled ? 'text-muted-foreground' : 'text-foreground'}
 					`}
 				>
 					{displayName}
-					{required && <span className="text-red-500 ml-1">*</span>}
+					{required && <span className="text-destructive ml-1">*</span>}
 				</span>
 			</label>
 		);

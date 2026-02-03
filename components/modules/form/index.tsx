@@ -30,12 +30,14 @@ const ContactForm = ({ className }: ContactFormProps) => {
 		defaultValues: {
 			name: '',
 			email: '',
+			phone: '',
 			message: '',
 			transportation: [],
 			favoriteColor: 'pink',
 			state: '',
 			distance: 0,
-			date: ''
+			date: '',
+			time: ''
 		},
 		resolver: yupResolver<ContactFormValues, undefined, ContactFormValues>(
 			validationSchema
@@ -88,6 +90,16 @@ const ContactForm = ({ className }: ContactFormProps) => {
 					fieldName="email"
 					displayName="Email"
 					placeholder="user@domain.com"
+					errors={errors}
+					isSubmitting={isSubmitting}
+				/>
+				<FormField
+					{...register('phone')}
+					required={true}
+					type="phone"
+					fieldName="phone"
+					displayName="phone"
+					placeholder="(302) 555-1234"
 					errors={errors}
 					isSubmitting={isSubmitting}
 				/>
@@ -231,6 +243,18 @@ const ContactForm = ({ className }: ContactFormProps) => {
 								isSubmitting={isSubmitting}
 							/>
 						)}
+					/>
+				</Grid.Item>
+				<Grid.Item>
+					<FormField
+						{...register('time')}
+						required={true}
+						type="time"
+						fieldName="time"
+						displayName="Time"
+						placeholder="12:00 PM"
+						errors={errors}
+						isSubmitting={isSubmitting}
 					/>
 				</Grid.Item>
 			</Grid>

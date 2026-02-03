@@ -31,7 +31,8 @@ const LabelAndError = ({
 }: LabelAndErrorProps) => {
 	const showError =
 		errors &&
-		(errors[fieldName] || (errorsFieldName ? errors[errorsFieldName] : undefined));
+		(errors[fieldName] ||
+			(errorsFieldName ? errors[errorsFieldName] : undefined));
 	const errorMessage = showError?.message;
 
 	return (
@@ -40,7 +41,7 @@ const LabelAndError = ({
 				<label
 					className={`
 						flex gap-0.5 text-2xs font-bold uppercase transition-colors
-						${showError ? 'text-red-750' : 'text-blue-850'}
+						${showError ? 'text-destructive' : 'text-foreground'}
 					`}
 					htmlFor={fieldName}
 				>
@@ -51,7 +52,7 @@ const LabelAndError = ({
 							size="size-1.5"
 							className={`
 								align-text-top
-								${showError ? 'text-red-750' : ''}
+								${showError ? 'text-destructive' : ''}
 							`}
 						/>
 					)}
@@ -60,14 +61,14 @@ const LabelAndError = ({
 				{showError && (
 					<span
 						id={`${fieldName}-error`}
-						className="text-red-700 text-2xs font-bold inline-block"
+						className="text-destructive text-2xs font-bold inline-block"
 					>
 						{errorMessage}
 					</span>
 				)}
 			</div>
 
-			{helpText && <p className="mb-2 text-gray-400">{helpText}</p>}
+			{helpText && <p className="mb-2 text-muted-foreground">{helpText}</p>}
 		</div>
 	);
 };

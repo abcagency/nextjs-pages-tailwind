@@ -54,7 +54,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 				aria-describedby={showError ? `${name}-error` : undefined}
 				className={`flex
 					${isHorizontal ? 'flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4' : 'flex-col gap-3'}
-					${showError ? 'ring-1 ring-red-500 rounded-md p-2' : ''}
+					${showError ? 'ring-1 ring-destructive rounded-md p-2' : ''}
 					${className ?? ''}
 				`}
 				{...rest}
@@ -79,12 +79,12 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 								onBlur={onBlur}
 								disabled={disabled || isSubmitting}
 								className={`
-									mt-0.5 size-4 text-blue-600 border-gray-400 focus:ring-blue-500
+									mt-0.5 size-4 text-primary border-ring focus:ring-primary
 									${disabled || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
 								`}
 							/>
 							<span
-								className={`text-sm leading-5 ${disabled ? 'text-gray-400' : 'text-gray-700 group-hover:text-gray-900'}`}
+								className={`text-sm leading-5 ${disabled ? 'text-muted-foreground' : 'text-foreground'}`}
 							>
 								{option.label}
 							</span>

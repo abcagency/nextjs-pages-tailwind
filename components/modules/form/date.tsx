@@ -69,9 +69,9 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 								size="none"
 								className={`
 									justify-between w-full px-3 py-2.5 rounded-md bg-white border text-left font-normal shadow-sm
-									hover:bg-gray-100 focus:hover:bg-gray-100
-									${!date && 'text-gray-400'}
-									${showError ? 'border-red-500' : 'border-gray-400'}
+									hover:bg-muted focus:hover:bg-muted
+									${!date && 'text-muted-foreground'}
+									${showError ? 'border-destructive' : 'border-ring'}
 									${className ?? ''}
 								`}
 								disabled={disabled || isSubmitting}
@@ -80,7 +80,7 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 									date={displayValue || new Date()}
 									format="MM/DD/YYYY"
 								/>
-								<Icon icon="uil:calendar" className="mt-0.5 text-gray-850" />
+								<Icon icon="uil:calendar" className="mt-0.5 text-foreground" />
 							</Button>
 						}
 					/>
@@ -104,20 +104,20 @@ const DateInputField = forwardRef<HTMLInputElement, DateInputProps>(
 								dropdowns: 'flex gap-2',
 								dropdown_root: 'flex-1 [&:nth-child(2)]:flex-initial',
 								dropdown:
-									'py-0 px-2 border-0 border-b border-gray-200 z-2 w-full bg-none',
+									'py-0 px-2 border-0 border-b border-ring z-2 w-full bg-none',
 								table: 'w-full border-collapse space-y-1',
 								head_row: 'flex',
-								weekdays: 'text-xs font-semibold text-gray-850/30',
+								weekdays: 'text-xs font-semibold text-muted-foreground/40',
 								head_cell:
 									'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',
 								month_grid: 'w-full',
 								row: 'flex w-full mt-2',
-								day: 'size-8 p-0 font-normal aria-selected:opacity-100 text-center text-sm rounded-sm cursor-pointer hover:bg-blue-600/10 focus:bg-blue-600/10',
+								day: 'size-8 p-0 font-normal aria-selected:opacity-100 text-center text-sm rounded-sm cursor-pointer hover:bg-primary/10 focus:bg-primary/10',
 								day_button: 'cursor-pointer block w-full h-full pt-1',
 								selected:
-									'bg-blue-600 text-white hover:bg-blue-600! focus:bg-blue-600!',
-								today: 'bg-blue-400/5 text-blue-400',
-								day_disabled: 'text-gray-850/40 opacity-50',
+									'bg-primary text-white hover:bg-primary! focus:bg-primary!',
+								today: 'bg-primary/5 text-primary',
+								day_disabled: 'text-muted-foreground/40 opacity-50',
 								day_hidden: 'hidden',
 								outside: 'pointer-events-none'
 							}}
