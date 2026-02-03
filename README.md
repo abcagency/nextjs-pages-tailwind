@@ -43,6 +43,7 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 
 - [TailwindCSS](https://tailwindcss.com/)
 - [Shadcn](https://ui.shadcn.com/)
+- [BaseUI](https://base-ui.com/)
 - [HeadlessUI](https://headlessui.dev/)
 - [Motion](https://motion.dev/)
 - [React Hook Form](https://react-hook-form.com/)
