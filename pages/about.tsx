@@ -3,10 +3,15 @@ import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
 import Section from '~/components/modules/section';
 import Card from '~/components/modules/card';
-import Accordion from '~/components/modules/accordion';
 import SlideIn from '~/components/modules/animations/slidein';
 import Grid from '~/components/modules/grid';
 import Dialog from '~/components/modules/dialog';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger
+} from '~/components/modules/core/accordion';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
@@ -52,9 +57,7 @@ const AboutPage = () => {
 								</p>
 							</Card.Body>
 							<Card.Footer>
-								<p>
-									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								</p>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
 							</Card.Footer>
 						</Card.Default>
 					</SlideIn>
@@ -69,9 +72,7 @@ const AboutPage = () => {
 								</p>
 							</Card.Body>
 							<Card.Footer>
-								<p>
-									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								</p>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
 							</Card.Footer>
 						</Card.Link>
 					</SlideIn>
@@ -80,10 +81,10 @@ const AboutPage = () => {
 
 			<Section id="beta" className="container px-4 my-12">
 				<h2 className="mb-4 text-xl font-bold">Beta</h2>
-				<Accordion defaultValue="item-1">
-					<Accordion.Item id="item-1">
-						<Accordion.Trigger>Item 1</Accordion.Trigger>
-						<Accordion.Content>
+				<Accordion defaultValue={['item-1']}>
+					<AccordionItem value="item-1">
+						<AccordionTrigger>Item 1</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -93,11 +94,11 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
-					<Accordion.Item id="item-2">
-						<Accordion.Trigger>Item 2</Accordion.Trigger>
-						<Accordion.Content>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-2">
+						<AccordionTrigger>Item 2</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -107,11 +108,11 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
-					<Accordion.Item id="item-3">
-						<Accordion.Trigger>Item 3</Accordion.Trigger>
-						<Accordion.Content>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-3">
+						<AccordionTrigger>Item 3</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -121,8 +122,8 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
+						</AccordionContent>
+					</AccordionItem>
 				</Accordion>
 			</Section>
 
