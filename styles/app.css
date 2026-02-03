@@ -6,6 +6,7 @@
 @plugin '@tailwindcss/typography';
 @plugin 'tailwindcss-quantity-queries';
 @import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 /* Global */
 @import './theme.css';

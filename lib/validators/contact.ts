@@ -8,19 +8,23 @@ export type ContactFormValues = {
 	favoriteColor: string;
 	state: string;
 	distance: number;
+	date: string;
 };
 
-export const validationSchema: Yup.ObjectSchema<ContactFormValues> = Yup.object({
-	name: Yup.string().required('is required'),
-	email: Yup.string()
-		.email('Invalid email address format')
-		.required('is required'),
-	state: Yup.string().required('is required'),
-	message: Yup.string().required('is required'),
-	transportation: Yup.array()
-		.of(Yup.string().required('is required'))
-		.min(1, 'is required')
-		.required('is required'),
-	favoriteColor: Yup.string().required('is required'),
-	distance: Yup.number().min(0).required('is required')
-}).required();
+export const validationSchema: Yup.ObjectSchema<ContactFormValues> = Yup.object(
+	{
+		name: Yup.string().required('is required'),
+		email: Yup.string()
+			.email('Invalid email address format')
+			.required('is required'),
+		state: Yup.string().required('is required'),
+		message: Yup.string().required('is required'),
+		transportation: Yup.array()
+			.of(Yup.string().required('is required'))
+			.min(1, 'is required')
+			.required('is required'),
+		favoriteColor: Yup.string().required('is required'),
+		distance: Yup.number().min(0).required('is required'),
+		date: Yup.string().required('is required')
+	}
+).required();

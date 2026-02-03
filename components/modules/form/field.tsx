@@ -1,6 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode, Ref } from 'react';
 import { forwardRef } from 'react';
-import type { FieldErrors, FieldValues, UseFormSetValue } from 'react-hook-form';
+import type {
+	FieldErrors,
+	FieldValues,
+	UseFormSetValue
+} from 'react-hook-form';
 
 import LabelAndError from '~/components/modules/form/label-error';
 import Input from '~/components/modules/form/input';
@@ -12,6 +16,7 @@ import Checkbox from '~/components/modules/form/checkbox';
 import TimeInput from '~/components/modules/form/time';
 import RadioGroup from '~/components/modules/form/radio-group';
 import CheckboxGroup from '~/components/modules/form/checkbox-group';
+import DateInput from '~/components/modules/form/date';
 
 export type FormOption = {
 	value: string;
@@ -27,7 +32,8 @@ type FieldType =
 	| 'checkbox'
 	| 'checkbox-group'
 	| 'radio-group'
-	| 'range';
+	| 'range'
+	| 'date';
 
 type FieldProps = Omit<ComponentPropsWithoutRef<'input'>, 'name' | 'type'> & {
 	className?: string;
@@ -92,7 +98,8 @@ const Field = forwardRef<HTMLElement, FieldProps>(
 		ref
 	) => {
 		const showError =
-			errors && (errors[fieldName] || (errorsFieldName && errors[errorsFieldName]));
+			errors &&
+			(errors[fieldName] || (errorsFieldName && errors[errorsFieldName]));
 
 		const inputProps = rest as ComponentPropsWithoutRef<'input'>;
 		const selectProps = rest as ComponentPropsWithoutRef<'select'>;
@@ -180,6 +187,20 @@ const Field = forwardRef<HTMLElement, FieldProps>(
 						case 'time':
 							return (
 								<TimeInput
+									ref={ref as Ref<HTMLInputElement>}
+									className={fieldClassName}
+									required={required}
+									fieldName={fieldName}
+									showError={Boolean(showError)}
+									placeholder={placeholder}
+									isSubmitting={isSubmitting}
+									disabled={disabled}
+									{...inputProps}
+								/>
+							);
+						case 'date':
+							return (
+								<DateInput
 									ref={ref as Ref<HTMLInputElement>}
 									className={fieldClassName}
 									required={required}
@@ -290,7 +311,9 @@ const Field = forwardRef<HTMLElement, FieldProps>(
 				})()}
 
 				{children}
-				{helpText && <p className="mb-2 p-2 text-xs text-gray-400">{helpText}</p>}
+				{helpText && (
+					<p className="mb-2 p-2 text-xs text-gray-400">{helpText}</p>
+				)}
 			</div>
 		);
 	}

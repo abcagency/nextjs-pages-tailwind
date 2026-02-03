@@ -34,7 +34,8 @@ const ContactForm = ({ className }: ContactFormProps) => {
 			transportation: [],
 			favoriteColor: 'pink',
 			state: '',
-			distance: 0
+			distance: 0,
+			date: ''
 		},
 		resolver: yupResolver<ContactFormValues, undefined, ContactFormValues>(
 			validationSchema
@@ -205,6 +206,25 @@ const ContactForm = ({ className }: ContactFormProps) => {
 								type="range"
 								fieldName="distance"
 								displayName="Distance"
+								value={value}
+								onChange={onChange}
+								errors={errors}
+								isSubmitting={isSubmitting}
+							/>
+						)}
+					/>
+				</Grid.Item>
+
+				<Grid.Item>
+					<Controller
+						name="date"
+						control={control}
+						render={({ field: { value, onChange } }) => (
+							<FormField
+								required={true}
+								type="date"
+								fieldName="date"
+								displayName="Date"
 								value={value}
 								onChange={onChange}
 								errors={errors}
