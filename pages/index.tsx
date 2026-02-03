@@ -4,36 +4,28 @@ import Jumbotron from '~/components/modules/jumbotron';
 import Section from '~/components/modules/section';
 import Button from '~/components/modules/button';
 
-import Next from '~/images/inline/next.svg';
-
 const Home = () => {
 	return (
 		<Layout>
 			<PageHead title="" />
 
-			<Jumbotron className="bg-transparent text-gray-800!">
-				<div className="flex flex-col items-center justify-between pt-32 pb-40">
-					<div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-transparent before:to-blue-700 before:opacity-20 before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-60 after:translate-x-1/3 after:bg-gradient-conic after:from-sky-900 after:via-[#0141ff] after:opacity-60 after:blur-2xl after:content-[''] lg:before:h-[360px] before:bg-linear-to-br">
-						<Next className="relative w-44" aria-hidden="true" role="img" />
-					</div>
-				</div>
+			<Jumbotron>
+				<Jumbotron.Body>
+					<Jumbotron.Title>Home</Jumbotron.Title>
+				</Jumbotron.Body>
 			</Jumbotron>
 
-			<Section id="intro" className="container px-4 mb-24">
-				<div className="text-center mt-16">
-					<h1 className="mb-6 text-4xl font-bold text-center">
-						Hello, world!
-					</h1>
-					<p className="max-w-lg mx-auto text-balance">
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
-						dolor inventore deserunt, perferendis asperiores quibusdam
-						repudiandae.
-					</p>
-				</div>
+			<Section id="intro" className="container px-4 my-20 text-center">
+				<Section.Title>Hello, world!</Section.Title>
+				<p className="max-w-lg mx-auto text-balance">
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
+					dolor inventore deserunt, perferendis asperiores quibusdam
+					repudiandae.
+				</p>
 			</Section>
 
 			<Section id="alpha" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
+				<Section.Title>Alpha</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" variant="link" hasUnderline>
@@ -74,7 +66,7 @@ const Home = () => {
 			</Section>
 
 			<Section id="beta" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Beta</h2>
+				<Section.Title>Beta</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" variant="link" hasUnderline>
@@ -115,7 +107,7 @@ const Home = () => {
 			</Section>
 
 			<Section id="charlie" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Charlie</h2>
+				<Section.Title>Charlie</Section.Title>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.{' '}
 					<Button.Anchor href="/" variant="link" hasUnderline>
