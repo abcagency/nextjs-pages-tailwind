@@ -29,8 +29,8 @@ import {
 import Input from '~/components/modules/form/input';
 import type { RadioOption } from '~/components/modules/form/radio-group';
 import type { SelectOption } from '~/components/modules/form/select';
-import type { InsuranceClaimFormValues } from '~/lib/validators/contact';
-import { validationSchema } from '~/lib/validators/contact';
+import type { InsuranceClaimFormValues } from '~/lib/validators/insurance-claim-form';
+import { validationSchema } from '~/lib/validators/insurance-claim-form';
 
 const policyTypeOptions: SelectOption[] = [
 	{ value: 'Auto', label: 'Auto' },
