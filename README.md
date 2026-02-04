@@ -46,6 +46,7 @@ A minimal starter template using Next.js with pages routing and Tailwind.
 - [BaseUI](https://base-ui.com/)
 - [Motion](https://motion.dev/)
 - [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
 - [Iconify](https://iconify.design/)
 
 ---
