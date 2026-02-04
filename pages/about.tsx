@@ -1,12 +1,29 @@
+import Link from 'next/link';
+
 import Layout from '~/components/layout/layout';
 import PageHead from '~/components/util/page-head';
 import Jumbotron from '~/components/modules/jumbotron';
 import Section from '~/components/modules/section';
-import Card from '~/components/modules/card';
-import Accordion from '~/components/modules/accordion';
+import {
+	Card,
+	CardAction,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardImage,
+	CardTitle
+} from '~/components/modules/core/card';
 import SlideIn from '~/components/modules/animations/slidein';
 import Grid from '~/components/modules/grid';
 import Dialog from '~/components/modules/dialog';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger
+} from '~/components/modules/core/accordion';
+import { Button } from '~/components/modules/core/button';
 
 import JumbotronFpoImage from '~/images/jumbotron/fpo.png';
 import FpoImage from '~/images/fpo.png';
@@ -23,8 +40,8 @@ const AboutPage = () => {
 				<Jumbotron.Image image={JumbotronFpoImage} alt="FPO image" />
 			</Jumbotron>
 
-			<Section id="alpha" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Alpha</h2>
+			<Section id="alpha" className="container px-4 my-20">
+				<Section.Title>Alpha</Section.Title>
 
 				<Dialog
 					title="Dialog Title"
@@ -42,48 +59,50 @@ const AboutPage = () => {
 
 				<Grid className="my-12">
 					<SlideIn>
-						<Card.Default>
-							<Card.Image image={FpoImage} alt="FPO image" />
-							<Card.Body>
-								<p>
+						<Card className="h-full">
+							<CardImage src={FpoImage} alt="FPO image" />
+							<CardContent>
+								<CardTitle>Card Title</CardTitle>
+								<CardDescription>
 									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 									Placeat dolor inventore deserunt, perferendis asperiores
 									quibusdam repudiandae.
-								</p>
-							</Card.Body>
-							<Card.Footer>
-								<p>
-									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								</p>
-							</Card.Footer>
-						</Card.Default>
+								</CardDescription>
+							</CardContent>
+							<CardFooter>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+							</CardFooter>
+						</Card>
 					</SlideIn>
 					<SlideIn>
-						<Card.Link href="#">
-							<Card.Image image={FpoImage} alt="FPO image" />
-							<Card.Body>
-								<p>
+						<Card className="h-full">
+							<CardImage src={FpoImage} alt="FPO image" />
+							<CardContent>
+								<CardTitle>Card Title</CardTitle>
+								<CardDescription>
 									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 									Placeat dolor inventore deserunt, perferendis asperiores
 									quibusdam repudiandae.
-								</p>
-							</Card.Body>
-							<Card.Footer>
-								<p>
-									Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								</p>
-							</Card.Footer>
-						</Card.Link>
+								</CardDescription>
+							</CardContent>
+							<CardFooter>
+								<Button
+									render={<Link href="/">Lorem ipsum</Link>}
+									nativeButton={false}
+									className="stretched-link"
+								/>
+							</CardFooter>
+						</Card>
 					</SlideIn>
 				</Grid>
 			</Section>
 
-			<Section id="beta" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Beta</h2>
-				<Accordion defaultValue="item-1">
-					<Accordion.Item id="item-1">
-						<Accordion.Trigger>Item 1</Accordion.Trigger>
-						<Accordion.Content>
+			<Section id="beta" className="container px-4 my-20">
+				<Section.Title>Beta</Section.Title>
+				<Accordion defaultValue={['item-1']}>
+					<AccordionItem value="item-1">
+						<AccordionTrigger>Item 1</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -93,11 +112,11 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
-					<Accordion.Item id="item-2">
-						<Accordion.Trigger>Item 2</Accordion.Trigger>
-						<Accordion.Content>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-2">
+						<AccordionTrigger>Item 2</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -107,11 +126,11 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
-					<Accordion.Item id="item-3">
-						<Accordion.Trigger>Item 3</Accordion.Trigger>
-						<Accordion.Content>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-3">
+						<AccordionTrigger>Item 3</AccordionTrigger>
+						<AccordionContent>
 							<p>
 								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 								Placeat dolor inventore deserunt, perferendis asperiores
@@ -121,47 +140,9 @@ const AboutPage = () => {
 								assumenda quae iure rem similique consectetur veritatis minima.
 								Natus.
 							</p>
-						</Accordion.Content>
-					</Accordion.Item>
+						</AccordionContent>
+					</AccordionItem>
 				</Accordion>
-			</Section>
-
-			<Section id="charlie" className="container px-4 my-12">
-				<h2 className="mb-4 text-xl font-bold">Charlie</h2>
-				<p>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat
-					dolor inventore deserunt, perferendis asperiores quibusdam
-					repudiandae. Fugiat voluptatem blanditiis reiciendis earum repellat,
-					qui dolor tenetur maiores at voluptate enim modi asperiores ab
-					corrupti explicabo recusandae ea excepturi assumenda quae iure rem
-					similique consectetur veritatis minima. Natus. Ipsa aliquam sapiente
-					expedita quidem vitae sit architecto eveniet est id quaerat saepe modi
-					unde esse sequi sint dolorem adipisci in eos, ducimus reprehenderit
-					ea, iusto molestiae rem. Ad, ipsam. A quisquam ex dolor pariatur
-					debitis sequi veritatis rem delectus facere totam, incidunt quibusdam
-					fugiat provident repudiandae laborum mollitia dolorum odit? Molestiae
-					alias, temporibus culpa fugiat libero incidunt perspiciatis voluptas.
-					Quia, necessitatibus! Ipsam accusamus atque ipsum nisi dolor
-					repudiandae officiis, cum accusantium iure inventore facilis magni
-					debitis itaque blanditiis, placeat eum? Cupiditate error obcaecati
-					soluta consectetur, in officiis quaerat aliquid! Rerum ut odio dolore
-					excepturi ipsam ducimus sapiente quas consequuntur porro iure optio
-					laborum, voluptas doloribus id rem tenetur eligendi delectus corporis
-					aspernatur amet necessitatibus! Numquam officia sunt maxime nihil?
-					Iure, asperiores beatae amet odit, autem, quidem id officia maxime
-					debitis rerum unde distinctio. Ipsa, dolore quidem quibusdam nihil
-					repellendus sapiente recusandae corrupti deserunt dolor ad a officia
-					quis odio. Rem, natus sapiente! Modi enim quidem consequatur, nobis
-					facere eligendi similique vero rerum praesentium fuga nesciunt, nihil
-					velit. Repudiandae atque illo repellendus sunt nostrum nobis rerum
-					soluta eos praesentium! Autem! Unde odio vero, nesciunt voluptas eius
-					sit. Quia, ex earum beatae mollitia ipsum at, aliquam officiis cum
-					minus molestiae error quos voluptatibus. Ipsam quod rem fugiat,
-					voluptatum voluptas quasi non! Recusandae ea excepturi dignissimos vel
-					nisi voluptatum inventore sapiente est facilis, at modi provident,
-					eius eligendi placeat error architecto odio? Explicabo soluta, culpa
-					qui blanditiis alias officiis dolore eaque expedita?
-				</p>
 			</Section>
 		</Layout>
 	);

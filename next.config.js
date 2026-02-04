@@ -1,4 +1,4 @@
-const redirects = require('./data/redirects.js');
+const redirects = require('./data/redirects.ts');
 
 module.exports = {
 	reactStrictMode: true,

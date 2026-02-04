@@ -1,37 +1,34 @@
+'use client';
+
 import type { ChangeEvent, ComponentPropsWithoutRef } from 'react';
 import { forwardRef } from 'react';
+import { Input as BaseInput } from '@base-ui/react/input';
 import { IMaskInput } from 'react-imask';
+import type { FactoryArg } from 'imask';
 
-type MaskPattern = string | RegExp;
+import { cn } from '~/lib/utils';
+
+type MaskPattern = FactoryArg;
 
 type InputFieldProps = Omit<
 	ComponentPropsWithoutRef<'input'>,
-	'className' | 'type' | 'name'
+	'className' | 'name'
 > & {
 	className?: string;
-	type?: string;
-	required?: boolean;
-	fieldName: string;
+	name?: string;
+	fieldName?: string;
 	showError?: boolean;
-	placeholder?: string;
-	isSubmitting?: boolean;
-	disabled?: boolean;
 	mask?: MaskPattern;
 	unmask?: boolean | 'typed';
-	value?: ComponentPropsWithoutRef<'input'>['value'];
 };
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 	(
 		{
 			className,
-			type = 'text',
-			required = false,
 			fieldName,
+			name,
 			showError,
-			placeholder,
-			isSubmitting,
-			disabled = false,
 			mask,
 			unmask = true,
 			value,
@@ -41,67 +38,64 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 		},
 		ref
 	) => {
-		const baseProps = {
-			name: fieldName,
-			placeholder,
-			className: `
-				block w-full rounded px-4 bg-white border placeholder:text-gray-300 transition-colors
-				${showError ? 'border-red-500' : 'border-gray-400'}
-				${className ?? ''}
-			`,
-			'aria-invalid': showError ? true : undefined,
-			'aria-describedby': showError ? `${fieldName}-error` : undefined,
-			'aria-required': required,
-			disabled: disabled || isSubmitting
-		};
+		const inputName = fieldName ?? name;
+
+		const baseClassName = cn(
+			'border-border bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-ring/20 focus-visible:border-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm outline-none transition-colors focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+			showError && 'border-destructive focus-visible:ring-destructive/20',
+			className
+		);
 
 		if (mask) {
 			const maskedValue =
 				typeof value === 'string' || typeof value === 'number'
 					? String(value)
 					: '';
-
-			const sharedMaskedProps = {
-				...baseProps,
-				ref,
-				unmask,
-				value: maskedValue,
-				onAccept: (acceptedValue: string, maskInstance: { unmaskedValue: string }) => {
-					if (onChange) {
-						onChange({
-							target: {
-								name: fieldName,
-								value: unmask ? maskInstance.unmaskedValue : acceptedValue
-							}
-						} as unknown as ChangeEvent<HTMLInputElement>);
-					}
-				},
-				onBlur,
-				type: type === 'phone' ? 'tel' : type,
-				...rest
-			};
-
-			if (typeof mask === 'string') {
-				return <IMaskInput {...sharedMaskedProps} mask={mask} />;
-			}
+			const maskProps =
+				typeof mask === 'object' && mask !== null && 'mask' in mask
+					? (mask as Record<string, unknown>)
+					: { mask };
 
 			return (
 				<IMaskInput
-					mask={mask}
-					{...sharedMaskedProps}
+					{...rest}
+					{...maskProps}
+					ref={ref}
+					name={inputName}
+					className={baseClassName}
+					value={maskedValue}
+					unmask={unmask}
+					onAccept={(acceptedValue, maskInstance) => {
+						if (onChange) {
+							const nextValue =
+								unmask === 'typed'
+									? maskInstance.typedValue
+									: unmask
+										? maskInstance.unmaskedValue
+										: acceptedValue;
+
+							onChange({
+								target: {
+									name: inputName ?? '',
+									value: nextValue ?? ''
+								}
+							} as unknown as ChangeEvent<HTMLInputElement>);
+						}
+					}}
+					onBlur={onBlur}
 				/>
 			);
 		}
 
 		return (
-			<input
-				{...baseProps}
+			<BaseInput
+				{...rest}
 				ref={ref}
-				type={type === 'phone' ? 'tel' : type}
+				name={inputName}
+				className={baseClassName}
 				{...(value !== undefined ? { value } : {})}
 				onChange={onChange}
 				onBlur={onBlur}
-				{...rest}
 			/>
 		);
 	}

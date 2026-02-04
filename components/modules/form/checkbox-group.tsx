@@ -1,25 +1,34 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import { useEffect, useState, forwardRef } from 'react';
+'use client';
 
-type CheckboxOption = {
+import type { ComponentPropsWithoutRef } from 'react';
+import { forwardRef } from 'react';
+import { CheckboxGroup as CheckboxGroupPrimitive } from '@base-ui/react/checkbox-group';
+import { Checkbox } from '@base-ui/react/checkbox';
+
+import Icon from '~/components/modules/icon';
+import { cn } from '~/lib/utils';
+
+export type CheckboxOption = {
 	value: string;
 	label: string;
+	description?: string;
 };
 
-type CheckboxGroupProps = Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> & {
+type CheckboxGroupProps = Omit<
+	ComponentPropsWithoutRef<'div'>,
+	'onChange' | 'defaultValue'
+> & {
 	name: string;
 	options?: CheckboxOption[];
 	value?: string[];
+	defaultValue?: string[];
 	onChange?: (values: string[]) => void;
-	onBlur?: ComponentPropsWithoutRef<'input'>['onBlur'];
 	className?: string;
 	labelClassName?: string;
 	disabled?: boolean;
 	required?: boolean;
-	isSubmitting?: boolean;
 	showError?: boolean;
 	layout?: 'vertical' | 'horizontal';
-	orientation?: 'vertical' | 'horizontal';
 };
 
 const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
@@ -28,90 +37,71 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
 			name,
 			options = [],
 			value = [],
+			defaultValue,
 			onChange,
-			onBlur,
-			className = '',
-			labelClassName = '',
+			className,
+			labelClassName,
 			disabled = false,
 			required = false,
-			isSubmitting = false,
 			showError = false,
 			layout = 'vertical',
-			orientation,
 			...rest
 		},
 		ref
 	) => {
-		const resolvedLayout = orientation || layout;
-		const isHorizontal = resolvedLayout === 'horizontal';
-		const [selectedValues, setSelectedValues] = useState<string[]>(value);
-
-		useEffect(() => {
-			setSelectedValues(value);
-		}, [value]);
-
-		const handleCheckboxChange = (optionValue: string) => {
-			let newValues: string[];
-			if (selectedValues.includes(optionValue)) {
-				newValues = selectedValues.filter(val => val !== optionValue);
-			} else {
-				newValues = [...selectedValues, optionValue];
-			}
-
-			setSelectedValues(newValues);
-			onChange?.(newValues);
-		};
+		const isHorizontal = layout === 'horizontal';
 
 		return (
-			<div
+			<CheckboxGroupPrimitive
 				ref={ref}
-				role="group"
-				aria-required={required}
-				aria-invalid={showError ? 'true' : undefined}
-				aria-describedby={showError ? `${name}-error` : undefined}
-				className={`
-					flex
-					${isHorizontal ? 'flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4' : 'flex-col items-start gap-3'}
-					${showError ? 'ring-1 ring-red-500 rounded-md p-2' : ''}
-					${className ?? ''}
-				`}
+				value={value}
+				defaultValue={defaultValue}
+				onValueChange={values => onChange?.(values)}
+				allValues={options.map(option => option.value)}
+				disabled={disabled}
+				className={cn(
+					'flex gap-3',
+					isHorizontal ? 'flex-row flex-wrap' : 'flex-col',
+					showError && 'ring-1 ring-destructive rounded-md p-2',
+					className
+				)}
 				{...rest}
 			>
-				{options.map(option => {
-					const id = `${name}-${String(option.value).replace(/\s+/g, '-')}`;
-
-					return (
-						<label
-							key={option.value}
-							htmlFor={id}
-							className={`inline-flex items-start gap-2 cursor-pointer group ${labelClassName ?? ''}`}
+				{options.map(option => (
+					<label
+						key={option.value}
+						className={cn(
+							'flex items-start gap-2',
+							disabled ? 'opacity-60' : 'cursor-pointer',
+							labelClassName
+						)}
+					>
+						<Checkbox.Root
+							name={name}
+							value={option.value}
+							required={required}
+							disabled={disabled}
+							className={cn(
+								'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]'
+							)}
 						>
-							<input
-								id={id}
-								type="checkbox"
-								name={name}
-								value={option.value}
-								checked={selectedValues.includes(option.value)}
-								onChange={() => handleCheckboxChange(option.value)}
-								onBlur={onBlur}
-								disabled={disabled || isSubmitting}
-								className={`
-									mt-0.5 size-4 rounded-xs text-blue-600 border-gray-400 focus:ring-blue-500
-									${disabled || isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
-								`}
-							/>
-							<span
-								className={`
-									text-sm leading-5
-									${disabled ? 'text-gray-400' : 'text-gray-700 group-hover:text-gray-900'}
-								`}
-							>
+							<Checkbox.Indicator className="text-primary-foreground flex items-center justify-center">
+								<Icon icon="ph:check-bold" size="size-3" aria-hidden="true" />
+							</Checkbox.Indicator>
+						</Checkbox.Root>
+						<div className="flex flex-col">
+							<span className="text-sm font-medium text-foreground">
 								{option.label}
 							</span>
-						</label>
-					);
-				})}
-			</div>
+							{option.description && (
+								<span className="text-xs text-muted-foreground">
+									{option.description}
+								</span>
+							)}
+						</div>
+					</label>
+				))}
+			</CheckboxGroupPrimitive>
 		);
 	}
 );

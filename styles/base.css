@@ -1,6 +1,10 @@
 @layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
 	html {
-		@apply font-sans text-450 text-gray-850 scroll-smooth;
+		@apply font-sans text-425 bg-background text-foreground scroll-smooth;
 	}
 
 	::selection {

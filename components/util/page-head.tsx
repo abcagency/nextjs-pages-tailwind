@@ -11,7 +11,12 @@ type PageHeadProps = {
 	title?: string;
 };
 
-const PageHead = ({ shareImage, description, keywords, title }: PageHeadProps) => {
+const PageHead = ({
+	shareImage,
+	description,
+	keywords,
+	title
+}: PageHeadProps) => {
 	const router = useRouter();
 	const defaultTitle = site.title;
 	const pageTitle = title || defaultTitle;

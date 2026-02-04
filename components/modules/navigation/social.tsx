@@ -1,8 +1,10 @@
-import Button from '~/components/modules/button';
+import { Button } from '~/components/modules/core/button';
+import Icon from '~/components/modules/icon';
 
 import site from '~/data/site.json';
 
 type SocialLink = {
+	platform: string;
 	url: string;
 	label: string;
 	icon: string;
@@ -13,18 +15,19 @@ const NavSocial = () => {
 
 	return (
 		<nav className="flex justify-self-end gap-3">
-			{socials.map((data, index) => (
-				<Button.Anchor
-					key={`${index}`}
-					href={data.url}
-					variant="icon"
-					size="sq"
-					rel="noreferrer"
-				>
-					<span className="sr-only">{data.label}</span>
-
-					<Button.Icon icon={data.icon} size="w-4 h-4" />
-				</Button.Anchor>
+			{socials.map(social => (
+				<Button
+					key={social.platform}
+					variant="ghost"
+					size="icon"
+					nativeButton={false}
+					render={
+						<a href={social.url} rel="noreferrer">
+							<span className="sr-only">{social.label}</span>
+							<Icon icon={social.icon} />
+						</a>
+					}
+				/>
 			))}
 		</nav>
 	);

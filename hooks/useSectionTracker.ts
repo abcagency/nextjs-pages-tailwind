@@ -84,7 +84,9 @@ const useSectionTracker = () => {
 			});
 
 			if (isBrowser && sectionId && sectionId !== lastSection) {
-				setHash(ignore.some(idValue => idValue === sectionId) ? ' ' : sectionId);
+				setHash(
+					ignore.some(idValue => idValue === sectionId) ? ' ' : sectionId
+				);
 				trackEvent('Engagement', 'View Section', sectionId);
 				setCurrentSection(sectionId);
 			} else if (isBrowser && window.scrollY < 100) {

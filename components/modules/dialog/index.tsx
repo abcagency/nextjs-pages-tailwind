@@ -1,23 +1,41 @@
 import type { ReactNode } from 'react';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
+
 import {
 	Dialog,
-	DialogPanel,
-	DialogTitle,
-	Transition,
-	TransitionChild
-} from '@headlessui/react';
-
-import Button from '~/components/modules/button';
-
+	DialogClose,
+	DialogContent,
+	DialogHeader,
+	DialogTitle
+} from '~/components/modules/core/dialog';
+import { Button } from '~/components/modules/core/button';
+import Icon from '~/components/modules/icon';
+import { cn } from '~/lib/utils';
 import trackEvent from '~/hooks/useEventTracker';
 
 type DialogButton = {
 	text: string;
 	icon?: string;
 	iconClassName?: string;
-	size?: 'none' | 'sq' | '2xs' | 'xs' | 'sm' | 'md' | 'lg';
-	variant?: 'none' | 'primary' | 'secondary' | 'link' | 'icon';
+	size?:
+		| 'none'
+		| 'xs'
+		| 'sm'
+		| 'default'
+		| 'lg'
+		| 'link'
+		| 'icon'
+		| 'icon-xs'
+		| 'icon-sm'
+		| 'icon-lg';
+	variant?:
+		| 'none'
+		| 'default'
+		| 'outline'
+		| 'secondary'
+		| 'ghost'
+		| 'destructive'
+		| 'link';
 	className?: string;
 	hasUnderline?: boolean;
 };
@@ -47,117 +65,68 @@ const DialogDefault = ({
 }: DialogProps) => {
 	const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
-	const closeDialog = () => {
-		setDialogIsOpen(false);
-		setIsOpen?.(false);
-	};
+	const isControlled = setIsOpen !== undefined;
+	const open = isControlled ? isOpen : dialogIsOpen;
 
-	const openModal = () => {
-		setDialogIsOpen(true);
-		trackEvent(
-			'Engagement',
-			'Open Modal',
-			title === button.text ? title : `${button.text}: ${title}`
-		);
+	const handleOpenChange = (nextOpen: boolean) => {
+		if (!isControlled) {
+			setDialogIsOpen(nextOpen);
+		}
+		setIsOpen?.(nextOpen);
+		if (nextOpen) {
+			trackEvent(
+				'Engagement',
+				'Open Modal',
+				title === button.text ? title : `${button.text}: ${title}`
+			);
+		}
 	};
 
 	return (
 		<>
 			{!hideButton && (
-				<Button.Btn
+				<Button
 					size={button.size}
 					variant={button.variant}
 					className={button.className ?? ''}
 					hasUnderline={button.hasUnderline}
-					onClick={openModal}
+					onClick={() => handleOpenChange(true)}
 				>
-					{button.variant === 'link' ? (
-						<>
-							{button.text}
-							{button.icon && (
-								<Button.Icon
-									icon={button.icon}
-									className={button.iconClassName ?? ''}
-								/>
-							)}
-						</>
-					) : (
-						<Button.Body>
-							{button.text}
-							{button.icon && (
-								<Button.Icon
-									icon={button.icon}
-									className={button.iconClassName ?? ''}
-								/>
-							)}
-						</Button.Body>
+					{button.text}
+					{button.icon && (
+						<Icon icon={button.icon} className={button.iconClassName ?? ''} />
 					)}
-				</Button.Btn>
+				</Button>
 			)}
 
-			<Transition appear show={isOpen || dialogIsOpen} as={Fragment}>
-				<Dialog as="div" className="relative z-[99]" onClose={closeDialog}>
-					<TransitionChild
-						as={Fragment}
-						enter="ease-out duration-1000"
-						enterFrom="opacity-0"
-						enterTo="opacity-100"
-						leave="ease-in duration-300"
-						leaveFrom="opacity-100"
-						leaveTo="opacity-0"
-					>
-						<div className="fixed inset-0 bg-black/50" />
-					</TransitionChild>
-
-					<div className="fixed inset-0 overflow-y-auto">
-						<div
-							className="flex min-h-full items-center justify-center p-4 text-center"
-							style={{
-								perspective: '1200px'
-							}}
-						>
-							<TransitionChild
-								as={Fragment}
-								enter="ease-out duration-150"
-								enterFrom="translate-y-[48%] scale-[0.96] opacity-0"
-								enterTo="translate-y-0 scale-100 opacity-100"
-								leave="ease-in duration-150"
-								leaveFrom="translate-y-0 scale-100 opacity-100"
-								leaveTo="translate-y-[-48%] scale-[0.96] opacity-0"
+			<Dialog open={open} onOpenChange={handleOpenChange}>
+				<DialogContent
+					className={cn(
+						'relative w-full max-w-3xl',
+						dialogWidth,
+						dialogBodyClasses
+					)}
+				>
+					<DialogHeader>
+						<DialogTitle className="text-xl font-semibold">{title}</DialogTitle>
+					</DialogHeader>
+					<div className="px-6 pb-6">{body}</div>
+					{children}
+					<DialogClose
+						render={closeProps => (
+							<Button
+								{...closeProps}
+								variant="ghost"
+								size="icon-sm"
+								aria-label="Close"
+								className="absolute right-3 top-3"
 							>
-								<DialogPanel
-									className={`
-										relative w-full p-4 transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all rounded-lg
-										${dialogWidth}
-										${dialogBodyClasses ?? ''}
-									`}
-								>
-									<div className="flex gap-2 justify-between items-start border-b border-gray-200 pb-2 mb-6">
-										<DialogTitle className="text-xl font-semibold">
-											{title}
-										</DialogTitle>
-									</div>
-									<div className="md:px-4">{body}</div>
-									{children}
-
-									<Button.Btn
-										variant="icon"
-										size="sq"
-										aria-label="Close"
-										onClick={closeDialog}
-										className="absolute top-1.5 right-0"
-									>
-										<Button.Body>
-											<span className="sr-only">Close</span>
-											<Button.Icon icon="mdi:times" />
-										</Button.Body>
-									</Button.Btn>
-								</DialogPanel>
-							</TransitionChild>
-						</div>
-					</div>
-				</Dialog>
-			</Transition>
+								<Icon icon="mdi:times" />
+							</Button>
+						)}
+					/>
+				</DialogContent>
+			</Dialog>
 		</>
 	);
 };
@@ -167,7 +136,11 @@ type DialogBodyProps = {
 	className?: string;
 };
 
-export const DialogBody = ({ children, className, ...props }: DialogBodyProps) => {
+export const DialogBody = ({
+	children,
+	className,
+	...props
+}: DialogBodyProps) => {
 	return (
 		<div
 			className={`

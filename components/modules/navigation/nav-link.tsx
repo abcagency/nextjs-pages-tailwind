@@ -7,7 +7,10 @@ const NavLink = ({ children }: { children?: ReactNode }) => {
 	return <>{children}</>;
 };
 
-export type AnchorProps = Omit<ComponentPropsWithoutRef<typeof Link>, 'href'> & {
+export type AnchorProps = Omit<
+	ComponentPropsWithoutRef<typeof Link>,
+	'href'
+> & {
 	href: string;
 	activeClassName?: string;
 	partiallyActive?: boolean;
