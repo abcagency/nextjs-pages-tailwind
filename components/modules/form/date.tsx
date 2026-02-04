@@ -165,6 +165,8 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
 		const isDob = variant === 'dob';
 		const dobStartYear = 1900;
 		const dobEndYear = new Date().getFullYear();
+		const dobStartMonth = new Date(dobStartYear, 0, 1);
+		const dobEndMonth = new Date(dobEndYear, 11, 31);
 
 		if (resolvedMode === 'native') {
 			return (
@@ -287,8 +289,8 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
 							}}
 							disabled={isDob ? { after: new Date() } : undefined}
 							captionLayout={isDob ? 'dropdown' : 'label'}
-							fromYear={isDob ? dobStartYear : undefined}
-							toYear={isDob ? dobEndYear : undefined}
+							startMonth={isDob ? dobStartMonth : undefined}
+							endMonth={isDob ? dobEndMonth : undefined}
 							defaultMonth={
 								isDob ? new Date(dobEndYear - 25, 0, 1) : selectedDate
 							}
