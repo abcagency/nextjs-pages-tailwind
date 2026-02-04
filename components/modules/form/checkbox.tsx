@@ -96,7 +96,7 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 					onCheckedChange={onCheckedChange}
 					aria-describedby={descriptionId}
 					className={cn(
-						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px]',
+						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px] self-start mt-0.5',
 						showError && 'border-destructive',
 						className
 					)}
@@ -120,7 +120,7 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 						<label
 							htmlFor={controlId}
 							className={cn(
-								'text-sm font-medium',
+								'text-sm font-medium leading-5',
 								disabled
 									? 'text-muted-foreground cursor-not-allowed'
 									: 'text-foreground cursor-pointer'

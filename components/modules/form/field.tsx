@@ -105,15 +105,17 @@ function FormLabel({
 	const { id, showError, error } = useFormField();
 	const message = error?.message?.toString();
 	const labelText =
-		showError && message
-			? typeof children === 'string'
-				? `${children} ${message}`
-				: (
-						<>
-							{children} {message}
-						</>
-					)
-			: children;
+		showError && message ? (
+			typeof children === 'string' ? (
+				`${children} ${message}`
+			) : (
+				<>
+					{children} {message}
+				</>
+			)
+		) : (
+			children
+		);
 
 	return (
 		<Field.Label

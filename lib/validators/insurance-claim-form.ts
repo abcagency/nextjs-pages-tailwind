@@ -28,22 +28,29 @@ const requiredPhone = requiredString().refine(
 	value => phoneRegExp.test(value),
 	{ message: 'requires 10 digits' }
 );
-const optionalDate = z
-	.preprocess(value => {
+const optionalDate = z.preprocess(
+	value => {
 		if (typeof value !== 'string') {
 			return null;
 		}
 		const trimmed = value.trim();
 		return trimmed === '' ? null : trimmed;
-	}, z.union([z.null(), z.string().regex(dateRegExp, 'requires YYYY-MM-DD format')]));
-const optionalPhone = z
-	.preprocess(value => {
+	},
+	z.union([
+		z.null(),
+		z.string().regex(dateRegExp, 'requires YYYY-MM-DD format')
+	])
+);
+const optionalPhone = z.preprocess(
+	value => {
 		if (typeof value !== 'string') {
 			return null;
 		}
 		const digits = value.replace(/\D/g, '');
 		return digits === '' ? null : digits;
-	}, z.union([z.null(), z.string().regex(phoneRegExp, 'requires 10 digits')]));
+	},
+	z.union([z.null(), z.string().regex(phoneRegExp, 'requires 10 digits')])
+);
 const optionalNumber = z.preprocess(asOptionalNumber, z.number().nullable());
 
 export const validationSchema = z

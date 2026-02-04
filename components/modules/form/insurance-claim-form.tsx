@@ -181,7 +181,9 @@ const defaultValues: InsuranceClaimFormValues = {
 	isPrimaryInsured: isDev ? true : false,
 	languagePreference: isDev ? 'English' : '',
 	lossDate: isDev ? '2025-12-08' : '',
-	lossWindow: isDev ? { start: '2025-12-07', end: '2025-12-08' } : {},
+	lossWindow: isDev
+		? { start: '2025-12-07', end: '2025-12-08' }
+		: { start: null, end: null },
 	incidentType: isDev ? 'Collision' : '',
 	incidentDescription: isDev
 		? 'Rear-ended at a stoplight. No airbags deployed.'
