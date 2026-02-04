@@ -3,7 +3,15 @@ import { z } from 'zod';
 const dateRegExp = /^\d{4}-\d{2}-\d{2}$/;
 const phoneRegExp = /^\d{10}$/;
 
-const emptyToUndefined = (value: unknown) => (value === '' ? undefined : value);
+const emptyToUndefined = (value: unknown) => {
+	if (value === null || value === undefined) {
+		return undefined;
+	}
+	if (typeof value === 'string' && value.trim() === '') {
+		return undefined;
+	}
+	return value;
+};
 const asOptionalNumber = (value: unknown) => {
 	if (value === '' || value === null || value === undefined) {
 		return null;
@@ -21,15 +29,21 @@ const requiredPhone = requiredString().refine(
 	{ message: 'requires 10 digits' }
 );
 const optionalDate = z
-	.preprocess(emptyToUndefined, z.string().optional())
-	.refine(value => !value || dateRegExp.test(value), {
-		message: 'requires YYYY-MM-DD format'
-	});
+	.preprocess(value => {
+		if (typeof value !== 'string') {
+			return null;
+		}
+		const trimmed = value.trim();
+		return trimmed === '' ? null : trimmed;
+	}, z.union([z.null(), z.string().regex(dateRegExp, 'requires YYYY-MM-DD format')]));
 const optionalPhone = z
-	.preprocess(emptyToUndefined, z.string().optional())
-	.refine(value => !value || phoneRegExp.test(value), {
-		message: 'requires 10 digits'
-	});
+	.preprocess(value => {
+		if (typeof value !== 'string') {
+			return null;
+		}
+		const digits = value.replace(/\D/g, '');
+		return digits === '' ? null : digits;
+	}, z.union([z.null(), z.string().regex(phoneRegExp, 'requires 10 digits')]));
 const optionalNumber = z.preprocess(asOptionalNumber, z.number().nullable());
 
 export const validationSchema = z
