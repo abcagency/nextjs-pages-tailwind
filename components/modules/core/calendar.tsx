@@ -28,7 +28,8 @@ function Calendar({
 				[UI.Months]: 'flex flex-col gap-4',
 				[UI.Month]: 'space-y-4',
 				[UI.MonthCaption]: 'flex items-center justify-between gap-2',
-				[UI.CaptionLabel]: 'inline-flex items-center gap-1 text-sm font-semibold',
+				[UI.CaptionLabel]:
+					'inline-flex items-center gap-1 text-sm font-semibold',
 				[UI.Dropdowns]: 'flex items-center gap-2',
 				[UI.DropdownRoot]:
 					'border-border bg-background relative inline-flex items-center rounded-md border px-2 py-1 text-sm shadow-xs',
@@ -44,15 +45,16 @@ function Calendar({
 					'border-border text-foreground hover:bg-muted flex size-8 items-center justify-center rounded-md border transition-colors',
 				[UI.MonthGrid]: 'w-full border-collapse space-y-1',
 				[UI.Weekdays]: 'flex',
-				[UI.Weekday]: 'text-muted-foreground w-9 text-center text-xs font-medium',
+				[UI.Weekday]:
+					'text-muted-foreground w-9 text-center text-xs font-medium',
 				[UI.Weeks]: 'flex w-full flex-col gap-2',
 				[UI.Week]: 'flex w-full',
 				[UI.Day]: 'relative h-9 w-9 p-0 text-center text-sm',
 				[UI.DayButton]:
 					'hover:bg-muted focus-visible:ring-ring/30 focus-visible:ring-[3px] flex size-9 items-center justify-center rounded-md transition-colors outline-none',
 				[SelectionState.selected]:
-					'bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/30',
-				[DayFlag.today]: 'bg-primary/10 text-primary',
+					'bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus-visible:ring-primary/30',
+				[DayFlag.today]: 'bg-primary/10 rounded-md text-primary',
 				[DayFlag.outside]: 'text-muted-foreground/60 opacity-60',
 				[DayFlag.disabled]: 'text-muted-foreground/40 opacity-50',
 				[SelectionState.range_middle]: 'bg-primary/10 text-primary',
