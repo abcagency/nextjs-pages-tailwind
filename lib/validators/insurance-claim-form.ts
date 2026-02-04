@@ -14,34 +14,36 @@ const asOptionalNumber = (value: unknown) => {
 
 const requiredString = (message = 'is required') => z.string().min(1, message);
 const requiredDate = requiredString().refine(value => dateRegExp.test(value), {
-	message: 'use YYYY-MM-DD format'
+	message: 'requires YYYY-MM-DD format'
 });
 const requiredPhone = requiredString().refine(
 	value => phoneRegExp.test(value),
-	{ message: 'enter 10 digits' }
+	{ message: 'requires 10 digits' }
 );
 const optionalDate = z
 	.preprocess(emptyToUndefined, z.string().optional())
 	.refine(value => !value || dateRegExp.test(value), {
-		message: 'use YYYY-MM-DD format'
+		message: 'requires YYYY-MM-DD format'
 	});
 const optionalPhone = z
 	.preprocess(emptyToUndefined, z.string().optional())
 	.refine(value => !value || phoneRegExp.test(value), {
-		message: 'enter 10 digits'
+		message: 'requires 10 digits'
 	});
 const optionalNumber = z.preprocess(asOptionalNumber, z.number().nullable());
 
 export const validationSchema = z
 	.object({
-		policyNumber: requiredString().regex(/^\d+$/, 'enter digits only'),
+		policyNumber: requiredString().regex(/^\d+$/, 'use digits only'),
 		claimNumber: z.string().optional(),
 		policyType: requiredString(),
 		insuredFirstName: requiredString(),
 		insuredLastName: requiredString(),
 		insuredDob: requiredDate,
 		insuredPhone: requiredPhone,
-		insuredEmail: requiredString().email('invalid email address'),
+		insuredEmail: z
+			.email({ message: 'has invalid format' })
+			.min(1, 'is required'),
 		contactPreference: requiredString(),
 		mailingAddress1: requiredString(),
 		mailingAddress2: z.string().optional(),
