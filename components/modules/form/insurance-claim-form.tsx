@@ -237,7 +237,7 @@ const PolicyNumberControl = () => {
 			<InputGroupText>INS</InputGroupText>
 			<FormControl>
 				<Input
-					placeholder="284732…"
+					placeholder="284732"
 					autoComplete="off"
 					spellCheck={false}
 					inputMode="numeric"
@@ -304,14 +304,14 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="claimNumber"
 								label="Claim Reference"
-								placeholder="CLM-10488…"
+								placeholder="CLM-10488"
 								autoComplete="off"
 								spellCheck={false}
 							/>
 							<Form.Select
 								name="policyType"
 								label="Policy Type"
-								placeholder="Select policy…"
+								placeholder="Select policy"
 								options={policyTypeOptions}
 								required={true}
 							/>
@@ -320,21 +320,21 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="insuredFirstName"
 								label="First Name"
-								placeholder="Jordan…"
+								placeholder="Jordan"
 								autoComplete="given-name"
 								required={true}
 							/>
 							<Form.Input
 								name="insuredLastName"
 								label="Last Name"
-								placeholder="Taylor…"
+								placeholder="Taylor"
 								autoComplete="family-name"
 								required={true}
 							/>
 							<Form.Date
 								name="insuredDob"
 								label="Date of Birth"
-								placeholder="Select date…"
+								placeholder="Select date"
 								variant="dob"
 								autoComplete="bday"
 								required={true}
@@ -344,13 +344,13 @@ const InsuranceClaimForm = () => {
 							<Form.Phone
 								name="insuredPhone"
 								label="Phone Number"
-								placeholder="(415) 555-0198…"
+								placeholder="(415) 555-0198"
 								required={true}
 							/>
 							<Form.Input
 								name="insuredEmail"
 								label="Email Address"
-								placeholder="name@provider.com…"
+								placeholder="name@provider.com"
 								type="email"
 								autoComplete="email"
 								spellCheck={false}
@@ -368,14 +368,14 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="mailingAddress1"
 								label="Address Line 1"
-								placeholder="410 Market Street…"
+								placeholder="410 Market Street"
 								autoComplete="address-line1"
 								required={true}
 							/>
 							<Form.Input
 								name="mailingAddress2"
 								label="Address Line 2"
-								placeholder="Suite 220…"
+								placeholder="Suite 220"
 								autoComplete="address-line2"
 							/>
 						</Grid>
@@ -383,21 +383,21 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="mailingCity"
 								label="City"
-								placeholder="San Francisco…"
+								placeholder="San Francisco"
 								autoComplete="address-level2"
 								required={true}
 							/>
 							<Form.Select
 								name="mailingState"
 								label="State"
-								placeholder="Select state…"
+								placeholder="Select state"
 								options={stateOptions}
 								required={true}
 							/>
 							<Form.Input
 								name="mailingPostal"
 								label="Postal Code"
-								placeholder="94111…"
+								placeholder="94111"
 								autoComplete="postal-code"
 								required={true}
 								inputMode="numeric"
@@ -406,7 +406,7 @@ const InsuranceClaimForm = () => {
 							<Form.Select
 								name="mailingCountry"
 								label="Country"
-								placeholder="Select country…"
+								placeholder="Select country"
 								options={countryOptions}
 								required={true}
 							/>
@@ -415,7 +415,7 @@ const InsuranceClaimForm = () => {
 							<Form.Combobox
 								name="languagePreference"
 								label="Language Preference"
-								placeholder="Select language…"
+								placeholder="Select language"
 								options={languageOptions}
 								autoComplete="off"
 							/>
@@ -438,20 +438,20 @@ const InsuranceClaimForm = () => {
 							<Form.Date
 								name="lossDate"
 								label="Loss Date"
-								placeholder="Select date…"
+								placeholder="Select date"
 								autoComplete="off"
 								required={true}
 							/>
 							<Form.DateRange
 								name="lossWindow"
 								label="Loss Window"
-								placeholder="Select range…"
+								placeholder="Select range"
 								autoComplete="off"
 							/>
 							<Form.Select
 								name="incidentType"
 								label="Incident Type"
-								placeholder="Select type…"
+								placeholder="Select type"
 								options={incidentTypeOptions}
 								required={true}
 							/>
@@ -459,7 +459,7 @@ const InsuranceClaimForm = () => {
 						<Form.Textarea
 							name="incidentDescription"
 							label="Incident Summary"
-							placeholder="Describe what happened…"
+							placeholder="Describe what happened"
 							autoComplete="off"
 							required={true}
 						/>
@@ -467,14 +467,14 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="incidentLocationAddress"
 								label="Location Address"
-								placeholder="1200 Mission Street…"
+								placeholder="1200 Mission Street"
 								autoComplete="street-address"
 								required={true}
 							/>
 							<Form.Input
 								name="incidentLocationCity"
 								label="Location City"
-								placeholder="San Francisco…"
+								placeholder="San Francisco"
 								autoComplete="address-level2"
 								required={true}
 							/>
@@ -483,14 +483,14 @@ const InsuranceClaimForm = () => {
 							<Form.Select
 								name="incidentLocationState"
 								label="Location State"
-								placeholder="Select state…"
+								placeholder="Select state"
 								options={stateOptions}
 								required={true}
 							/>
 							<Form.Input
 								name="incidentLocationPostal"
 								label="Location Postal Code"
-								placeholder="94103…"
+								placeholder="94103"
 								autoComplete="postal-code"
 								required={true}
 								inputMode="numeric"
@@ -499,7 +499,7 @@ const InsuranceClaimForm = () => {
 							<Form.Combobox
 								name="weatherConditions"
 								label="Weather Conditions"
-								placeholder="Select weather…"
+								placeholder="Select weather"
 								options={weatherOptions}
 								autoComplete="off"
 							/>
@@ -519,14 +519,14 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="policeReportNumber"
 								label="Police Report Number"
-								placeholder="SF-221904…"
+								placeholder="SF-221904"
 								autoComplete="off"
 								spellCheck={false}
 							/>
 							<Form.Date
 								name="reportDate"
 								label="Reported Date"
-								placeholder="YYYY-MM-DD…"
+								placeholder="YYYY-MM-DD"
 								variant="input"
 								autoComplete="off"
 								required={true}
@@ -534,7 +534,7 @@ const InsuranceClaimForm = () => {
 							<Form.Time
 								name="reportTime"
 								label="Reported Time"
-								placeholder="09:15…"
+								placeholder="09:15"
 								autoComplete="off"
 								required={true}
 							/>
@@ -543,13 +543,13 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="authorityName"
 								label="Responding Authority"
-								placeholder="SFPD Central…"
+								placeholder="SFPD Central"
 								autoComplete="off"
 							/>
 							<Form.Phone
 								name="authorityPhone"
 								label="Authority Phone"
-								placeholder="(415) 555-0150…"
+								placeholder="(415) 555-0150"
 								autoComplete="off"
 							/>
 						</Grid>
@@ -573,7 +573,7 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="vehicleYear"
 								label="Vehicle Year"
-								placeholder="2021…"
+								placeholder="2021"
 								inputMode="numeric"
 								autoComplete="off"
 								pattern="[0-9]*"
@@ -582,21 +582,21 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="vehicleMake"
 								label="Vehicle Make"
-								placeholder="Toyota…"
+								placeholder="Toyota"
 								autoComplete="off"
 								required={true}
 							/>
 							<Form.Input
 								name="vehicleModel"
 								label="Vehicle Model"
-								placeholder="RAV4…"
+								placeholder="RAV4"
 								autoComplete="off"
 								required={true}
 							/>
 							<Form.Input
 								name="vehicleVin"
 								label="Vehicle VIN"
-								placeholder="17-character VIN…"
+								placeholder="17-character VIN"
 								autoComplete="off"
 								spellCheck={false}
 								required={true}
@@ -614,14 +614,14 @@ const InsuranceClaimForm = () => {
 							<Form.Select
 								name="vehicleUse"
 								label="Vehicle Use"
-								placeholder="Select use…"
+								placeholder="Select use"
 								options={vehicleUseOptions}
 								required={true}
 							/>
 							<Form.Select
 								name="propertyOwnership"
 								label="Ownership Status"
-								placeholder="Select ownership…"
+								placeholder="Select ownership"
 								options={ownershipOptions}
 								required={true}
 							/>
@@ -630,17 +630,17 @@ const InsuranceClaimForm = () => {
 							<Form.Currency
 								name="damageEstimate"
 								label="Damage Estimate"
-								placeholder="$4,200…"
+								placeholder="$4,200"
 							/>
 							<Form.Currency
 								name="deductibleAmount"
 								label="Deductible"
-								placeholder="$500…"
+								placeholder="$500"
 							/>
 							<Form.Currency
 								name="claimAmountRequested"
 								label="Amount Requested"
-								placeholder="$3,700…"
+								placeholder="$3,700"
 								required={true}
 							/>
 						</Grid>
@@ -661,19 +661,19 @@ const InsuranceClaimForm = () => {
 							<Form.Date
 								name="rentalStartDate"
 								label="Rental Start Date"
-								placeholder="Select date…"
+								placeholder="Select date"
 								autoComplete="off"
 							/>
 							<Form.Date
 								name="rentalEndDate"
 								label="Rental End Date"
-								placeholder="Select date…"
+								placeholder="Select date"
 								autoComplete="off"
 							/>
 							<Form.Combobox
 								name="rentalCompany"
 								label="Rental Company"
-								placeholder="Select company…"
+								placeholder="Select company"
 								options={rentalCompanyOptions}
 								autoComplete="off"
 							/>
@@ -696,13 +696,13 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="witness1Name"
 								label="Witness Name"
-								placeholder="Morgan Lee…"
+								placeholder="Morgan Lee"
 								autoComplete="off"
 							/>
 							<Form.Phone
 								name="witness1Phone"
 								label="Witness Phone"
-								placeholder="(415) 555-0140…"
+								placeholder="(415) 555-0140"
 								autoComplete="off"
 							/>
 						</Grid>
@@ -723,7 +723,7 @@ const InsuranceClaimForm = () => {
 							<Form.Input
 								name="medicalProviderName"
 								label="Medical Provider"
-								placeholder="City Care Clinic…"
+								placeholder="City Care Clinic"
 								autoComplete="off"
 							/>
 						</Grid>
@@ -731,13 +731,13 @@ const InsuranceClaimForm = () => {
 							<Form.Phone
 								name="medicalProviderPhone"
 								label="Provider Phone"
-								placeholder="(415) 555-0172…"
+								placeholder="(415) 555-0172"
 								autoComplete="off"
 							/>
 							<Form.Textarea
 								name="injuryDescription"
 								label="Injury Description"
-								placeholder="Describe any injuries…"
+								placeholder="Describe any injuries"
 								autoComplete="off"
 							/>
 						</Grid>
@@ -750,7 +750,7 @@ const InsuranceClaimForm = () => {
 						<Form.Textarea
 							name="additionalNotes"
 							label="Additional Notes"
-							placeholder="Add any extra details…"
+							placeholder="Add any extra details"
 							autoComplete="off"
 						/>
 					</section>
@@ -767,7 +767,7 @@ const InsuranceClaimForm = () => {
 					{isSubmitting ? (
 						<>
 							<Spinner size="sm" />
-							Saving…
+							Saving
 						</>
 					) : (
 						'Save Claim'
