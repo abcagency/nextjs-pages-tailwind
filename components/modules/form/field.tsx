@@ -134,7 +134,11 @@ function FormDescription({ className, ...props }: Field.Description.Props) {
 	);
 }
 
-function FormMessage({ className, children, ...props }: Field.Error.Props) {
+function FormMessage({
+	className,
+	children,
+	...props
+}: React.ComponentProps<'div'>) {
 	const { error, messageId } = useFormField();
 	const message = error?.message?.toString();
 
@@ -143,14 +147,14 @@ function FormMessage({ className, children, ...props }: Field.Error.Props) {
 	}
 
 	return (
-		<Field.Error
+		<div
 			id={messageId}
 			aria-live="polite"
 			className={cn('text-xs font-semibold text-destructive', className)}
 			{...props}
 		>
 			{message ?? children}
-		</Field.Error>
+		</div>
 	);
 }
 
