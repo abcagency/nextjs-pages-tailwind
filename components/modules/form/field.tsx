@@ -108,18 +108,18 @@ function FormLabel({
 		<Field.Label
 			htmlFor={id}
 			className={cn(
-				'text-2xs font-semibold uppercase tracking-wide',
+				'text-xs font-semibold',
 				showError ? 'text-destructive' : 'text-foreground',
 				className
 			)}
 			{...props}
 		>
-			<span className="inline-flex items-start gap-1">
+			<span className="inline-flex items-start gap-0.5">
 				<span>{children}</span>
 				{required && (
 					<Icon
 						icon="mdi:asterisk"
-						size="size-2"
+						size="size-1.5"
 						className="text-destructive self-start"
 					/>
 				)}
