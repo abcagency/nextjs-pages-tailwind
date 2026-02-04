@@ -1,7 +1,7 @@
 'use client';
 
 import type { ComponentPropsWithoutRef } from 'react';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 
 import {
 	Combobox,
@@ -23,6 +23,7 @@ export type ComboboxOption = {
 	label: string;
 	group?: string;
 	disabled?: boolean;
+	icon?: string;
 };
 
 type ComboboxFieldProps = Omit<
@@ -59,10 +60,27 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 		ref
 	) => {
 		const inputName = fieldName ?? name;
+		const selectedOption = useMemo(
+			() => options.find(option => option.value === value),
+			[options, value]
+		);
+		const [query, setQuery] = useState('');
+		const normalizedQuery = query.trim().toLowerCase();
+		const matchedOptions = useMemo(() => {
+			if (!normalizedQuery) {
+				return options;
+			}
+
+			return options.filter(option =>
+				option.label.toLowerCase().includes(normalizedQuery)
+			);
+		}, [options, normalizedQuery]);
+		const showEmpty = normalizedQuery.length > 0 && matchedOptions.length === 0;
+		const displayOptions = showEmpty ? options : matchedOptions;
 		const groupedOptions = useMemo(() => {
 			const groups = new Map<string, ComboboxOption[]>();
 
-			options.forEach(option => {
+			displayOptions.forEach(option => {
 				const group = option.group ?? 'Options';
 				if (!groups.has(group)) {
 					groups.set(group, []);
@@ -71,16 +89,26 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 			});
 
 			return Array.from(groups.entries());
-		}, [options]);
+		}, [displayOptions]);
 
 		return (
 			<Combobox
 				value={value ?? ''}
 				onValueChange={nextValue => onChange?.(nextValue ?? '')}
+				onInputValueChange={nextValue => setQuery(nextValue)}
+				filter={null}
 				name={inputName}
 				disabled={disabled}
 			>
 				<div className="relative">
+					{selectedOption?.icon ? (
+						<Icon
+							icon={selectedOption.icon}
+							size="size-4"
+							className="text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2"
+							aria-hidden="true"
+						/>
+					) : null}
 					<ComboboxInput
 						{...rest}
 						ref={ref}
@@ -88,6 +116,7 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 						placeholder={placeholder}
 						disabled={disabled}
 						className={cn(
+							selectedOption?.icon ? 'pl-9' : 'pl-3',
 							showError &&
 								'border-destructive focus-visible:ring-destructive/20',
 							className
@@ -99,6 +128,14 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 				</div>
 				<ComboboxContent>
 					<ComboboxList>
+						{showEmpty && (
+							<>
+								<div className="text-muted-foreground px-2 py-2 text-sm">
+									{emptyText}
+								</div>
+								<div className="border-border my-1 border-t" />
+							</>
+						)}
 						{groupedOptions.map(([group, groupOptions]) => (
 							<ComboboxGroup key={group}>
 								<ComboboxGroupLabel>{group}</ComboboxGroupLabel>
@@ -108,13 +145,20 @@ const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
 										value={option.value}
 										disabled={option.disabled}
 									>
+										{option.icon ? (
+											<Icon
+												icon={option.icon}
+												size="size-4"
+												className="text-muted-foreground"
+												aria-hidden="true"
+											/>
+										) : null}
 										<span>{option.label}</span>
 										<ComboboxItemIndicator />
 									</ComboboxItem>
 								))}
 							</ComboboxGroup>
 						))}
-						<ComboboxEmpty>{emptyText}</ComboboxEmpty>
 					</ComboboxList>
 				</ComboboxContent>
 			</Combobox>

@@ -33,10 +33,10 @@ import type { InsuranceClaimFormValues } from '~/lib/validators/contact';
 import { validationSchema } from '~/lib/validators/contact';
 
 const policyTypeOptions: SelectOption[] = [
-	{ value: 'auto', label: 'Auto' },
-	{ value: 'home', label: 'Homeowners' },
-	{ value: 'renters', label: 'Renters' },
-	{ value: 'umbrella', label: 'Umbrella' }
+	{ value: 'Auto', label: 'Auto' },
+	{ value: 'Homeowners', label: 'Homeowners' },
+	{ value: 'Renters', label: 'Renters' },
+	{ value: 'Umbrella', label: 'Umbrella' }
 ];
 
 const contactPreferenceOptions: RadioOption[] = [
@@ -46,59 +46,59 @@ const contactPreferenceOptions: RadioOption[] = [
 ];
 
 const incidentTypeOptions: SelectOption[] = [
-	{ value: 'collision', label: 'Collision' },
-	{ value: 'theft', label: 'Theft' },
-	{ value: 'vandalism', label: 'Vandalism' },
-	{ value: 'weather', label: 'Weather' },
-	{ value: 'other', label: 'Other' }
+	{ value: 'Collision', label: 'Collision' },
+	{ value: 'Theft', label: 'Theft' },
+	{ value: 'Vandalism', label: 'Vandalism' },
+	{ value: 'Weather', label: 'Weather' },
+	{ value: 'Other', label: 'Other' }
 ];
 
 const propertyTypeOptions: RadioOption[] = [
-	{ value: 'vehicle', label: 'Vehicle' },
-	{ value: 'property', label: 'Property' },
-	{ value: 'other', label: 'Other' }
+	{ value: 'Vehicle', label: 'Vehicle' },
+	{ value: 'Property', label: 'Property' },
+	{ value: 'Other', label: 'Other' }
 ];
 
 const vehicleUseOptions: SelectOption[] = [
-	{ value: 'personal', label: 'Personal' },
-	{ value: 'business', label: 'Business' },
-	{ value: 'rideshare', label: 'Rideshare' }
+	{ value: 'Personal', label: 'Personal' },
+	{ value: 'Business', label: 'Business' },
+	{ value: 'Rideshare', label: 'Rideshare' }
 ];
 
 const ownershipOptions: SelectOption[] = [
-	{ value: 'owned', label: 'Owned' },
-	{ value: 'leased', label: 'Leased' },
-	{ value: 'financed', label: 'Financed' }
+	{ value: 'Owned', label: 'Owned' },
+	{ value: 'Leased', label: 'Leased' },
+	{ value: 'Financed', label: 'Financed' }
 ];
 
 const weatherOptions: ComboboxOption[] = [
-	{ value: 'clear', label: 'Clear', group: 'Conditions' },
-	{ value: 'rain', label: 'Rain', group: 'Conditions' },
-	{ value: 'snow', label: 'Snow', group: 'Conditions' },
-	{ value: 'wind', label: 'High Winds', group: 'Conditions' },
-	{ value: 'hail', label: 'Hail', group: 'Conditions' }
+	{ value: 'Clear', label: 'Clear', group: 'Conditions', icon: 'ph:sun' },
+	{ value: 'Rain', label: 'Rain', group: 'Conditions', icon: 'ph:cloud-rain' },
+	{ value: 'Snow', label: 'Snow', group: 'Conditions', icon: 'ph:snowflake' },
+	{ value: 'Wind', label: 'High Winds', group: 'Conditions', icon: 'ph:wind' },
+	{ value: 'Hail', label: 'Hail', group: 'Conditions', icon: 'ph:cloud-snow' }
 ];
 
 const languageOptions: ComboboxOption[] = [
-	{ value: 'en', label: 'English', group: 'Languages' },
-	{ value: 'es', label: 'Spanish', group: 'Languages' },
-	{ value: 'fr', label: 'French', group: 'Languages' },
-	{ value: 'de', label: 'German', group: 'Languages' }
+	{ value: 'English', label: 'English', group: 'Languages' },
+	{ value: 'Spanish', label: 'Spanish', group: 'Languages' },
+	{ value: 'French', label: 'French', group: 'Languages' },
+	{ value: 'German', label: 'German', group: 'Languages' }
 ];
 
 const rentalCompanyOptions: ComboboxOption[] = [
-	{ value: 'enterprise', label: 'Enterprise', group: 'Rental Companies' },
-	{ value: 'hertz', label: 'Hertz', group: 'Rental Companies' },
-	{ value: 'avis', label: 'Avis', group: 'Rental Companies' },
-	{ value: 'budget', label: 'Budget', group: 'Rental Companies' }
+	{ value: 'Enterprise', label: 'Enterprise', group: 'Rental Companies' },
+	{ value: 'Hertz', label: 'Hertz', group: 'Rental Companies' },
+	{ value: 'Avis', label: 'Avis', group: 'Rental Companies' },
+	{ value: 'Budget', label: 'Budget', group: 'Rental Companies' }
 ];
 
 const damagedAreaOptions: CheckboxOption[] = [
-	{ value: 'front', label: 'Front' },
-	{ value: 'rear', label: 'Rear' },
-	{ value: 'left', label: 'Left Side' },
-	{ value: 'right', label: 'Right Side' },
-	{ value: 'roof', label: 'Roof' }
+	{ value: 'Front', label: 'Front' },
+	{ value: 'Rear', label: 'Rear' },
+	{ value: 'Left', label: 'Left Side' },
+	{ value: 'Right', label: 'Right Side' },
+	{ value: 'Roof', label: 'Roof' }
 ];
 
 const stateOptions: SelectOption[] = [
@@ -165,7 +165,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const defaultValues: InsuranceClaimFormValues = {
 	policyNumber: isDev ? '284732' : '',
 	claimNumber: isDev ? 'CLM-10488' : '',
-	policyType: isDev ? 'auto' : '',
+	policyType: isDev ? 'Auto' : '',
 	insuredFirstName: isDev ? 'Jordan' : '',
 	insuredLastName: isDev ? 'Taylor' : '',
 	insuredDob: isDev ? '1988-05-14' : '',
@@ -179,10 +179,10 @@ const defaultValues: InsuranceClaimFormValues = {
 	mailingPostal: isDev ? '94111' : '',
 	mailingCountry: isDev ? 'US' : '',
 	isPrimaryInsured: isDev ? true : false,
-	languagePreference: isDev ? 'en' : '',
+	languagePreference: isDev ? 'English' : '',
 	lossDate: isDev ? '2025-12-08' : '',
 	lossWindow: isDev ? { start: '2025-12-07', end: '2025-12-08' } : {},
-	incidentType: isDev ? 'collision' : '',
+	incidentType: isDev ? 'Collision' : '',
 	incidentDescription: isDev
 		? 'Rear-ended at a stoplight. No airbags deployed.'
 		: '',
@@ -190,22 +190,22 @@ const defaultValues: InsuranceClaimFormValues = {
 	incidentLocationCity: isDev ? 'San Francisco' : '',
 	incidentLocationState: isDev ? 'CA' : '',
 	incidentLocationPostal: isDev ? '94103' : '',
-	weatherConditions: isDev ? 'rain' : '',
-	damagedAreas: isDev ? ['rear'] : [],
+	weatherConditions: isDev ? 'Rain' : '',
+	damagedAreas: isDev ? ['Rear'] : [],
 	wasPoliceNotified: isDev ? true : false,
 	policeReportNumber: isDev ? 'SF-221904' : '',
 	authorityName: isDev ? 'SFPD Central' : '',
 	authorityPhone: isDev ? '4155550150' : '',
 	reportDate: isDev ? '2025-12-09' : '',
 	reportTime: isDev ? '09:15' : '',
-	propertyType: isDev ? 'vehicle' : '',
+	propertyType: isDev ? 'Vehicle' : '',
 	vehicleYear: isDev ? '2021' : '',
 	vehicleMake: isDev ? 'Toyota' : '',
 	vehicleModel: isDev ? 'RAV4' : '',
 	vehicleVin: isDev ? 'JTNBF3HK4L3100001' : '',
 	vehicleMileage: isDev ? 24850 : 0,
-	vehicleUse: isDev ? 'personal' : '',
-	propertyOwnership: isDev ? 'owned' : '',
+	vehicleUse: isDev ? 'Personal' : '',
+	propertyOwnership: isDev ? 'Owned' : '',
 	damageEstimate: isDev ? 4200 : null,
 	deductibleAmount: isDev ? 500 : null,
 	claimAmountRequested: isDev ? 3700 : 0,
