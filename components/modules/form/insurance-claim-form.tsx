@@ -160,7 +160,7 @@ const countryOptions: SelectOption[] = [
 	{ value: 'MX', label: 'Mexico' }
 ];
 
-const isDev = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
 
 const defaultValues: InsuranceClaimFormValues = {
 	policyNumber: isDev ? '284732' : '',
