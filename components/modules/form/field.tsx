@@ -102,7 +102,18 @@ function FormLabel({
 	children,
 	...props
 }: FormLabelProps) {
-	const { id, showError } = useFormField();
+	const { id, showError, error } = useFormField();
+	const message = error?.message?.toString();
+	const labelText =
+		showError && message
+			? typeof children === 'string'
+				? `${children} ${message}`
+				: (
+						<>
+							{children} {message}
+						</>
+					)
+			: children;
 
 	return (
 		<Field.Label
@@ -115,7 +126,7 @@ function FormLabel({
 			{...props}
 		>
 			<span className="inline-flex items-start gap-0.5">
-				<span>{children}</span>
+				<span>{labelText}</span>
 				{required && (
 					<Icon
 						icon="mdi:asterisk"
@@ -148,7 +159,7 @@ function FormMessage({
 	const { error, messageId, showError } = useFormField();
 	const message = error?.message?.toString();
 
-	if ((!message || !showError) && !children) {
+	if ((showError && message) || (!message && !children)) {
 		return null;
 	}
 
