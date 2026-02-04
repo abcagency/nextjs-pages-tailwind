@@ -98,6 +98,7 @@ function FormRoot<TFieldValues extends FieldValues>({
 		<FormProvider {...form}>
 			<form
 				{...props}
+				noValidate={props.noValidate ?? true}
 				onSubmit={form.handleSubmit(onSubmit, handleInvalid)}
 				className={cn('space-y-6', className)}
 			>

@@ -75,13 +75,13 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 							disabled={disabled}
 							required={required}
 							className={cn(
-								'border-border data-checked:border-primary data-checked:bg-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-full border transition-colors focus-visible:ring-[3px]'
+								'border-border data-checked:border-primary data-checked:bg-primary focus-visible:ring-ring/30 inline-flex size-4 items-center justify-center rounded-full border transition-colors focus-visible:ring-[3px] self-start mt-0.5'
 							)}
 						>
 							<Radio.Indicator className="text-primary-foreground size-2 rounded-full bg-primary-foreground" />
 						</Radio.Root>
 						<div className="flex flex-col">
-							<span className="text-sm font-medium text-foreground">
+							<span className="text-sm font-medium text-foreground leading-5">
 								{option.label}
 							</span>
 							{option.description && (
