@@ -106,9 +106,9 @@ export const validationSchema = z
 		injuryDescription: z.string().optional(),
 		medicalProviderName: z.string().optional(),
 		medicalProviderPhone: optionalPhone,
-		fraudAcknowledgement: z.literal(true, {
-			errorMap: () => ({ message: 'is required' })
-		}),
+		fraudAcknowledgement: z
+			.boolean()
+			.refine(value => value, { message: 'is required' }),
 		additionalNotes: z.string().optional()
 	})
 	.required();
