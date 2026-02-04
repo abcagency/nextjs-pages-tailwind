@@ -214,7 +214,7 @@ const defaultValues: InsuranceClaimFormValues = {
 	rentalNeeded: isDev ? true : false,
 	rentalStartDate: isDev ? '2025-12-10' : '',
 	rentalEndDate: isDev ? '2025-12-15' : '',
-	rentalCompany: isDev ? 'enterprise' : '',
+	rentalCompany: isDev ? 'Enterprise' : '',
 	photosProvided: isDev ? true : false,
 	witnessCount: isDev ? 1 : 0,
 	witness1Name: isDev ? 'Morgan Lee' : '',
@@ -526,8 +526,7 @@ const InsuranceClaimForm = () => {
 							<Form.Date
 								name="reportDate"
 								label="Reported Date"
-								placeholder="YYYY-MM-DD"
-								variant="input"
+								placeholder="Select date"
 								autoComplete="off"
 								required={true}
 							/>

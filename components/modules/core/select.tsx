@@ -6,8 +6,10 @@ import { Select as SelectPrimitive } from '@base-ui/react/select';
 import Icon from '~/components/modules/icon';
 import { cn } from '~/lib/utils';
 
-type SelectProps<Value, Multiple extends boolean | undefined = false> =
-	SelectPrimitive.Root.Props<Value, Multiple>;
+type SelectProps<
+	Value,
+	Multiple extends boolean | undefined = false
+> = SelectPrimitive.Root.Props<Value, Multiple>;
 
 function Select<Value, Multiple extends boolean | undefined = false>(
 	props: SelectProps<Value, Multiple>
@@ -66,7 +68,7 @@ function SelectContent({
 				<SelectPrimitive.Popup
 					data-slot="select-content"
 					className={cn(
-						'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 w-[var(--select-trigger-width,260px)] rounded-md border border-border p-1 text-sm shadow-md outline-none',
+						'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 w-(--select-trigger-width,260px) rounded-md border border-border p-1 text-sm shadow-md outline-none',
 						className
 					)}
 					{...props}
