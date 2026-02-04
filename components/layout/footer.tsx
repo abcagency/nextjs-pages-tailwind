@@ -30,6 +30,7 @@ const Footer = () => {
 					<Button
 						variant="ghost"
 						size="icon"
+						nativeButton={false}
 						render={
 							<Link href="#top" aria-label="To the top!">
 								<Icon icon="mdi:arrow-collapse-up" />

@@ -88,6 +88,7 @@ const AboutPage = () => {
 							<CardFooter>
 								<Button
 									render={<Link href="/">Lorem ipsum</Link>}
+									nativeButton={false}
 									className="stretched-link"
 								/>
 							</CardFooter>

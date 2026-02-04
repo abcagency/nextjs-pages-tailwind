@@ -35,6 +35,7 @@ const Home = () => {
 						variant="link"
 						size="link"
 						hasUnderline
+						nativeButton={false}
 						render={
 							<Link href="/">
 								Placeat dolor <Icon icon="fa-brands:instagram" />
@@ -83,6 +84,7 @@ const Home = () => {
 						variant="link"
 						size="link"
 						hasUnderline
+						nativeButton={false}
 						render={
 							<Link href="/">
 								Placeat dolor <Icon icon="fa-brands:instagram" />

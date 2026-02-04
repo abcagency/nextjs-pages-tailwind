@@ -201,82 +201,82 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
 					<input type="hidden" name={inputName} value={value ?? ''} />
 				)}
 				<Popover>
-						<PopoverTrigger
-							nativeButton={variant === 'input' ? false : true}
-							render={triggerProps => {
-								if (variant === 'input') {
-									const triggerRef = (
-										triggerProps as { ref?: Ref<HTMLInputElement> }
-									).ref;
-									const mergedRef = mergeRefs(
-										ref as Ref<HTMLInputElement>,
-										triggerRef
-									);
-
-									return (
-										<Input
-											{...triggerProps}
-											ref={mergedRef}
-											id={id}
-											type="text"
-											value={draftValue}
-											onChange={event => {
-												const next = event.target.value;
-												setDraftValue(next);
-												if (DATE_FORMAT.test(next)) {
-													onChange?.(next);
-												}
-											}}
-											onBlur={event => {
-												if (!event.target.value) {
-													onChange?.('');
-												}
-											}}
-											placeholder="YYYY-MM-DD…"
-											disabled={disabled}
-											required={required}
-											aria-describedby={ariaDescribedBy}
-											aria-invalid={ariaInvalid ?? (showError ? true : undefined)}
-											showError={showError}
-											className={className}
-										/>
-									);
-								}
-
+					<PopoverTrigger
+						nativeButton={variant === 'input' ? false : true}
+						render={triggerProps => {
+							if (variant === 'input') {
 								const triggerRef = (
-									triggerProps as { ref?: Ref<HTMLButtonElement> }
+									triggerProps as { ref?: Ref<HTMLInputElement> }
 								).ref;
 								const mergedRef = mergeRefs(
-									ref as Ref<HTMLButtonElement>,
+									ref as Ref<HTMLInputElement>,
 									triggerRef
 								);
 
 								return (
-									<Button
+									<Input
 										{...triggerProps}
 										ref={mergedRef}
-										type="button"
-										variant="outline"
-										size="default"
-										className={triggerClassName}
+										id={id}
+										type="text"
+										value={draftValue}
+										onChange={event => {
+											const next = event.target.value;
+											setDraftValue(next);
+											if (DATE_FORMAT.test(next)) {
+												onChange?.(next);
+											}
+										}}
+										onBlur={event => {
+											if (!event.target.value) {
+												onChange?.('');
+											}
+										}}
+										placeholder="YYYY-MM-DD…"
 										disabled={disabled}
+										required={required}
 										aria-describedby={ariaDescribedBy}
 										aria-invalid={ariaInvalid ?? (showError ? true : undefined)}
-										aria-required={required}
-									>
-										<span
-											className={cn(
-												'truncate text-left',
-												displayValue ? 'text-foreground' : 'text-muted-foreground'
-											)}
-										>
-											{displayValue ?? placeholder}
-										</span>
-										<Icon icon="ph:calendar" className="text-muted-foreground" />
-									</Button>
+										showError={showError}
+										className={className}
+									/>
 								);
-							}}
-						/>
+							}
+
+							const triggerRef = (
+								triggerProps as { ref?: Ref<HTMLButtonElement> }
+							).ref;
+							const mergedRef = mergeRefs(
+								ref as Ref<HTMLButtonElement>,
+								triggerRef
+							);
+
+							return (
+								<Button
+									{...triggerProps}
+									ref={mergedRef}
+									type="button"
+									variant="outline"
+									size="default"
+									className={triggerClassName}
+									disabled={disabled}
+									aria-describedby={ariaDescribedBy}
+									aria-invalid={ariaInvalid ?? (showError ? true : undefined)}
+									aria-required={required}
+								>
+									<span
+										className={cn(
+											'truncate text-left',
+											displayValue ? 'text-foreground' : 'text-muted-foreground'
+										)}
+									>
+										{displayValue ?? placeholder}
+									</span>
+									<Icon icon="ph:calendar" className="text-muted-foreground" />
+								</Button>
+							);
+						}}
+					/>
 					<PopoverContent className="w-auto p-0">
 						<Calendar
 							mode="single"
@@ -426,17 +426,17 @@ const DateRangeInput = forwardRef<HTMLInputElement, DateRangeInputProps>(
 				)}
 				<Popover>
 					<PopoverTrigger
-							render={triggerProps => {
-								const triggerRef = (
-									triggerProps as { ref?: Ref<HTMLButtonElement> }
-								).ref;
-								const mergedRef = mergeRefs(
-									ref as Ref<HTMLButtonElement>,
-									triggerRef
-								);
+						render={triggerProps => {
+							const triggerRef = (
+								triggerProps as { ref?: Ref<HTMLButtonElement> }
+							).ref;
+							const mergedRef = mergeRefs(
+								ref as Ref<HTMLButtonElement>,
+								triggerRef
+							);
 
-								return (
-									<Button
+							return (
+								<Button
 									{...triggerProps}
 									ref={mergedRef as Ref<HTMLButtonElement>}
 									type="button"

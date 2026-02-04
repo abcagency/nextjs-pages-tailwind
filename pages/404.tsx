@@ -26,6 +26,7 @@ const NotFoundPage = () => {
 						<Button
 							variant="link"
 							hasUnderline
+							nativeButton={false}
 							render={<Link href="/">Home</Link>}
 						/>
 						{errorRoutes.map(route => (
@@ -33,6 +34,7 @@ const NotFoundPage = () => {
 								key={route.slug}
 								variant="link"
 								hasUnderline
+								nativeButton={false}
 								render={<Link href={route.slug}>{route.title}</Link>}
 							/>
 						))}

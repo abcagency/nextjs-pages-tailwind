@@ -20,6 +20,7 @@ const NavSocial = () => {
 					key={social.platform}
 					variant="ghost"
 					size="icon"
+					nativeButton={false}
 					render={
 						<a href={social.url} rel="noreferrer">
 							<span className="sr-only">{social.label}</span>
