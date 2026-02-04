@@ -8,7 +8,7 @@ import type {
 	FieldPath,
 	FieldValues
 } from 'react-hook-form';
-import { useController, useFormContext } from 'react-hook-form';
+import { useController, useFormContext, useFormState } from 'react-hook-form';
 import { Field } from '@base-ui/react/field';
 
 import { cn } from '~/lib/utils';
@@ -33,8 +33,13 @@ function useFormField() {
 	}
 
 	const { id, field, fieldState } = context;
+	const { control } = useFormContext();
+	const { submitCount, isSubmitted } = useFormState({ control });
 	const descriptionId = `${id}-description`;
 	const messageId = `${id}-message`;
+	const showError =
+		Boolean(fieldState.error) &&
+		(fieldState.isTouched || isSubmitted || submitCount > 0);
 
 	return {
 		id,
@@ -43,7 +48,8 @@ function useFormField() {
 		descriptionId,
 		messageId,
 		error: fieldState.error,
-		invalid: Boolean(fieldState.error)
+		invalid: Boolean(fieldState.error),
+		showError
 	};
 }
 
@@ -96,14 +102,14 @@ function FormLabel({
 	children,
 	...props
 }: FormLabelProps) {
-	const { id, invalid } = useFormField();
+	const { id, showError } = useFormField();
 
 	return (
 		<Field.Label
 			htmlFor={id}
 			className={cn(
 				'text-2xs font-semibold uppercase tracking-wide',
-				invalid ? 'text-destructive' : 'text-foreground',
+				showError ? 'text-destructive' : 'text-foreground',
 				className
 			)}
 			{...props}
@@ -139,10 +145,10 @@ function FormMessage({
 	children,
 	...props
 }: React.ComponentProps<'div'>) {
-	const { error, messageId } = useFormField();
+	const { error, messageId, showError } = useFormField();
 	const message = error?.message?.toString();
 
-	if (!message && !children) {
+	if ((!message || !showError) && !children) {
 		return null;
 	}
 

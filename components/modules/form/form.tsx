@@ -127,7 +127,7 @@ const mergeRefs =
 	};
 
 function FormControl({ children }: FormControlProps) {
-	const { field, descriptionId, messageId, invalid, id } = useFormField();
+	const { field, descriptionId, messageId, showError, id } = useFormField();
 	const childProps = children.props as Record<string, unknown>;
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
@@ -150,12 +150,12 @@ function FormControl({ children }: FormControlProps) {
 		onChange: handleChange,
 		onBlur: handleBlur,
 		'aria-describedby': ariaDescribedBy,
-		'aria-invalid': invalid || undefined,
+		'aria-invalid': showError || undefined,
 		ref: mergeRefs(
 			field.ref,
 			(childProps.ref as React.Ref<unknown>) ?? undefined
 		),
-		showError: childProps.showError ?? invalid
+		showError: childProps.showError ?? showError
 	});
 }
 
@@ -225,7 +225,7 @@ type FormSelectProps = Omit<FormFieldProps, 'children'> &
 function FormSelectControl(
 	props: ComponentPropsWithoutRef<typeof SelectField>
 ) {
-	const { field, descriptionId, messageId, invalid, id } = useFormField();
+	const { field, descriptionId, messageId, showError, id } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -237,9 +237,9 @@ function FormSelectControl(
 			name={field.name}
 			value={field.value ?? ''}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -274,7 +274,7 @@ type FormComboboxProps = Omit<FormFieldProps, 'children'> &
 function FormComboboxControl(
 	props: ComponentPropsWithoutRef<typeof ComboboxField>
 ) {
-	const { field, descriptionId, messageId, invalid, id } = useFormField();
+	const { field, descriptionId, messageId, showError, id } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -286,9 +286,9 @@ function FormComboboxControl(
 			name={field.name}
 			value={field.value ?? ''}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -334,7 +334,7 @@ function FormCheckboxControl({
 	display,
 	...props
 }: FormCheckboxControlProps) {
-	const { field, invalid, id } = useFormField();
+	const { field, showError, id } = useFormField();
 
 	return (
 		<Checkbox
@@ -348,7 +348,7 @@ function FormCheckboxControl({
 			description={description}
 			required={required}
 			display={display}
-			showError={invalid}
+			showError={showError}
 		/>
 	);
 }
@@ -396,7 +396,7 @@ function FormCheckboxGroupControl({
 	layout,
 	required
 }: FormCheckboxGroupControlProps) {
-	const { field, invalid, descriptionId, messageId } = useFormField();
+	const { field, showError, descriptionId, messageId } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -409,9 +409,9 @@ function FormCheckboxGroupControl({
 			options={options}
 			layout={layout}
 			required={required}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -460,7 +460,7 @@ function FormRadioGroupControl({
 	layout,
 	required
 }: FormRadioGroupControlProps) {
-	const { field, invalid, descriptionId, messageId } = useFormField();
+	const { field, showError, descriptionId, messageId } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -473,9 +473,9 @@ function FormRadioGroupControl({
 			options={options}
 			layout={layout}
 			required={required}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -521,7 +521,7 @@ function FormRangeControl(
 		'fieldName' | 'value' | 'onChange'
 	>
 ) {
-	const { field, invalid } = useFormField();
+	const { field, showError } = useFormField();
 
 	return (
 		<RangeSlider
@@ -530,7 +530,7 @@ function FormRangeControl(
 			fieldName={field.name}
 			value={Number(field.value ?? 0)}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 		/>
 	);
 }
@@ -562,7 +562,7 @@ type FormDateProps = Omit<FormFieldProps, 'children'> &
 	};
 
 function FormDateControl(props: ComponentPropsWithoutRef<typeof DateInput>) {
-	const { field, invalid, descriptionId, messageId, id } = useFormField();
+	const { field, showError, descriptionId, messageId, id } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -574,9 +574,9 @@ function FormDateControl(props: ComponentPropsWithoutRef<typeof DateInput>) {
 			name={field.name}
 			value={field.value ?? ''}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -610,7 +610,7 @@ type FormDateRangeProps = Omit<FormFieldProps, 'children'> &
 function FormDateRangeControl(
 	props: ComponentPropsWithoutRef<typeof DateRangeInput>
 ) {
-	const { field, invalid, descriptionId, messageId, id } = useFormField();
+	const { field, showError, descriptionId, messageId, id } = useFormField();
 	const ariaDescribedBy =
 		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
@@ -622,9 +622,9 @@ function FormDateRangeControl(
 			name={field.name}
 			value={field.value ?? {}}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
@@ -668,7 +668,7 @@ function FormDateTimeControl({
 	timePlaceholder,
 	...props
 }: FormDateTimeControlProps) {
-	const { field, invalid, descriptionId, messageId, id } = useFormField();
+	const { field, showError, descriptionId, messageId, id } = useFormField();
 	const { control } = useFormContext();
 	const { field: timeField } = useController({ name: timeName, control });
 	const ariaDescribedBy =
@@ -682,9 +682,9 @@ function FormDateTimeControl({
 			name={field.name}
 			value={field.value ?? ''}
 			onChange={field.onChange}
-			showError={invalid}
+			showError={showError}
 			aria-describedby={ariaDescribedBy}
-			aria-invalid={invalid || undefined}
+			aria-invalid={showError || undefined}
 			timeName={timeName}
 			timeValue={timeField.value ?? ''}
 			onTimeChange={timeField.onChange}

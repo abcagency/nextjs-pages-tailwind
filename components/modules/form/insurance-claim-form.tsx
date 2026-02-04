@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useForm, type Resolver } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import Grid from '~/components/modules/grid';
 import {
@@ -160,7 +160,7 @@ const countryOptions: SelectOption[] = [
 	{ value: 'MX', label: 'Mexico' }
 ];
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'production';
 
 const defaultValues: InsuranceClaimFormValues = {
 	policyNumber: isDev ? '284732' : '',
@@ -252,7 +252,7 @@ const InsuranceClaimForm = () => {
 	const form = useForm<InsuranceClaimFormValues>({
 		mode: 'onBlur',
 		defaultValues,
-		resolver: yupResolver(
+		resolver: zodResolver(
 			validationSchema
 		) as Resolver<InsuranceClaimFormValues>
 	});
