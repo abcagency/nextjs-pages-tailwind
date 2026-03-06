@@ -12,4 +12,5 @@ This is a Next.js pages-router starter template using TailwindCSS v4 for buildin
 - Components: `docs/agents/components.md`
 - State, forms, and effects: `docs/agents/state-forms-effects.md`
 - Forms: `docs/agents/forms.md`
+- Verification: `docs/agents/verification.md`
 - Commit messages: `docs/agents/commit-messages.md`
