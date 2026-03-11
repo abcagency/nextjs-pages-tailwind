@@ -51,13 +51,12 @@ const List = ({
 	items,
 	iconSize,
 	iconClassName,
-	children,
-	...props
+	children
 }: ListProps) => {
 	const Container = as;
 
 	return (
-		<Container className={containerClassName ?? ''} {...props}>
+		<ListContainer className={containerClassName ?? ''}>
 			<Container className={cn('space-y-4', className)}>
 				{items && items.length > 0 && (
 					<ListItems
@@ -69,7 +68,7 @@ const List = ({
 				)}
 				{children}
 			</Container>
-		</Container>
+		</ListContainer>
 	);
 };
 
@@ -97,13 +96,12 @@ const ListGrid = ({
 	icon,
 	iconSize,
 	iconClassName,
-	children,
-	...props
+	children
 }: ListGridProps) => {
 	const Container = as;
 
 	return (
-		<Container className={containerClassName ?? ''} {...props}>
+		<ListContainer className={containerClassName ?? ''}>
 			<Grid as={as} columns={columns} gap={gap} className={className ?? ''}>
 				{items && items.length > 0 && (
 					<ListItems
@@ -115,7 +113,7 @@ const ListGrid = ({
 				)}
 				{children}
 			</Grid>
-		</Container>
+		</ListContainer>
 	);
 };
 
