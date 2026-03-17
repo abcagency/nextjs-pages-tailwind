@@ -11,6 +11,7 @@ function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
 	return (
 		<AccordionPrimitive.Root
 			data-slot="accordion"
+			keepMounted
 			className={cn('flex w-full flex-col', className)}
 			onValueChange={value =>
 				trackEvent(
