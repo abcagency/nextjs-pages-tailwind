@@ -23,6 +23,7 @@ function BurgerButton({
 			variant="none"
 			size="none"
 			aria-label="Toggle navigation"
+			aria-controls="main-navigation"
 			aria-expanded={isExpanded}
 			onClick={() => toggleExpansion(!isExpanded)}
 			{...props}
@@ -34,6 +35,7 @@ function BurgerButton({
 					'block w-5 h-5 fill-current transition-transform',
 					isExpanded ? 'transform-gpu rotate-180' : ''
 				)}
+				aria-hidden="true"
 			>
 				<title>Menu</title>
 				<rect

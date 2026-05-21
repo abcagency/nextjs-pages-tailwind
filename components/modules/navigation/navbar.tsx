@@ -35,6 +35,7 @@ const Navbar = ({ isPinned }: NavbarProps) => {
 				/>
 
 				<nav
+					id="main-navigation"
 					className={
 						'md:flex md:items-center md:gap-2 w-full md:w-auto pt-2 md:pt-0' +
 						(isExpanded ? ' block' : ' hidden')
