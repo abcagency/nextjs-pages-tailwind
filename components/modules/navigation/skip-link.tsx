@@ -15,7 +15,7 @@ const SkipLink = ({
 		<a
 			href={href}
 			className={
-				'sr-only focus:not-sr-only focus:absolute focus:py-2 focus:px-6 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-center transition-colors hover:bg-gray-700 ' +
+				'sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:z-9999 focus-visible:py-2 focus-visible:px-6 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-center transition-colors hover:bg-gray-700 ' +
 				(className ?? '')
 			}
 		>
