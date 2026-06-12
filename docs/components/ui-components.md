@@ -46,6 +46,22 @@ Baseline wrappers are intentionally small:
 - `Form.Combobox`, `Form.Range`, `Form.Date`, `Form.DateRange`, `Form.DateTime`, `Form.Time`, `Form.Phone`, and `Form.Currency` are project add-ons. Use them when their masking, formatting, picker, or filtering behavior is needed.
 - Use the underlying Base UI/shadcn components directly inside `Form.Field` when a layout does not match a wrapper.
 
+**Error Modes**
+
+Errors default to `errorMode="inline"`, which renders the message next to the label: `Location Address* is required`. Use `errorMode="block"` when the field needs a longer message below the control. Use `errorMode="auto"` to render messages inline when they are 15 characters or shorter and below the control when they are longer.
+
+```tsx
+<Form.Input name="city" label="City" required={true} />
+
+<Form.Textarea
+	name="incidentSummary"
+	label="Incident Summary"
+	errorMode="block"
+/>
+
+<Form.Input name="postalCode" label="Postal Code" errorMode="auto" />
+```
+
 **Custom Composition**
 
 Use `Form.Field` and `Form.Control` for custom layouts like input groups. `Form.Control` binds simple input-like controls to RHF while preserving custom `onChange`, `onBlur`, refs, and ARIA.

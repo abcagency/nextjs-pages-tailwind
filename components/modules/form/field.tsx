@@ -13,9 +13,13 @@ import { Field } from '@base-ui/react/field';
 
 import { cn } from '~/lib/utils';
 
+type FormErrorMode = 'auto' | 'block' | 'inline';
+
 type FormFieldContextValue<TFieldValues extends FieldValues = FieldValues> = {
 	name: FieldPath<TFieldValues>;
 	id: string;
+	errorMode: FormErrorMode;
+	inlineErrorMaxLength: number;
 	field: ControllerRenderProps<TFieldValues, FieldPath<TFieldValues>>;
 	fieldState: ControllerFieldState;
 	hasDescription: boolean;
@@ -39,6 +43,8 @@ function useFormField() {
 
 	const {
 		id,
+		errorMode,
+		inlineErrorMaxLength,
 		field,
 		fieldState,
 		hasDescription,
@@ -52,12 +58,21 @@ function useFormField() {
 	const { submitCount, isSubmitted } = useFormState({ control });
 	const descriptionId = `${id}-description`;
 	const messageId = `${id}-message`;
+	const message = fieldState.error?.message?.toString();
 	const showError =
 		Boolean(fieldState.error) &&
 		(fieldState.isTouched || isSubmitted || submitCount > 0);
+	const resolvedErrorMode =
+		errorMode === 'auto'
+			? message && message.length <= inlineErrorMaxLength
+				? 'inline'
+				: 'block'
+			: errorMode;
 
 	return {
 		id,
+		errorMode: resolvedErrorMode,
+		inlineErrorMaxLength,
 		field,
 		fieldState,
 		descriptionId,
@@ -72,6 +87,7 @@ function useFormField() {
 		error: fieldState.error,
 		hasLabel,
 		invalid: Boolean(fieldState.error),
+		message,
 		showError,
 		setHasDescription,
 		setHasLabel,
@@ -84,6 +100,8 @@ export type FormFieldProps<
 	TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = Omit<ControllerProps<TFieldValues, TName>, 'render' | 'control'> & {
 	className?: string;
+	errorMode?: FormErrorMode;
+	inlineErrorMaxLength?: number;
 	children:
 		| React.ReactNode
 		| ((props: FormFieldContextValue<TFieldValues>) => React.ReactNode);
@@ -92,7 +110,13 @@ export type FormFieldProps<
 function FormField<
 	TFieldValues extends FieldValues = FieldValues,
 	TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ className, children, ...props }: FormFieldProps<TFieldValues, TName>) {
+>({
+	className,
+	children,
+	errorMode = 'inline',
+	inlineErrorMaxLength = 15,
+	...props
+}: FormFieldProps<TFieldValues, TName>) {
 	const { control } = useFormContext<TFieldValues>();
 	const id = React.useId();
 	const [hasDescription, setHasDescription] = React.useState(false);
@@ -104,6 +128,8 @@ function FormField<
 	const contextValue = {
 		name: props.name,
 		id,
+		errorMode,
+		inlineErrorMaxLength,
 		field,
 		fieldState,
 		hasDescription,
@@ -142,8 +168,7 @@ function FormLabel({
 	children,
 	...props
 }: FormLabelProps) {
-	const { error, id, setHasLabel, showError } = useFormField();
-	const message = error?.message?.toString();
+	const { errorMode, id, message, setHasLabel, showError } = useFormField();
 
 	React.useEffect(() => {
 		setHasLabel(true);
@@ -167,7 +192,9 @@ function FormLabel({
 						*
 					</span>
 				)}
-				{showError && message && <span className="ml-1">{message}</span>}
+				{showError && errorMode === 'inline' && message && (
+					<span className="ml-1">{message}</span>
+				)}
 			</span>
 		</Field.Label>
 	);
@@ -191,11 +218,11 @@ function FormDescription({ className, ...props }: Field.Description.Props) {
 }
 
 function FormMessage({ className, children, ...props }: Field.Error.Props) {
-	const { error, hasLabel, messageId, setHasMessage, showError } =
+	const { errorMode, hasLabel, message, messageId, setHasMessage, showError } =
 		useFormField();
-	const message = error?.message?.toString();
 	const content = showError && message ? message : children;
 	const shouldRender = Boolean(content);
+	const hideMessage = hasLabel && errorMode === 'inline';
 
 	React.useEffect(() => {
 		setHasMessage(shouldRender);
@@ -212,7 +239,7 @@ function FormMessage({ className, children, ...props }: Field.Error.Props) {
 			match={true}
 			aria-live="polite"
 			className={cn(
-				hasLabel ? 'sr-only' : 'text-xs font-semibold text-destructive',
+				hideMessage ? 'sr-only' : 'text-xs font-semibold text-destructive',
 				className
 			)}
 			{...props}
