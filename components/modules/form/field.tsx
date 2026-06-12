@@ -12,13 +12,16 @@ import { useController, useFormContext, useFormState } from 'react-hook-form';
 import { Field } from '@base-ui/react/field';
 
 import { cn } from '~/lib/utils';
-import Icon from '~/components/modules/icon';
 
 type FormFieldContextValue<TFieldValues extends FieldValues = FieldValues> = {
 	name: FieldPath<TFieldValues>;
 	id: string;
 	field: ControllerRenderProps<TFieldValues, FieldPath<TFieldValues>>;
 	fieldState: ControllerFieldState;
+	hasDescription: boolean;
+	hasMessage: boolean;
+	setHasDescription: (value: boolean) => void;
+	setHasMessage: (value: boolean) => void;
 };
 
 const FormFieldContext = React.createContext<FormFieldContextValue<any> | null>(
@@ -32,7 +35,15 @@ function useFormField() {
 		throw new Error('useFormField must be used within <FormField>.');
 	}
 
-	const { id, field, fieldState } = context;
+	const {
+		id,
+		field,
+		fieldState,
+		hasDescription,
+		hasMessage,
+		setHasDescription,
+		setHasMessage
+	} = context;
 	const { control } = useFormContext();
 	const { submitCount, isSubmitted } = useFormState({ control });
 	const descriptionId = `${id}-description`;
@@ -47,9 +58,18 @@ function useFormField() {
 		fieldState,
 		descriptionId,
 		messageId,
+		ariaDescribedBy:
+			[
+				hasDescription ? descriptionId : undefined,
+				hasMessage ? messageId : undefined
+			]
+				.filter(Boolean)
+				.join(' ') || undefined,
 		error: fieldState.error,
 		invalid: Boolean(fieldState.error),
-		showError
+		showError,
+		setHasDescription,
+		setHasMessage
 	};
 }
 
@@ -69,21 +89,32 @@ function FormField<
 >({ className, children, ...props }: FormFieldProps<TFieldValues, TName>) {
 	const { control } = useFormContext<TFieldValues>();
 	const id = React.useId();
+	const [hasDescription, setHasDescription] = React.useState(false);
+	const [hasMessage, setHasMessage] = React.useState(false);
 
 	const { field, fieldState } = useController({ ...props, control });
 
+	const contextValue = {
+		name: props.name,
+		id,
+		field,
+		fieldState,
+		hasDescription,
+		hasMessage,
+		setHasDescription,
+		setHasMessage
+	} as FormFieldContextValue<TFieldValues>;
+
 	const content =
-		typeof children === 'function'
-			? children({ name: props.name, id, field, fieldState })
-			: children;
+		typeof children === 'function' ? children(contextValue) : children;
 
 	return (
-		<FormFieldContext.Provider
-			value={{ name: props.name, id, field, fieldState }}
-		>
+		<FormFieldContext.Provider value={contextValue}>
 			<Field.Root
 				name={field.name}
 				invalid={Boolean(fieldState.error)}
+				touched={fieldState.isTouched}
+				dirty={fieldState.isDirty}
 				className={cn('flex flex-col gap-2', className)}
 			>
 				{content}
@@ -102,20 +133,7 @@ function FormLabel({
 	children,
 	...props
 }: FormLabelProps) {
-	const { id, showError, error } = useFormField();
-	const message = error?.message?.toString();
-	const labelText =
-		showError && message ? (
-			typeof children === 'string' ? (
-				`${children} ${message}`
-			) : (
-				<>
-					{children} {message}
-				</>
-			)
-		) : (
-			children
-		);
+	const { id, showError } = useFormField();
 
 	return (
 		<Field.Label
@@ -128,13 +146,11 @@ function FormLabel({
 			{...props}
 		>
 			<span className="inline-flex items-start gap-0.5">
-				<span>{labelText}</span>
+				<span>{children}</span>
 				{required && (
-					<Icon
-						icon="mdi:asterisk"
-						size="size-1.5"
-						className="text-destructive self-start"
-					/>
+					<span aria-hidden="true" className="text-destructive self-start">
+						*
+					</span>
 				)}
 			</span>
 		</Field.Label>
@@ -142,7 +158,12 @@ function FormLabel({
 }
 
 function FormDescription({ className, ...props }: Field.Description.Props) {
-	const { descriptionId } = useFormField();
+	const { descriptionId, setHasDescription } = useFormField();
+
+	React.useEffect(() => {
+		setHasDescription(true);
+		return () => setHasDescription(false);
+	}, [setHasDescription]);
 
 	return (
 		<Field.Description
@@ -153,27 +174,31 @@ function FormDescription({ className, ...props }: Field.Description.Props) {
 	);
 }
 
-function FormMessage({
-	className,
-	children,
-	...props
-}: React.ComponentProps<'div'>) {
-	const { error, messageId, showError } = useFormField();
+function FormMessage({ className, children, ...props }: Field.Error.Props) {
+	const { error, messageId, setHasMessage, showError } = useFormField();
 	const message = error?.message?.toString();
+	const content = showError && message ? message : children;
+	const shouldRender = Boolean(content);
 
-	if ((showError && message) || (!message && !children)) {
+	React.useEffect(() => {
+		setHasMessage(shouldRender);
+		return () => setHasMessage(false);
+	}, [setHasMessage, shouldRender]);
+
+	if (!shouldRender) {
 		return null;
 	}
 
 	return (
-		<div
+		<Field.Error
 			id={messageId}
+			match={true}
 			aria-live="polite"
 			className={cn('text-xs font-semibold text-destructive', className)}
 			{...props}
 		>
-			{message ?? children}
-		</div>
+			{content}
+		</Field.Error>
 	);
 }
 

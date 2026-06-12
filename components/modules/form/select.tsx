@@ -46,7 +46,11 @@ const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(
 			options,
 			value,
 			onChange,
-			...rest
+			id,
+			disabled,
+			required,
+			'aria-describedby': ariaDescribedBy,
+			'aria-invalid': ariaInvalid
 		},
 		ref
 	) => {
@@ -60,9 +64,16 @@ const SelectField = forwardRef<HTMLButtonElement, SelectFieldProps>(
 				value={value ?? ''}
 				onValueChange={nextValue => onChange?.(nextValue ?? '')}
 				name={inputName}
+				disabled={disabled}
+				required={required}
 			>
 				<SelectTrigger
 					ref={ref}
+					id={id}
+					disabled={disabled}
+					aria-required={required || undefined}
+					aria-describedby={ariaDescribedBy}
+					aria-invalid={ariaInvalid}
 					className={cn(
 						showError && 'border-destructive focus-visible:ring-destructive/20',
 						className

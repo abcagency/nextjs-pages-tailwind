@@ -1,10 +1,10 @@
 # UI Components
 
-This project uses shadcn Base UI primitives with light wrappers in `components/modules/core` and a compound form API in `components/modules/form`.
+This project uses shadcn Base UI primitives with light wrappers in `components/modules/core` and a thin React Hook Form adapter in `components/modules/form`.
 
 **Form API**
 
-Use the compound `Form` API to build forms with minimal markup. The default contact page now renders the insurance claim intake example.
+Use the `Form` API for repeated React Hook Form wiring: provider setup, first invalid field focus, label/description/error ids, `aria-invalid`, and inline error rendering. Prefer direct composition with `Form.Field`, `Form.Label`, `Form.Control`, `Form.Description`, and `Form.Message` when a field layout is custom.
 
 ```tsx
 import { Form } from '~/components/modules/form';
@@ -18,6 +18,7 @@ return (
 			name="policyNumber"
 			label="Policy Number"
 			placeholder="284732…"
+			autoComplete="off"
 			required={true}
 		/>
 		<Form.Select
@@ -30,12 +31,6 @@ return (
 			]}
 		/>
 		<Form.Date name="lossDate" label="Loss Date" placeholder="Select date…" />
-		<Form.DateRange
-			name="lossWindow"
-			label="Loss Window"
-			placeholder="Select range…"
-		/>
-		<Form.Time name="lossTime" label="Loss Time" placeholder="09:15…" />
 		<Form.Checkbox
 			name="fraudAcknowledgement"
 			label="I understand that insurance fraud is a crime."
@@ -45,9 +40,15 @@ return (
 );
 ```
 
+Baseline wrappers are intentionally small:
+
+- `Form.Input`, `Form.Textarea`, `Form.Select`, `Form.Checkbox`, `Form.CheckboxGroup`, `Form.RadioGroup`, and `Form.Switch` remove repeated RHF/label/error markup.
+- `Form.Combobox`, `Form.Range`, `Form.Date`, `Form.DateRange`, `Form.DateTime`, `Form.Time`, `Form.Phone`, and `Form.Currency` are project add-ons. Use them when their masking, formatting, picker, or filtering behavior is needed.
+- Use the underlying Base UI/shadcn components directly inside `Form.Field` when a layout does not match a wrapper.
+
 **Custom Composition**
 
-Use `Form.Field` and `Form.Control` for custom layouts like input groups.
+Use `Form.Field` and `Form.Control` for custom layouts like input groups. `Form.Control` binds simple input-like controls to RHF while preserving custom `onChange`, `onBlur`, refs, and ARIA.
 
 ```tsx
 import { Form } from '~/components/modules/form';
@@ -69,9 +70,33 @@ import Input from '~/components/modules/form/input';
 </Form.Field>;
 ```
 
+For controls that do not behave like native inputs, bind the control explicitly from the field render prop.
+
+```tsx
+import { Switch, SwitchThumb } from '~/components/modules/core/switch';
+
+<Form.Field name="emailNotifications">
+	{({ field, fieldState }) => (
+		<>
+			<Form.Label>Email Notifications</Form.Label>
+			<Switch
+				id={field.name}
+				name={field.name}
+				checked={Boolean(field.value)}
+				onCheckedChange={field.onChange}
+				aria-invalid={fieldState.invalid}
+			>
+				<SwitchThumb />
+			</Switch>
+			<Form.Message />
+		</>
+	)}
+</Form.Field>;
+```
+
 **Masking**
 
-Use `mask` and `unmask` on `Input`, or the thin `PhoneInput` and `CurrencyInput` wrappers.
+Use `mask` and `unmask` on `Input`, or the project add-on `PhoneInput` and `CurrencyInput` wrappers.
 
 ```tsx
 import Input from '~/components/modules/form/input';
