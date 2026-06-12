@@ -1,6 +1,11 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ReactElement } from 'react';
+import type {
+	ComponentPropsWithoutRef,
+	ReactElement,
+	ReactNode,
+	Ref
+} from 'react';
 import React from 'react';
 import type {
 	FieldErrors,
@@ -41,6 +46,7 @@ import RangeSlider from '~/components/modules/form/range-slider';
 import SelectField from '~/components/modules/form/select';
 import Textarea from '~/components/modules/form/textarea';
 import TimeInput from '~/components/modules/form/time';
+import { Switch, SwitchThumb } from '~/components/modules/core/switch';
 import { cn } from '~/lib/utils';
 
 type FormRootProps<TFieldValues extends FieldValues> = Omit<
@@ -50,6 +56,7 @@ type FormRootProps<TFieldValues extends FieldValues> = Omit<
 	form: UseFormReturn<TFieldValues>;
 	onSubmit: SubmitHandler<TFieldValues>;
 	onInvalid?: SubmitErrorHandler<TFieldValues>;
+	focusFirstError?: boolean;
 };
 
 const findFirstErrorPath = (
@@ -63,12 +70,14 @@ const findFirstErrorPath = (
 
 		const currentPath = parentPath ? `${parentPath}.${key}` : key;
 		const message = (value as { message?: string }).message;
+
 		if (message) {
 			return currentPath;
 		}
 
 		if (typeof value === 'object') {
 			const nestedPath = findFirstErrorPath(value as FieldErrors, currentPath);
+
 			if (nestedPath) {
 				return nestedPath;
 			}
@@ -82,13 +91,21 @@ function FormRoot<TFieldValues extends FieldValues>({
 	form,
 	onSubmit,
 	onInvalid,
+	focusFirstError = true,
 	className,
 	children,
+	noValidate = true,
 	...props
 }: FormRootProps<TFieldValues>) {
 	const handleInvalid: SubmitErrorHandler<TFieldValues> = errors => {
 		onInvalid?.(errors);
+
+		if (!focusFirstError) {
+			return;
+		}
+
 		const firstError = findFirstErrorPath(errors);
+
 		if (firstError) {
 			form.setFocus(firstError as Path<TFieldValues>);
 		}
@@ -98,7 +115,7 @@ function FormRoot<TFieldValues extends FieldValues>({
 		<FormProvider {...form}>
 			<form
 				{...props}
-				noValidate={props.noValidate ?? true}
+				noValidate={noValidate}
 				onSubmit={form.handleSubmit(onSubmit, handleInvalid)}
 				className={cn('space-y-6', className)}
 			>
@@ -108,127 +125,207 @@ function FormRoot<TFieldValues extends FieldValues>({
 	);
 }
 
+type ControlledFieldProps = Omit<FormFieldProps, 'children' | 'className'> & {
+	label?: ReactNode;
+	description?: ReactNode;
+	required?: boolean;
+	fieldClassName?: string;
+};
+
+type FieldShellProps = ControlledFieldProps & {
+	children: ReactNode;
+};
+
+function FieldShell({
+	label,
+	description,
+	required,
+	fieldClassName,
+	children,
+	...fieldProps
+}: FieldShellProps) {
+	return (
+		<FormField {...fieldProps} className={fieldClassName}>
+			<>
+				{label && <FormLabel required={required}>{label}</FormLabel>}
+				{children}
+				{description && <FormDescription>{description}</FormDescription>}
+				<FormMessage />
+			</>
+		</FormField>
+	);
+}
+
 type FormControlProps = {
 	children: ReactElement<Record<string, unknown>>;
+	valueProp?: string;
+	changeProp?: string;
+	blurProp?: string;
+	emptyValue?: unknown;
 };
 
 const mergeRefs =
-	<T,>(...refs: Array<React.Ref<T> | undefined>) =>
+	<T,>(...refs: Array<Ref<T> | undefined>) =>
 	(node: T | null) => {
 		refs.forEach(ref => {
 			if (!ref) {
 				return;
 			}
+
 			if (typeof ref === 'function') {
 				ref(node);
 				return;
 			}
+
 			(ref as React.MutableRefObject<T | null>).current = node;
 		});
 	};
 
-function FormControl({ children }: FormControlProps) {
-	const { field, descriptionId, messageId, showError, id } = useFormField();
+const joinIds = (...ids: Array<unknown>) =>
+	ids
+		.flatMap(id => (typeof id === 'string' ? id.split(' ') : []))
+		.filter(Boolean)
+		.join(' ') || undefined;
+
+function FormControl({
+	children,
+	valueProp = 'value',
+	changeProp = 'onChange',
+	blurProp = 'onBlur',
+	emptyValue = ''
+}: FormControlProps) {
+	const { ariaDescribedBy, field, id, showError } = useFormField();
 	const childProps = children.props as Record<string, unknown>;
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
 	const handleChange = (event: unknown) => {
 		field.onChange(event);
-		(childProps.onChange as ((event: unknown) => void) | undefined)?.(event);
+		(childProps[changeProp] as ((event: unknown) => void) | undefined)?.(event);
 	};
 
 	const handleBlur = (event: unknown) => {
 		field.onBlur();
-		(childProps.onBlur as ((event: unknown) => void) | undefined)?.(event);
+		(childProps[blurProp] as ((event: unknown) => void) | undefined)?.(event);
 	};
 
 	return React.cloneElement(children, {
 		...childProps,
-		id,
-		name: field.name,
-		value: childProps.value ?? field.value ?? '',
-		onChange: handleChange,
-		onBlur: handleBlur,
-		'aria-describedby': ariaDescribedBy,
-		'aria-invalid': showError || undefined,
+		id: childProps.id ?? id,
+		name: childProps.name ?? field.name,
+		[valueProp]: childProps[valueProp] ?? field.value ?? emptyValue,
+		[changeProp]: handleChange,
+		[blurProp]: handleBlur,
+		'aria-describedby': joinIds(
+			childProps['aria-describedby'],
+			ariaDescribedBy
+		),
+		'aria-invalid': childProps['aria-invalid'] ?? (showError || undefined),
 		ref: mergeRefs(
 			field.ref,
-			(childProps.ref as React.Ref<unknown>) ?? undefined
+			(childProps.ref as Ref<unknown> | undefined) ?? undefined
 		),
 		showError: childProps.showError ?? showError
 	});
 }
 
-type FormInputProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof Input> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormInputProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof Input>,
+		keyof ControlledFieldProps | 'fieldName' | 'showError' | 'value'
+	>;
 
 function FormInput({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormInputProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...inputProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormControl>
-					<Input {...props} required={required} />
-				</FormControl>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormControl>
+				<Input {...inputProps} disabled={disabled} required={required} />
+			</FormControl>
+		</FieldShell>
 	);
 }
 
-type FormTextareaProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof Textarea> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormTextareaProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof Textarea>,
+		keyof ControlledFieldProps | 'fieldName' | 'showError' | 'value'
+	>;
 
 function FormTextarea({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormTextareaProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...textareaProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormControl>
-					<Textarea {...props} required={required} />
-				</FormControl>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormControl>
+				<Textarea {...textareaProps} disabled={disabled} required={required} />
+			</FormControl>
+		</FieldShell>
 	);
 }
 
-type FormSelectProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof SelectField> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormSelectProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof SelectField>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'value'
+		| 'onChange'
+	>;
 
 function FormSelectControl(
-	props: ComponentPropsWithoutRef<typeof SelectField>
+	props: Omit<
+		ComponentPropsWithoutRef<typeof SelectField>,
+		'fieldName' | 'showError' | 'value' | 'onChange'
+	>
 ) {
-	const { field, descriptionId, messageId, showError, id } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
+	const { ariaDescribedBy, field, id, showError } = useFormField();
 
 	return (
 		<SelectField
@@ -239,103 +336,88 @@ function FormSelectControl(
 			value={field.value ?? ''}
 			onChange={field.onChange}
 			showError={showError}
-			aria-describedby={ariaDescribedBy}
-			aria-invalid={showError || undefined}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
 		/>
 	);
 }
 
 function FormSelect({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormSelectProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...selectProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormSelectControl {...props} required={required} />
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormSelectControl
+				{...selectProps}
+				disabled={disabled}
+				required={required}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormComboboxProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof ComboboxField> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-		options: ComboboxOption[];
-	};
-
-function FormComboboxControl(
-	props: ComponentPropsWithoutRef<typeof ComboboxField>
-) {
-	const { field, descriptionId, messageId, showError, id } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
-
-	return (
-		<ComboboxField
-			{...props}
-			ref={field.ref}
-			id={id}
-			name={field.name}
-			value={field.value ?? ''}
-			onChange={field.onChange}
-			showError={showError}
-			aria-describedby={ariaDescribedBy}
-			aria-invalid={showError || undefined}
-		/>
-	);
-}
-
-function FormCombobox({
-	name,
-	label,
-	description,
-	required,
-	...props
-}: FormComboboxProps) {
-	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormComboboxControl {...props} required={required} />
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
-	);
-}
-
-type FormCheckboxProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof Checkbox> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
+type FormCheckboxProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof Checkbox>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'checked'
+		| 'onCheckedChange'
+	> & {
 		display?: CheckboxDisplay;
 	};
 
-type FormCheckboxControlProps = ComponentPropsWithoutRef<typeof Checkbox> & {
-	label?: string;
-	description?: string;
+type FormCheckboxControlProps = Omit<
+	ComponentPropsWithoutRef<typeof Checkbox>,
+	| 'checked'
+	| 'description'
+	| 'fieldName'
+	| 'label'
+	| 'onCheckedChange'
+	| 'required'
+	| 'showError'
+> & {
+	label?: ReactNode;
+	description?: ReactNode;
 	required?: boolean;
-	display?: CheckboxDisplay;
 };
 
 function FormCheckboxControl({
 	label,
 	description,
 	required,
-	display,
 	...props
 }: FormCheckboxControlProps) {
-	const { field, showError, id } = useFormField();
+	const { ariaDescribedBy, descriptionId, field, id, showError } =
+		useFormField();
+	const describedBy = joinIds(
+		description ? descriptionId : undefined,
+		ariaDescribedBy
+	);
 
 	return (
 		<Checkbox
@@ -348,29 +430,45 @@ function FormCheckboxControl({
 			label={label}
 			description={description}
 			required={required}
-			display={display}
 			showError={showError}
+			aria-describedby={describedBy}
+			aria-invalid={showError || undefined}
 		/>
 	);
 }
 
 function FormCheckbox({
-	name,
 	label,
 	description,
 	required,
-	display,
+	fieldClassName,
 	...props
 }: FormCheckboxProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...checkboxProps
+	} = props;
+
 	return (
-		<FormField name={name}>
+		<FormField
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			className={fieldClassName}
+		>
 			<>
 				<FormCheckboxControl
-					{...props}
+					{...checkboxProps}
+					disabled={disabled}
 					label={label}
 					description={description}
 					required={required}
-					display={display}
 				/>
 				<FormMessage />
 			</>
@@ -378,32 +476,89 @@ function FormCheckbox({
 	);
 }
 
-type FormCheckboxGroupProps = Omit<FormFieldProps, 'children'> & {
-	label?: string;
-	description?: string;
-	required?: boolean;
-	options: CheckboxOption[];
-	layout?: 'vertical' | 'horizontal';
-};
+type FormSwitchProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof Switch>,
+		keyof ControlledFieldProps | 'checked' | 'onCheckedChange'
+	>;
 
-type FormCheckboxGroupControlProps = {
+type FormSwitchControlProps = Omit<
+	ComponentPropsWithoutRef<typeof Switch>,
+	'checked' | 'onCheckedChange'
+>;
+
+function FormSwitchControl({ className, ...props }: FormSwitchControlProps) {
+	const { ariaDescribedBy, field, id, showError } = useFormField();
+
+	return (
+		<Switch
+			{...props}
+			ref={field.ref}
+			id={id}
+			name={field.name}
+			checked={Boolean(field.value)}
+			onCheckedChange={checked => field.onChange(checked)}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
+			className={cn(showError && 'ring-destructive/30 ring-2', className)}
+		>
+			<SwitchThumb />
+		</Switch>
+	);
+}
+
+function FormSwitch({
+	label,
+	description,
+	required,
+	fieldClassName,
+	...props
+}: FormSwitchProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...switchProps
+	} = props;
+
+	return (
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormSwitchControl
+				{...switchProps}
+				disabled={disabled}
+				required={required}
+			/>
+		</FieldShell>
+	);
+}
+
+type FormCheckboxGroupProps = ControlledFieldProps & {
 	options: CheckboxOption[];
 	layout?: 'vertical' | 'horizontal';
-	required?: boolean;
 };
 
 function FormCheckboxGroupControl({
 	options,
 	layout,
 	required
-}: FormCheckboxGroupControlProps) {
-	const { field, showError, descriptionId, messageId } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
+}: Pick<FormCheckboxGroupProps, 'options' | 'layout' | 'required'>) {
+	const { ariaDescribedBy, field, showError } = useFormField();
 
 	return (
 		<CheckboxGroup
-			ref={field.ref as React.Ref<HTMLDivElement>}
+			ref={field.ref as Ref<HTMLDivElement>}
 			name={field.name}
 			value={field.value ?? []}
 			onChange={field.onChange}
@@ -418,56 +573,46 @@ function FormCheckboxGroupControl({
 }
 
 function FormCheckboxGroup({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	options,
 	layout,
-	...props
+	...fieldProps
 }: FormCheckboxGroupProps) {
 	return (
-		<FormField name={name} {...props}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormCheckboxGroupControl
-					options={options}
-					layout={layout}
-					required={required}
-				/>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			{...fieldProps}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormCheckboxGroupControl
+				options={options}
+				layout={layout}
+				required={required}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormRadioGroupProps = Omit<FormFieldProps, 'children'> & {
-	label?: string;
-	description?: string;
-	required?: boolean;
+type FormRadioGroupProps = ControlledFieldProps & {
 	options: RadioOption[];
 	layout?: 'vertical' | 'horizontal';
-};
-
-type FormRadioGroupControlProps = {
-	options: RadioOption[];
-	layout?: 'vertical' | 'horizontal';
-	required?: boolean;
 };
 
 function FormRadioGroupControl({
 	options,
 	layout,
 	required
-}: FormRadioGroupControlProps) {
-	const { field, showError, descriptionId, messageId } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
+}: Pick<FormRadioGroupProps, 'options' | 'layout' | 'required'>) {
+	const { ariaDescribedBy, field, showError } = useFormField();
 
 	return (
 		<RadioGroup
-			ref={field.ref as React.Ref<HTMLDivElement>}
+			ref={field.ref as Ref<HTMLDivElement>}
 			name={field.name}
 			value={field.value ?? ''}
 			onChange={field.onChange}
@@ -482,44 +627,117 @@ function FormRadioGroupControl({
 }
 
 function FormRadioGroup({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	options,
 	layout,
-	...props
+	...fieldProps
 }: FormRadioGroupProps) {
 	return (
-		<FormField name={name} {...props}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormRadioGroupControl
-					options={options}
-					layout={layout}
-					required={required}
-				/>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			{...fieldProps}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormRadioGroupControl
+				options={options}
+				layout={layout}
+				required={required}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormRangeProps = Omit<FormFieldProps, 'children'> &
+type FormComboboxProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof ComboboxField>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'value'
+		| 'onChange'
+	> & {
+		options: ComboboxOption[];
+	};
+
+function FormComboboxControl(
+	props: Omit<
+		ComponentPropsWithoutRef<typeof ComboboxField>,
+		'fieldName' | 'showError' | 'value' | 'onChange'
+	>
+) {
+	const { ariaDescribedBy, field, id, showError } = useFormField();
+
+	return (
+		<ComboboxField
+			{...props}
+			ref={field.ref}
+			id={id}
+			name={field.name}
+			value={field.value ?? ''}
+			onChange={field.onChange}
+			showError={showError}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
+		/>
+	);
+}
+
+function FormCombobox({
+	label,
+	description,
+	required,
+	fieldClassName,
+	...props
+}: FormComboboxProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...comboboxProps
+	} = props;
+
+	return (
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormComboboxControl
+				{...comboboxProps}
+				disabled={disabled}
+				required={required}
+			/>
+		</FieldShell>
+	);
+}
+
+type FormRangeProps = ControlledFieldProps &
 	Omit<
 		ComponentPropsWithoutRef<typeof RangeSlider>,
-		'fieldName' | 'value' | 'onChange'
-	> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'value'
+		| 'onChange'
+		| 'showError'
+	>;
 
 function FormRangeControl(
 	props: Omit<
 		ComponentPropsWithoutRef<typeof RangeSlider>,
-		'fieldName' | 'value' | 'onChange'
+		'fieldName' | 'value' | 'onChange' | 'showError'
 	>
 ) {
 	const { field, showError } = useFormField();
@@ -537,35 +755,59 @@ function FormRangeControl(
 }
 
 function FormRange({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormRangeProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...rangeProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormRangeControl {...props} required={required} />
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormRangeControl
+				{...rangeProps}
+				disabled={disabled}
+				required={required}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormDateProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof DateInput> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormDateProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof DateInput>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'value'
+		| 'onChange'
+	>;
 
-function FormDateControl(props: ComponentPropsWithoutRef<typeof DateInput>) {
-	const { field, showError, descriptionId, messageId, id } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
+function FormDateControl(
+	props: Omit<
+		ComponentPropsWithoutRef<typeof DateInput>,
+		'fieldName' | 'showError' | 'value' | 'onChange'
+	>
+) {
+	const { ariaDescribedBy, field, id, showError } = useFormField();
 
 	return (
 		<DateInput
@@ -576,44 +818,62 @@ function FormDateControl(props: ComponentPropsWithoutRef<typeof DateInput>) {
 			value={field.value ?? ''}
 			onChange={field.onChange}
 			showError={showError}
-			aria-describedby={ariaDescribedBy}
-			aria-invalid={showError || undefined}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
 		/>
 	);
 }
 
 function FormDate({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormDateProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...dateProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormDateControl {...props} required={required} />
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormDateControl {...dateProps} disabled={disabled} required={required} />
+		</FieldShell>
 	);
 }
 
-type FormDateRangeProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof DateRangeInput> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormDateRangeProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof DateRangeInput>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'value'
+		| 'onChange'
+	>;
 
 function FormDateRangeControl(
-	props: ComponentPropsWithoutRef<typeof DateRangeInput>
+	props: Omit<
+		ComponentPropsWithoutRef<typeof DateRangeInput>,
+		'fieldName' | 'showError' | 'value' | 'onChange'
+	>
 ) {
-	const { field, showError, descriptionId, messageId, id } = useFormField();
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
+	const { ariaDescribedBy, field, id, showError } = useFormField();
 
 	return (
 		<DateRangeInput
@@ -621,44 +881,77 @@ function FormDateRangeControl(
 			ref={field.ref}
 			id={id}
 			name={field.name}
-			value={field.value ?? {}}
+			value={(field.value ?? {}) as DateRangeValue}
 			onChange={field.onChange}
 			showError={showError}
-			aria-describedby={ariaDescribedBy}
-			aria-invalid={showError || undefined}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
 		/>
 	);
 }
 
 function FormDateRange({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormDateRangeProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...dateProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormDateRangeControl {...props} required={required} />
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormDateRangeControl
+				{...dateProps}
+				disabled={disabled}
+				required={required}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormDateTimeProps = Omit<FormFieldProps, 'children'> & {
-	label?: string;
-	description?: string;
-	required?: boolean;
-	timeName: string;
-	timePlaceholder?: string;
-};
+type FormDateTimeProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof DateTimeInput>,
+		| keyof ControlledFieldProps
+		| 'fieldName'
+		| 'showError'
+		| 'value'
+		| 'onChange'
+		| 'timeValue'
+		| 'onTimeChange'
+		| 'timeRef'
+	> & {
+		timeName: string;
+		timePlaceholder?: string;
+	};
 
-type FormDateTimeControlProps = ComponentPropsWithoutRef<
-	typeof DateTimeInput
+type FormDateTimeControlProps = Omit<
+	ComponentPropsWithoutRef<typeof DateTimeInput>,
+	| 'fieldName'
+	| 'onChange'
+	| 'onTimeChange'
+	| 'showError'
+	| 'timeRef'
+	| 'timeValue'
+	| 'value'
 > & {
 	timeName: string;
 	timePlaceholder?: string;
@@ -669,11 +962,9 @@ function FormDateTimeControl({
 	timePlaceholder,
 	...props
 }: FormDateTimeControlProps) {
-	const { field, showError, descriptionId, messageId, id } = useFormField();
+	const { ariaDescribedBy, field, id, showError } = useFormField();
 	const { control } = useFormContext();
 	const { field: timeField } = useController({ name: timeName, control });
-	const ariaDescribedBy =
-		[descriptionId, messageId].filter(Boolean).join(' ') || undefined;
 
 	return (
 		<DateTimeInput
@@ -684,8 +975,8 @@ function FormDateTimeControl({
 			value={field.value ?? ''}
 			onChange={field.onChange}
 			showError={showError}
-			aria-describedby={ariaDescribedBy}
-			aria-invalid={showError || undefined}
+			aria-describedby={joinIds(props['aria-describedby'], ariaDescribedBy)}
+			aria-invalid={props['aria-invalid'] ?? (showError || undefined)}
 			timeName={timeName}
 			timeValue={timeField.value ?? ''}
 			onTimeChange={timeField.onChange}
@@ -696,112 +987,170 @@ function FormDateTimeControl({
 }
 
 function FormDateTime({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	timeName,
 	timePlaceholder,
 	...props
 }: FormDateTimeProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...dateProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormDateTimeControl
-					{...props}
-					timeName={timeName}
-					timePlaceholder={timePlaceholder}
-					required={required}
-				/>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormDateTimeControl
+				{...dateProps}
+				disabled={disabled}
+				required={required}
+				timeName={timeName}
+				timePlaceholder={timePlaceholder}
+			/>
+		</FieldShell>
 	);
 }
 
-type FormTimeProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof TimeInput> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormTimeProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof TimeInput>,
+		keyof ControlledFieldProps | 'fieldName' | 'showError' | 'value'
+	>;
 
 function FormTime({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormTimeProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...timeProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormControl>
-					<TimeInput {...props} required={required} />
-				</FormControl>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormControl>
+				<TimeInput {...timeProps} disabled={disabled} required={required} />
+			</FormControl>
+		</FieldShell>
 	);
 }
 
-type FormPhoneProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof PhoneInput> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormPhoneProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof PhoneInput>,
+		keyof ControlledFieldProps | 'fieldName' | 'showError' | 'value'
+	>;
 
 function FormPhone({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormPhoneProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...phoneProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormControl>
-					<PhoneInput {...props} required={required} />
-				</FormControl>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormControl>
+				<PhoneInput {...phoneProps} disabled={disabled} required={required} />
+			</FormControl>
+		</FieldShell>
 	);
 }
 
-type FormCurrencyProps = Omit<FormFieldProps, 'children'> &
-	ComponentPropsWithoutRef<typeof CurrencyInput> & {
-		label?: string;
-		description?: string;
-		required?: boolean;
-	};
+type FormCurrencyProps = ControlledFieldProps &
+	Omit<
+		ComponentPropsWithoutRef<typeof CurrencyInput>,
+		keyof ControlledFieldProps | 'fieldName' | 'showError' | 'value'
+	>;
 
 function FormCurrency({
-	name,
 	label,
 	description,
 	required,
+	fieldClassName,
 	...props
 }: FormCurrencyProps) {
+	const {
+		name,
+		rules,
+		shouldUnregister,
+		defaultValue,
+		disabled,
+		...currencyProps
+	} = props;
+
 	return (
-		<FormField name={name}>
-			<>
-				{label && <FormLabel required={required}>{label}</FormLabel>}
-				<FormControl>
-					<CurrencyInput {...props} required={required} />
-				</FormControl>
-				{description && <FormDescription>{description}</FormDescription>}
-				<FormMessage />
-			</>
-		</FormField>
+		<FieldShell
+			name={name}
+			rules={rules}
+			shouldUnregister={shouldUnregister}
+			defaultValue={defaultValue}
+			disabled={disabled}
+			label={label}
+			description={description}
+			required={required}
+			fieldClassName={fieldClassName}
+		>
+			<FormControl>
+				<CurrencyInput
+					{...currencyProps}
+					disabled={disabled}
+					required={required}
+				/>
+			</FormControl>
+		</FieldShell>
 	);
 }
 
@@ -815,10 +1164,11 @@ const Form = {
 	Input: FormInput,
 	Textarea: FormTextarea,
 	Select: FormSelect,
-	Combobox: FormCombobox,
 	Checkbox: FormCheckbox,
 	CheckboxGroup: FormCheckboxGroup,
 	RadioGroup: FormRadioGroup,
+	Switch: FormSwitch,
+	Combobox: FormCombobox,
 	Range: FormRange,
 	Date: FormDate,
 	DateRange: FormDateRange,
@@ -835,10 +1185,11 @@ export {
 	FormInput,
 	FormTextarea,
 	FormSelect,
-	FormCombobox,
 	FormCheckbox,
 	FormCheckboxGroup,
 	FormRadioGroup,
+	FormSwitch,
+	FormCombobox,
 	FormRange,
 	FormDate,
 	FormDateRange,

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { forwardRef, useId } from 'react';
 import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 
@@ -18,8 +18,8 @@ type CheckboxProps = Omit<
 	className?: string;
 	name?: string;
 	fieldName?: string;
-	label?: string;
-	description?: string;
+	label?: ReactNode;
+	description?: ReactNode;
 	required?: boolean;
 	disabled?: boolean;
 	showError?: boolean;
@@ -43,6 +43,8 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 			display = 'checkbox',
 			checked,
 			onCheckedChange,
+			'aria-describedby': ariaDescribedBy,
+			'aria-invalid': ariaInvalid,
 			...rest
 		},
 		ref
@@ -61,6 +63,8 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 					pressed={checked}
 					onPressedChange={onCheckedChange}
 					disabled={disabled}
+					aria-describedby={ariaDescribedBy ?? descriptionId}
+					aria-invalid={ariaInvalid}
 					className={cn(
 						showError && 'border-destructive text-destructive',
 						className
@@ -80,7 +84,8 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 					onCheckedChange={onCheckedChange}
 					name={inputName}
 					disabled={disabled}
-					aria-describedby={descriptionId}
+					aria-describedby={ariaDescribedBy ?? descriptionId}
+					aria-invalid={ariaInvalid}
 					className={cn(showError && 'ring-destructive/30 ring-2', className)}
 				>
 					<SwitchThumb />
@@ -94,7 +99,8 @@ const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 					required={required}
 					checked={checked}
 					onCheckedChange={onCheckedChange}
-					aria-describedby={descriptionId}
+					aria-describedby={ariaDescribedBy ?? descriptionId}
+					aria-invalid={ariaInvalid}
 					className={cn(
 						'border-border data-checked:bg-primary data-checked:border-primary focus-visible:ring-ring/30 inline-flex size-4.5 items-center justify-center rounded-sm border transition-colors focus-visible:ring-[3px] self-start mt-0.5',
 						showError && 'border-destructive',

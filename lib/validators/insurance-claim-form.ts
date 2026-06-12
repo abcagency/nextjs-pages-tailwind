@@ -131,7 +131,7 @@ export const validationSchema = z
 		medicalProviderPhone: optionalPhone,
 		fraudAcknowledgement: z
 			.boolean()
-			.refine(value => value, { message: 'is required' }),
+			.refine(value => value, { message: 'Confirmation is required' }),
 		additionalNotes: z.string().optional()
 	})
 	.required();
