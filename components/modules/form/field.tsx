@@ -19,8 +19,10 @@ type FormFieldContextValue<TFieldValues extends FieldValues = FieldValues> = {
 	field: ControllerRenderProps<TFieldValues, FieldPath<TFieldValues>>;
 	fieldState: ControllerFieldState;
 	hasDescription: boolean;
+	hasLabel: boolean;
 	hasMessage: boolean;
 	setHasDescription: (value: boolean) => void;
+	setHasLabel: (value: boolean) => void;
 	setHasMessage: (value: boolean) => void;
 };
 
@@ -40,8 +42,10 @@ function useFormField() {
 		field,
 		fieldState,
 		hasDescription,
+		hasLabel,
 		hasMessage,
 		setHasDescription,
+		setHasLabel,
 		setHasMessage
 	} = context;
 	const { control } = useFormContext();
@@ -66,9 +70,11 @@ function useFormField() {
 				.filter(Boolean)
 				.join(' ') || undefined,
 		error: fieldState.error,
+		hasLabel,
 		invalid: Boolean(fieldState.error),
 		showError,
 		setHasDescription,
+		setHasLabel,
 		setHasMessage
 	};
 }
@@ -90,6 +96,7 @@ function FormField<
 	const { control } = useFormContext<TFieldValues>();
 	const id = React.useId();
 	const [hasDescription, setHasDescription] = React.useState(false);
+	const [hasLabel, setHasLabel] = React.useState(false);
 	const [hasMessage, setHasMessage] = React.useState(false);
 
 	const { field, fieldState } = useController({ ...props, control });
@@ -100,8 +107,10 @@ function FormField<
 		field,
 		fieldState,
 		hasDescription,
+		hasLabel,
 		hasMessage,
 		setHasDescription,
+		setHasLabel,
 		setHasMessage
 	} as FormFieldContextValue<TFieldValues>;
 
@@ -133,7 +142,13 @@ function FormLabel({
 	children,
 	...props
 }: FormLabelProps) {
-	const { id, showError } = useFormField();
+	const { error, id, setHasLabel, showError } = useFormField();
+	const message = error?.message?.toString();
+
+	React.useEffect(() => {
+		setHasLabel(true);
+		return () => setHasLabel(false);
+	}, [setHasLabel]);
 
 	return (
 		<Field.Label
@@ -145,13 +160,14 @@ function FormLabel({
 			)}
 			{...props}
 		>
-			<span className="inline-flex items-start gap-0.5">
+			<span className="inline-flex items-start">
 				<span>{children}</span>
 				{required && (
 					<span aria-hidden="true" className="text-destructive self-start">
 						*
 					</span>
 				)}
+				{showError && message && <span className="ml-1">{message}</span>}
 			</span>
 		</Field.Label>
 	);
@@ -175,7 +191,8 @@ function FormDescription({ className, ...props }: Field.Description.Props) {
 }
 
 function FormMessage({ className, children, ...props }: Field.Error.Props) {
-	const { error, messageId, setHasMessage, showError } = useFormField();
+	const { error, hasLabel, messageId, setHasMessage, showError } =
+		useFormField();
 	const message = error?.message?.toString();
 	const content = showError && message ? message : children;
 	const shouldRender = Boolean(content);
@@ -194,7 +211,10 @@ function FormMessage({ className, children, ...props }: Field.Error.Props) {
 			id={messageId}
 			match={true}
 			aria-live="polite"
-			className={cn('text-xs font-semibold text-destructive', className)}
+			className={cn(
+				hasLabel ? 'sr-only' : 'text-xs font-semibold text-destructive',
+				className
+			)}
 			{...props}
 		>
 			{content}
