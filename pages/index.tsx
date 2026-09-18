@@ -18,7 +18,11 @@ const Home = () => {
 				</Jumbotron.Body>
 			</Jumbotron>
 
-			<Section id="intro" className="container px-4 my-20 text-center">
+			<Section
+				id="intro"
+				track={false}
+				className="container px-4 my-20 text-center"
+			>
 				<Section.Title>Hello, world!</Section.Title>
 				<p className="max-w-lg mx-auto text-balance">
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat

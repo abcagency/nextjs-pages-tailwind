@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import NavSocial from '~/components/modules/navigation/social';
 import Icon from '~/components/modules/icon';
 import { Button } from '~/components/modules/core/button';
@@ -32,9 +30,9 @@ const Footer = () => {
 						size="icon"
 						nativeButton={false}
 						render={
-							<Link href="#top" aria-label="To the top!">
+							<a href="#top" aria-label="To the top!">
 								<Icon icon="mdi:arrow-collapse-up" />
-							</Link>
+							</a>
 						}
 					/>
 				</div>

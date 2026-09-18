@@ -9,6 +9,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
+		"test:sections": "node --test tests/section-tracking.test.mjs",
 		"generate-favicons": "node scripts/generate-favicons.js"
 	},
 	"keywords": [
