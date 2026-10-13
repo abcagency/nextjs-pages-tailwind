@@ -60,7 +60,10 @@ const options = (root, api) => ({
 
 test('writes smaller source and hashes retained bytes; repeat run uses no API', async t => {
 	const root = await fixture(t);
-	const api = mock();
+	const api = mock(png, data => {
+		assert.equal(data.lossy, true);
+		assert.equal(data.quality, undefined);
+	});
 	const result = await run(options(root, api));
 	assert.equal(result.savedBytes, 128);
 	assert.deepEqual(await fs.readFile(path.join(root, 'images/photo.png')), png);
@@ -107,7 +110,7 @@ test('changed content and compression options become pending', async t => {
 	await run(options(root, api));
 	await fs.writeFile(
 		path.join(root, 'kraken-images.config.json'),
-		JSON.stringify({ lossy: true, quality: 85 })
+		JSON.stringify({ lossy: false })
 	);
 	assert.equal(
 		(await run({ root, mode: 'check', log: quiet })).pending.length,

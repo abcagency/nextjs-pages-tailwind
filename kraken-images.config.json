@@ -1,7 +1,7 @@
 {
 	"roots": ["images", "public"],
 	"exclude": [],
-	"lossy": false,
+	"lossy": true,
 	"onDev": true,
 	"maxFileBytes": 20971520,
 	"timeoutMs": 120000

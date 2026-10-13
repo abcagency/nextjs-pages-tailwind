@@ -124,10 +124,11 @@ skips processing entirely and logs nothing, even without credentials.
 
 Edit `kraken-images.config.json` to choose image roots and exclusions. By default,
 the script processes JPG/JPEG, PNG, GIF, WebP, and AVIF files in `images/` and
-`public/`, using lossless compression. SVG and ICO files are excluded. Set
-`onDev` to `false` to disable the startup pass while keeping manual commands
-available. Lossy compression is optional; see the workflow documentation before
-changing quality settings on previously compressed images.
+`public/`, using Kraken's automatic lossy compression. SVG and ICO files are
+excluded. Set `onDev` to `false` to disable the startup pass while keeping manual
+commands available. Set `lossy` to `false` for lossless compression. By default,
+`quality` is unset so Kraken chooses the compression level. See the workflow
+documentation before changing quality settings on previously compressed images.
 
 Smaller results replace source images in place. If Kraken returns an equal or
 larger file, the original is kept and the successful attempt is recorded. Review

@@ -12,7 +12,7 @@ const extensions = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif']);
 const defaults = {
 	roots: ['images', 'public'],
 	exclude: [],
-	lossy: false,
+	lossy: true,
 	onDev: true,
 	maxFileBytes: 20 * 1024 * 1024,
 	timeoutMs: 120000

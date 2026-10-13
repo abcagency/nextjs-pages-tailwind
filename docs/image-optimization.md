@@ -53,7 +53,7 @@ The installer respects Git's configured hook path and refuses to replace an unre
 {
 	"roots": ["images", "public"],
 	"exclude": ["public/vendor", "images/originals"],
-	"lossy": false,
+	"lossy": true,
 	"onDev": true,
 	"maxFileBytes": 20971520,
 	"timeoutMs": 120000
@@ -62,8 +62,9 @@ The installer respects Git's configured hook path and refuses to replace an unre
 
 - Roots and exclusions are exact repository-relative paths or directory prefixes, using `/`. No globs, absolute paths, or `..`. Missing roots are fine; overlapping roots are deduplicated. Roots may also select individual files.
 - Supported extensions: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.avif`, case-insensitive. SVGs, ICO files, fonts, remote CMS assets, and build outputs are excluded. Symlinks within configured roots are refused. Choose roots that contain repository-owned assets; non-Git local image files in them are included in working-tree runs.
-- `lossy: false` preserves visual image data. Kraken's metadata handling is separate; this integration doesn't request metadata preservation, format conversion, or resizing. Keep archival originals outside the processed roots if needed.
-- Set `lossy: true` for stronger compression after reviewing visual quality. An optional integer `quality` from 1–100 is accepted only with lossy mode. Do not add quality in lossless mode. Changed compression settings make current files pending again; deliberately lossy processing of previously compressed source can compound quality loss. Prefer restoring original inputs before changing settings.
+- `lossy: true` is the default, using Kraken's automatic quality selection for stronger compression, matching the web interface's Lossy mode. No custom `quality` is supplied by default. Review resulting images visually.
+- Set `lossy: false` for lossless compression that preserves visual image data. Kraken's metadata handling is separate; this integration doesn't request metadata preservation, format conversion, or resizing. Keep archival originals outside the processed roots if needed.
+- An optional integer `quality` from 1–100 is accepted only with lossy mode. Do not add quality in lossless mode. Changed compression settings make current files pending again; deliberately lossy processing of previously compressed source can compound quality loss. Prefer restoring original inputs before changing settings.
 - `onDev: false` disables startup processing while keeping explicit commands available. Startup also skips when `CI` is set or `NODE_ENV=production`. Direct `next dev` bypasses npm's `predev` lifecycle.
 - `maxFileBytes` is a local safety limit, not a claimed Kraken account limit. `timeoutMs` covers each upload and its subsequent download. Large images may exceed it; consider a purpose-built async ingestion workflow for those cases.
 
