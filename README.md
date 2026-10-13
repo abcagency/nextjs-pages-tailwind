@@ -82,9 +82,77 @@ npm run build
 
 ---
 
+## Image Minification
+
+Images are optimized with [Kraken.io](https://kraken.io/) before `npm run dev`
+starts. The script runs once per startup and uses a SHA-256 manifest to skip
+unchanged images, avoiding repeated API calls. It also detects changes to the
+compression settings.
+
+### Setup
+
+Use Node.js 22 or newer. Add your Kraken.io API credentials to the ignored
+`.env.local` file:
+
+```dotenv
+KRAKEN_API_KEY=your-api-key
+KRAKEN_API_SECRET=your-api-secret
+```
+
+Keep these credentials local and use the variable names shown above. If either
+credential is missing, optimization logs a console warning and exits successfully.
+Other optimization failures are silent and do not interrupt development or the
+manual command. Use `npm run images:check` to identify images still pending.
+
+### Commands
+
+- `npm run images:optimize` - Optimize new or changed images and update the
+  manifest.
+- `npm run images:dry-run` - List pending images without uploading or changing
+  files.
+- `npm run images:check` - Check for pending images; exit with an error if any
+  need processing.
+- `npm run images:install-hook` - Install the optional local pre-commit check.
+- `npm run test:images` - Run the image workflow tests without real Kraken uploads.
+
+There is no continuous watcher. If you add or edit images while the dev server is
+running, run `npm run images:optimize` before committing. Optimization does not
+run during production builds or requests. With `NODE_ENV=production`, the CLI
+skips processing entirely and logs nothing, even without credentials.
+
+### Configuration and Committing
+
+Edit `kraken-images.config.json` to choose image roots and exclusions. By default,
+the script processes JPG/JPEG, PNG, GIF, WebP, and AVIF files in `images/` and
+`public/`, using lossless compression. SVG and ICO files are excluded. Set
+`onDev` to `false` to disable the startup pass while keeping manual commands
+available. Lossy compression is optional; see the workflow documentation before
+changing quality settings on previously compressed images.
+
+Smaller results replace source images in place. If Kraken returns an equal or
+larger file, the original is kept and the successful attempt is recorded. Review
+and commit image changes together with `kraken-images.manifest.json`. Keep the
+manifest in Git so other developers can skip images already processed. The script
+does not stage or commit files automatically.
+
+The optional pre-commit hook checks the **staged** images, configuration, and
+manifest without credentials or API calls. If it blocks a commit, optimize the
+pending images, review the results, and stage the images and manifest together.
+Each developer installs the hook locally; existing unrelated hooks are preserved.
+For a repository with an existing hook manager, add
+`node scripts/optimize-images.mjs --check-staged` to its pre-commit workflow.
+
+See the [full workflow documentation](docs/image-optimization.md) for
+configuration, recovery, and workflow tradeoffs. To apply this integration to
+another repository, use the `migrate-image-minification` skill from
+[AB&C Agent Skills](https://github.com/abcagency/abc-skills).
+
+---
+
 ## UI Documentation
 
-See `docs/components/ui-components.md` for the compound form API, masking, and the new Base UI wrappers.
+See `docs/components/ui-components.md` for the compound form API, masking, and the
+new Base UI wrappers.
 
 ### Run production build
 

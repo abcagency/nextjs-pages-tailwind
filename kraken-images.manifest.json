@@ -1,0 +1,85 @@
+{
+	"version": 1,
+	"files": {
+		"images/fpo.png": {
+			"inputHash": "482a2dfabe359f1db9c7889911528e018865356aa13d521877714b05642fb393",
+			"outputHash": "3316fc61dd38dc218fd1123fc5bab87468d13a45da6d21356b44d40a70b40571",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 12010,
+			"retainedBytes": 3556,
+			"processedAt": "2026-10-13T15:11:43.890Z"
+		},
+		"images/jumbotron/fpo.png": {
+			"inputHash": "e223e92fe311761cc174db31632306d45b94c62dae6c16be5c0941fa4b3ddb3c",
+			"outputHash": "62ec4addbc6da8421ef59890cf620c3ae0e82e52e267941bd278cdbe033eab3d",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 56075,
+			"retainedBytes": 11470,
+			"processedAt": "2026-10-13T15:11:44.580Z"
+		},
+		"public/android-chrome-192x192.png": {
+			"inputHash": "06c66e60f1f2343b30f95bfff129ed617465d52ec13c64b64b45f18f33cbabba",
+			"outputHash": "f3655500728651c0ecbb3ebbc02ba33fad9c8be447eb9cb94bbcb74f968ef4fb",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 4708,
+			"retainedBytes": 3256,
+			"processedAt": "2026-10-13T15:11:44.912Z"
+		},
+		"public/android-chrome-512x512.png": {
+			"inputHash": "9b45e6f8dd33e34fa25cb1671caf91c7a782dd9d96c9e052ff68fba47bbede50",
+			"outputHash": "7f93918ee441cced682578fbbd01ce785930b853d1f7f5e72c942684041ebf1f",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 14985,
+			"retainedBytes": 9365,
+			"processedAt": "2026-10-13T15:11:45.378Z"
+		},
+		"public/apple-touch-icon-180x180.png": {
+			"inputHash": "5da8ddf0ba206d96728ab6cd081857bce7989b73e8b05f1528ba25847f778928",
+			"outputHash": "1067837d029db5b79b2e0ef8795963d27497ea13243fe857f500089fafec4ca5",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 5136,
+			"retainedBytes": 2552,
+			"processedAt": "2026-10-13T15:11:45.651Z"
+		},
+		"public/apple-touch-icon.png": {
+			"inputHash": "5da8ddf0ba206d96728ab6cd081857bce7989b73e8b05f1528ba25847f778928",
+			"outputHash": "1067837d029db5b79b2e0ef8795963d27497ea13243fe857f500089fafec4ca5",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 5136,
+			"retainedBytes": 2552,
+			"processedAt": "2026-10-13T15:11:45.976Z"
+		},
+		"public/favicon-16x16.png": {
+			"inputHash": "c67477dc77551a371cf03dac918f24f05b225f0a4149ede4455c2384aff40541",
+			"outputHash": "e68afa1b6850593ed7bddad5597ec84c9215ac413464aed90f547641c51462ad",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 407,
+			"retainedBytes": 290,
+			"processedAt": "2026-10-13T15:11:46.228Z"
+		},
+		"public/favicon-32x32.png": {
+			"inputHash": "39e59d2abf378678d58cfd48ee25454656e0951d3a256e3d6da465927f4f9f75",
+			"outputHash": "7a807e4ead01c090ccf22ddb959a9411bb4e4b93ce314014bf17e6bad929713e",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 775,
+			"retainedBytes": 558,
+			"processedAt": "2026-10-13T15:11:46.473Z"
+		},
+		"public/favicon-48x48.png": {
+			"inputHash": "28da05981da32c061c614da11b53632a94d0f710e67203e93e70d548afe79f44",
+			"outputHash": "70d62e99397c46618cb5da2dd25e6924d6839f77e8ff7438d4794b99e37246d9",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 1126,
+			"retainedBytes": 795,
+			"processedAt": "2026-10-13T15:11:46.727Z"
+		},
+		"public/share.png": {
+			"inputHash": "881a297a138492dd39863d9954997cbc26619d3d1e141c61183a60e01bba0e00",
+			"outputHash": "4e21ab8715f77b31dab7d656dc070d7450ee2238afc50a761eddcb345ffd5fa2",
+			"optionsHash": "dfe174b215fc500aa658f2647dd43aac78d287db43e3a08da248a894447d1eee",
+			"originalBytes": 26751,
+			"retainedBytes": 7767,
+			"processedAt": "2026-10-13T15:11:47.121Z"
+		}
+	}
+}

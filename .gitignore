@@ -30,6 +30,10 @@ yarn-error.log*
 # dotenv environment variable files
 .env*
 
+# image optimization lock and interrupted atomic writes
+/.kraken-images.lock/
+*.kraken-tmp
+
 # vercel
 .vercel
 

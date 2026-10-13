@@ -5,12 +5,18 @@
 	"private": true,
 	"author": "AB&C",
 	"scripts": {
+		"predev": "node scripts/optimize-images.mjs --on-dev",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
 		"test:sections": "node --test tests/section-tracking.test.mjs",
-		"generate-favicons": "node scripts/generate-favicons.js"
+		"generate-favicons": "node scripts/generate-favicons.js",
+		"images:optimize": "node scripts/optimize-images.mjs",
+		"images:check": "node scripts/optimize-images.mjs --check",
+		"images:dry-run": "node scripts/optimize-images.mjs --dry-run",
+		"images:install-hook": "node scripts/install-images-hook.mjs",
+		"test:images": "node --test tests/image-optimization.test.mjs"
 	},
 	"keywords": [
 		"next.js",
