@@ -62,7 +62,7 @@ test('ignores invisible and zero-height sections', () => {
 	);
 });
 
-function harness(initialUrl = '/') {
+function harness(initialUrl = '/', options = {}) {
 	let time = 0;
 	let sequence = 0;
 	const jobs = new Map();
@@ -117,7 +117,7 @@ function harness(initialUrl = '/') {
 		custom: 'preserved'
 	};
 	viewport.scrollX = 0;
-	viewport.scrollY = 123;
+	viewport.scrollY = 200;
 	viewport.history = {
 		state: initialState,
 		replaceState(state, title, url) {
@@ -160,6 +160,7 @@ function harness(initialUrl = '/') {
 		viewport,
 		router,
 		sections,
+		...options,
 		onChange: id => changes.push(id),
 		onSettled: id => settlements.push(id),
 		onHashChange: id => hashes.push(id),
@@ -214,6 +215,42 @@ async function settle(h) {
 	await h.tick(916);
 }
 
+test('returning to the top clear zone clears a tracked hash even with a section visible', async () => {
+	const h = harness('/?source=test');
+	await settle(h);
+	assert.equal(h.viewport.location.hash, '#a');
+	h.viewport.scrollY = 150;
+	h.browserEvents.emit('scroll');
+	await h.tick(16);
+	assert.equal(h.changes.at(-1), null);
+	assert.equal(h.viewport.location.hash, '#a');
+	await h.tick(916);
+	assert.equal(h.settlements.at(-1), null);
+	assert.equal(h.hashes.at(-1), null);
+	assert.equal(h.viewport.location.href, 'https://example.test/?source=test');
+	assert.equal(h.viewport.scrollY, 150);
+	h.viewport.scrollY = 151;
+	h.browserEvents.emit('scroll');
+	await settle(h);
+	assert.equal(h.viewport.location.hash, '#a');
+	h.tracker.dispose();
+});
+
+test('initial top clear zone and elastic overscroll stay unselected, preserving unrelated anchors', async () => {
+	for (const scrollY of [0, -10, 75, 150]) {
+		for (const hash of ['', '#a', '#top']) {
+			const h = harness(`/${hash}`);
+			h.viewport.scrollY = scrollY;
+			await settle(h);
+			assert.deepEqual(h.changes, []);
+			assert.deepEqual(h.settlements, [null]);
+			assert.deepEqual(h.views, []);
+			assert.equal(h.viewport.location.hash, hash === '#a' ? '' : hash);
+			h.tracker.dispose();
+		}
+	}
+});
+
 test('context updates on the first frame; URL and analytics wait 900 ms', async () => {
 	const h = harness('/?source=test');
 	await h.tick(16);
@@ -235,7 +272,7 @@ test('context updates on the first frame; URL and analytics wait 900 ms', async 
 		options: { scroll: false },
 		custom: 'preserved'
 	});
-	assert.equal(h.viewport.scrollY, 123);
+	assert.equal(h.viewport.scrollY, 200);
 	assert.equal(h.viewport.scrollX, 0);
 	await h.tick(2000);
 	assert.equal(h.writes.length, 1);
@@ -565,7 +602,7 @@ test('passive scrolling changes hashSection only after replaceState, without has
 	await h.tick(17);
 	assert.deepEqual(h.hashes, ['a', 'b']);
 	assert.equal(h.viewport.location.hash, '#b');
-	assert.equal(h.viewport.scrollY, 123);
+	assert.equal(h.viewport.scrollY, 200);
 	h.tracker.dispose();
 });
 
@@ -781,4 +818,34 @@ test('section links distinguish origin, pathname and query while preserving enco
 		id: 'a'
 	});
 	assert.equal(resolveSectionLink('/about#a', null).sameDocument, false);
+});
+
+test('the top clear zone responds to viewport resize', async () => {
+	const h = harness();
+	await settle(h);
+	assert.equal(h.viewport.location.hash, '#a');
+	h.viewport.innerHeight = 2000;
+	h.browserEvents.emit('resize');
+	await settle(h);
+	assert.equal(h.viewport.location.hash, '');
+	h.viewport.innerHeight = 1000;
+	h.browserEvents.emit('resize');
+	await settle(h);
+	assert.equal(h.viewport.location.hash, '#a');
+	h.tracker.dispose();
+});
+
+test('the top clear ratio can be customized or reduced to the absolute top', async () => {
+	for (const [topClearRatio, scrollY, expected] of [
+		[0, 1, '#a'],
+		[0, 0, ''],
+		[0.3, 300, ''],
+		[0.3, 301, '#a']
+	]) {
+		const h = harness('/', { topClearRatio });
+		h.viewport.scrollY = scrollY;
+		await settle(h);
+		assert.equal(h.viewport.location.hash, expected);
+		h.tracker.dispose();
+	}
 });

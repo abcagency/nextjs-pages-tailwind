@@ -5,6 +5,16 @@ query). Hash changes keep the provider mounted. Home and About register their
 `alpha` and `beta` sections; Home's `intro` explicitly uses `track={false}` to
 preserve its existing exclusion. Sections without an ID do not register.
 
+The tracker keeps the first 15% of a viewport height from the page top
+unselected (`scrollY <= innerHeight * 0.15`, including elastic overscroll),
+even if a tracked section is visible. After the usual 900 ms settlement, a
+tracked hash clears without scrolling; unrelated anchors such as `#top` remain.
+Beyond this zone, normal section measurement resumes. Resizing recomputes the
+threshold. The tracker option `topClearRatio` defaults to
+`SECTION_TOP_CLEAR_RATIO` (`0.15`); set it to `0` for absolute-top-only clearing.
+`track={false}` excludes a section from registration, but does not prevent
+another visible section from winning outside the clear zone.
+
 The shared context exposes:
 
 - `currentSection`: the dominant visible section, updated on the next frame.

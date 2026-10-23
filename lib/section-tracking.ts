@@ -1,4 +1,5 @@
 export const SECTION_SETTLE_MS = 900;
+export const SECTION_TOP_CLEAR_RATIO = 0.15;
 
 type SectionId = string | null;
 type SectionEntry = { id: string; rect: Pick<DOMRect, 'top' | 'bottom'> };
@@ -8,6 +9,7 @@ type Viewport = Pick<
 	| 'history'
 	| 'performance'
 	| 'innerHeight'
+	| 'scrollY'
 	| 'setTimeout'
 	| 'clearTimeout'
 	| 'requestAnimationFrame'
@@ -22,6 +24,8 @@ type TrackerOptions = {
 	router: { events: RouterEvents };
 	sections: Map<string, HTMLElement>;
 	pageUrl?: string;
+	/** Fraction of the viewport height to keep unselected from the page top. */
+	topClearRatio?: number;
 	onChange: (id: SectionId) => void;
 	onSettled: (id: SectionId) => void;
 	onHashChange: (id: SectionId) => void;
@@ -110,6 +114,7 @@ export function createSectionTracker({
 	router,
 	sections,
 	pageUrl = `${viewport.location.pathname}${viewport.location.search}`,
+	topClearRatio = SECTION_TOP_CLEAR_RATIO,
 	onChange,
 	onSettled,
 	onHashChange,
@@ -216,7 +221,12 @@ export function createSectionTracker({
 				return position & 4 ? -1 : position & 2 ? 1 : 0;
 			})
 			.map(([id, element]) => ({ id, rect: element.getBoundingClientRect() }));
-		const candidate = pickDominantSection(entries, viewportHeight, activeId);
+		// Keep a viewport-relative clear zone at the page top, even when a
+		// tracked section is visible. Include negative elastic overscroll.
+		const candidate =
+			viewport.scrollY <= viewportHeight * topClearRatio
+				? null
+				: pickDominantSection(entries, viewportHeight, activeId);
 		// Publish the instant measurement independently of the settled value.
 		if (candidate !== activeId) {
 			clearPending();
