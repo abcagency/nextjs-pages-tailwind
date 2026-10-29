@@ -226,3 +226,21 @@ npx unlighthouse --site <your-site>
 ### Enjoy
 
 :metal:
+
+## Staff Analytics Exclusion
+
+Visit any page with `?exclude=true` (or `&exclude=true` if it already has a query) to exclude this browser from tracking. Use `?exclude=false` to clear the preference. Missing or unrecognized values leave it unchanged; exact lowercase `true` and `false` take precedence over the cookie. If repeated, the first `exclude` value wins.
+
+A small red dot in the top-right corner means this browser is explicitly excluded. Hover or keyboard-focus it for “Analytics excluded.” It is an indicator, not a toggle. Automatic development/preview suppression alone does not show the dot.
+
+The host-only `hc_tracking_excluded` cookie applies to all paths on the **current hostname in this browser only**. Other browsers, devices and subdomains need their own preference. It requests ten years of persistence, renewed on excluded visits, with `SameSite=Lax` and `Secure` on HTTPS. Browser lifetime limits, blocked storage and clearing cookies can shorten or prevent persistence.
+
+Tracking stays off until the browser policy resolves. GTM and custom analytics events use the same policy, including on the first exclusion visit. Exclusion controls must be opened with a full page load (for example, enter the URL in the address bar or use a normal document link). The policy resolves once per page load; client-side route and hash changes do not update it. Previously sent events cannot be undone.
+
+Tracking also requires a production build, an exact hostname match with `data/site.json` → `url`, and a production deployment context. Local/IP/test hosts, preview/staging/development hostnames, Netlify preview/branch hostnames containing `--` and non-production deployment contexts are suppressed. Production `.netlify.app` sites and embedded widgets can track when their own hostname matches `site.url`; embedding does not change the hostname used by this policy. Automatic hostname suppression does not show the red dot or set the exclusion cookie. Netlify `CONTEXT` and Vercel `VERCEL_ENV` are captured at build time; builds outside those platforms default to production context, with the build and hostname restrictions still enforced. Keep `site.url` set to the canonical production hostname. Development overrides cannot bypass the policy.
+
+The current starter has only GTM and the custom event helper; its GTM ID is empty until configured. There are no Iubenda, marketing, footer tracker or Marker.io loaders. Essential forms, maps, videos, structured data, ordinary policy links and preview feedback tools remain independent of tracking. Future analytics/marketing/consent loaders (including Iubenda) must use `useTrackingPolicy()` and recheck `tracking.initialize()` before starting; custom events must go through `trackEvent`. Do not put trackers in server-rendered script tags, `beforeInteractive` scripts or the general-purpose `useScript` hook. Exclusion does not disable analytics internal to essential third-party embeds.
+
+There are currently no active redirects in `data/redirects.ts`. Next's redirect query forwarding is covered by `npm run test:tracking`; future redirect destinations must retain `exclude` and avoid overriding it with a fixed value. Redirects across hostnames retain the query control, but cookies cannot cross hostname boundaries.
+
+Verification: `npm run test:tracking`, `npm run lint`, and `npx tsc --noEmit`. Browser checks and a production deployment/network check are separate verification steps; unit/static checks do not establish that no production requests were made.

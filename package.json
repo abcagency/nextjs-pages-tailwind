@@ -10,6 +10,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
+		"test:tracking": "node --test tests/tracking-policy.test.mjs",
 		"test:sections": "node --test tests/section-tracking.test.mjs",
 		"generate-favicons": "node scripts/generate-favicons.js",
 		"images:optimize": "node scripts/optimize-images.mjs",

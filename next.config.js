@@ -2,6 +2,10 @@ const redirects = require('./data/redirects.ts');
 
 module.exports = {
 	reactStrictMode: true,
+	env: {
+		NEXT_PUBLIC_TRACKING_DEPLOY_CONTEXT:
+			process.env.CONTEXT || process.env.VERCEL_ENV || 'production'
+	},
 	experimental: {
 		scrollRestoration: true
 	},
